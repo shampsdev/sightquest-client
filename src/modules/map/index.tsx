@@ -1,36 +1,38 @@
-import { useGameStore } from '@/store/useGameStore';
-import { useEffect } from 'react';
+import { usePlayerPosition } from '@/hooks/usePlayerPosition';
 import { StyleSheet } from 'react-native';
-import MapView from 'react-native-maps';
+import MapView, { Marker } from 'react-native-maps';
 
 export const Map = () => {
-  useEffect(() => {
-    initializeWebSocket();
+  const { updatePlayerPosition } = usePlayerPosition();
 
-    return () => {
-      closeWebSocket();
-    };
-  }, []);
-
-  return <MapView style={styles.container}></MapView>;
+  return (
+    <MapView
+      onUserLocationChange={(event) => {
+        let coords = event.nativeEvent.coordinate;
+        updatePlayerPosition({
+          longitude: coords?.longitude ?? 0,
+          latitude: coords?.latitude ?? 0,
+        });
+      }}
+      showsUserLocation={true}
+      style={styles.container}
+      initialRegion={{
+        latitude: 59.9311,
+        longitude: 30.3609,
+        latitudeDelta: 0.01,
+        longitudeDelta: 0.01,
+      }}
+    >
+      <Marker
+        coordinate={{
+          latitude: 59.9311,
+          longitude: 30.3609,
+        }}
+        image={require('@/assets/image.png')}
+      />
+    </MapView>
+  );
 };
-
-function initializeWebSocket() {
-  let socket = new WebSocket('ws://localhost:8765/');
-
-  socket.onopen = () => {
-    socket.send(JSON.stringify(useGameStore.getState()));
-  };
-
-  socket.onmessage = (event) => {
-    const updatedState = JSON.parse(event.data);
-    console.log(updatedState);
-    useGameStore.getState().updateGameState(updatedState);
-  };
-}
-function closeWebSocket() {
-  throw new Error('Function not implemented.');
-}
 
 const styles = StyleSheet.create({
   container: {

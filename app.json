@@ -17,7 +17,12 @@
     "ios": {
       "supportsTablet": false,
       "bundleIdentifier": "com.shapiniony.sightquest",
-      "buildNumber": "1"
+      "buildNumber": "2",
+      "infoPlist": {
+        "NSLocationWhenInUseUsageDescription": "This app uses your location to give you hints on navigating the city.",
+        "NSLocationAlwaysAndWhenInUseUsageDescription": "This app uses your location to give you hints on navigating the city.",
+        "NSLocationAlwaysUsageDescription": "This app uses your location to give you hints on navigating the city."
+      }
     },
     "android": {
       "adaptiveIcon": {
@@ -28,16 +33,17 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "extra": {
-      "eas": {
-        "projectId": "c9d40fe9-f090-43e3-80c1-ae5efeaaf7ae"
-      }
-    },
     "runtimeVersion": {
       "policy": "appVersion"
     },
     "updates": {
       "url": "https://u.expo.dev/c9d40fe9-f090-43e3-80c1-ae5efeaaf7ae"
+    },
+    "owner": "shampiniony",
+    "extra": {
+      "eas": {
+        "projectId": "c9d40fe9-f090-43e3-80c1-ae5efeaaf7ae"
+      }
     }
   }
 }
