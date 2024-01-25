@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+
+    /* Linting */
+    "strict": true,
+    "noFallthroughCasesInSwitch": true
+  },
+  "extends": "@tsconfig/react-native/tsconfig.json",
+  "include": ["./src/**/*.tsx", "./src/**/*.ts", "App.tsx"]
+}
