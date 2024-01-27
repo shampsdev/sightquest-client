@@ -6,7 +6,8 @@
 
     /* Linting */
     "strict": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    "noUnusedLocals": true
   },
   "extends": "@tsconfig/react-native/tsconfig.json",
   "include": ["./src/**/*.tsx", "./src/**/*.ts", "App.tsx"],
