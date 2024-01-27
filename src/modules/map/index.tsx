@@ -1,5 +1,4 @@
 import { usePlayerPosition } from '@/hooks/usePlayerPosition';
-import { StyleSheet } from 'react-native';
 import MapView from 'react-native-maps';
 import { CustomMarker } from './components/';
 

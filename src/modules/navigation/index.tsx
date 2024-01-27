@@ -1,17 +1,5 @@
-import { StyleSheet, View } from 'react-native';
+import { View } from 'react-native';
 
 export const Navigation = () => {
-  return <View style={styles.navigation}></View>;
+  return <View className='h-24 right-5 left-5 bottom-5 absolute bg-white rounded-2xl'></View>;
 };
-
-const styles = StyleSheet.create({
-  navigation: {
-    height: 90,
-    right: 25,
-    left: 25,
-    bottom: 25,
-    position: 'absolute',
-    backgroundColor: '#FFFFFF',
-    borderRadius: 25,
-  },
-});
