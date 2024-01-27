@@ -16,7 +16,7 @@ export const Map = () => {
         });
       }}
       showsUserLocation={true}
-      style={styles.container}
+      className='h-full w-full'
       initialRegion={{
         latitude: 59.9311,
         longitude: 30.3609,
@@ -28,10 +28,3 @@ export const Map = () => {
     </MapView>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    height: '100%',
-    width: '100%',
-  },
-});

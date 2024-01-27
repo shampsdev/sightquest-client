@@ -9,5 +9,6 @@
     "noFallthroughCasesInSwitch": true
   },
   "extends": "@tsconfig/react-native/tsconfig.json",
-  "include": ["./src/**/*.tsx", "./src/**/*.ts", "App.tsx"]
+  "include": ["./src/**/*.tsx", "./src/**/*.ts", "App.tsx"],
+  "exclude": ["__tests__/**/*-test.ts"]
 }

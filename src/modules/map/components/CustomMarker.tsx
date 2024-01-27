@@ -8,18 +8,10 @@ export const CustomMarker = () => {
         latitude: 59.9311,
         longitude: 30.3609,
       }}
-      style={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}
+      className='flex justify-center items-center'
     >
       <Image
-        style={{
-          height: 100,
-          width: 100,
-          borderRadius: 200
-        }}
+        className='w-16 h-16 rounded-full'
         source={require('@/assets/image2.jpg')}
       ></Image>
     </Marker>

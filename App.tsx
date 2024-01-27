@@ -1,3 +1,5 @@
+/// <reference types="nativewind/types" />
+
 import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, View } from 'react-native';
@@ -8,16 +10,9 @@ export default function App() {
   const { updatePlayerPosition } = usePlayerPosition();
 
   return (
-    <View style={styles.container}>
+    <View className='w-full h-full'>
       <Main />
       <StatusBar style='auto' />
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    height: '100%',
-    width: '100%',
-  },
-});
