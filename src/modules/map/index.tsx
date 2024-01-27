@@ -1,5 +1,5 @@
 import { usePlayerPosition } from '@/hooks/usePlayerPosition';
-import { StyleSheet } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 
 export const Map = () => {
@@ -16,6 +16,9 @@ export const Map = () => {
       }}
       showsUserLocation={true}
       style={styles.container}
+      mapType={
+        Platform.OS === 'ios' ? ('satelliteFlyover' as any) : 'satellite'
+      }
       initialRegion={{
         latitude: 59.9311,
         longitude: 30.3609,
