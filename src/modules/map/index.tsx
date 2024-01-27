@@ -1,6 +1,7 @@
 import { usePlayerPosition } from '@/hooks/usePlayerPosition';
 import { StyleSheet } from 'react-native';
-import MapView, { Marker } from 'react-native-maps';
+import MapView from 'react-native-maps';
+import { CustomMarker } from './components/';
 
 export const Map = () => {
   const { updatePlayerPosition } = usePlayerPosition();
@@ -23,13 +24,7 @@ export const Map = () => {
         longitudeDelta: 0.01,
       }}
     >
-      <Marker
-        coordinate={{
-          latitude: 59.9311,
-          longitude: 30.3609,
-        }}
-        image={require('@/assets/image.png')}
-      />
+      <CustomMarker />
     </MapView>
   );
 };

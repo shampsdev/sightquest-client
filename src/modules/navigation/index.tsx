@@ -1,4 +1,4 @@
-import { StyleSheet, View, Animated } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 export const Navigation = () => {
   return <View style={styles.navigation}></View>;
