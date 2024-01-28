@@ -1,6 +1,5 @@
 import { ICoords } from '@/interfaces/ICoords';
 import { ILocationUpdate } from '@/interfaces/IEvent';
-import { useGameStore } from '@/store/useGameStore';
 import { useEffect } from 'react';
 
 let socket: null | WebSocket = null;
@@ -34,20 +33,19 @@ export const usePlayerPosition = () => {
 };
 
 function initializeWebSocket() {
-  // socket = new WebSocket('wss://ws.postman-echo.com/raw');
-  socket = new WebSocket('ws://localhost:8762');
+  socket = new WebSocket('ws://192.168.1.99:5050/');
 
-  socket.onopen = () => {
-    socket?.send(JSON.stringify(useGameStore.getState()));
-  };
+  // socket.onopen = () => {
+  //   socket?.send(JSON.stringify(useGameStore.getState()));
+  // };
 
   socket.onmessage = (event) => {
     const updatedState = JSON.parse(event.data);
     console.log(updatedState);
-    useGameStore.getState().updateGameState(updatedState);
+    // useGameStore.getState().updateGameState(updatedState);
   };
 }
 
 function closeWebSocket() {
-  socket?.close()
+  socket?.close();
 }

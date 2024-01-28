@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { Image, ImageSourcePropType, Text, View } from 'react-native';
 import { Marker } from 'react-native-maps';
 
@@ -8,13 +7,19 @@ interface ICustomMarkerProps {
     longitude: number;
   };
   src: ImageSourcePropType;
+  extended: boolean;
+  onPress: () => void;
 }
 
-export const CustomMarker = ({ src, coordinate }: ICustomMarkerProps) => {
-  const [expanded] = useState(true);
-
+export const CustomMarker = ({
+  src,
+  coordinate,
+  extended,
+  onPress,
+}: ICustomMarkerProps) => {
   return (
     <Marker
+      onPress={onPress}
       coordinate={coordinate}
       style={{
         transform: [{ scale: 1 }],
@@ -28,12 +33,10 @@ export const CustomMarker = ({ src, coordinate }: ICustomMarkerProps) => {
           style={{ borderColor: 'white' }}
           source={src}
         />
-        {expanded == true ? (
-          <View className='h-fit w-64 bg-white p-5 rounded-lg top-10 pt-10 z-10 absolute'>
-            <Text>иди ко мне сладенький ;)</Text>
+        {extended && (
+          <View className='h-fit w-24 bg-white p-5 rounded-lg top-10 pt-10 z-10 absolute'>
+            <Text className='text-xs'>20m</Text>
           </View>
-        ) : (
-          ''
         )}
       </View>
     </Marker>
