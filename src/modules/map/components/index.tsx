@@ -1,1 +1,0 @@
-export { CustomMarker } from './CustomMarker';

@@ -1,18 +1,17 @@
 /// <reference types="nativewind/types" />
 
-import React from 'react';
-import { StatusBar } from 'expo-status-bar';
-import { View } from 'react-native';
 import { Main } from './src';
-import { usePlayerPosition } from '@/hooks/usePlayerPosition';
+import { StatusBar } from 'expo-status-bar';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { NavigationContainer } from '@react-navigation/native';
 
 export default function App() {
-  const { updatePlayerPosition } = usePlayerPosition();
-
   return (
-    <View className='w-full h-full'>
-      <Main />
+    <GestureHandlerRootView className='w-full h-full'>
+      <NavigationContainer>
+        <Main />
+      </NavigationContainer>
       <StatusBar style='auto' />
-    </View>
+    </GestureHandlerRootView>
   );
 }

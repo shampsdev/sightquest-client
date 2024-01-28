@@ -1,5 +1,8 @@
-import { IUser } from './IUser';
+import { IRules } from './IRules';
+import { IUserState } from './IUserState';
 
 export interface IGameState {
-  players: IUser[]
+  players: IUserState[];
+  time_left: Date;
+  rules: IRules;
 }
