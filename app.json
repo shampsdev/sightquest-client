@@ -12,6 +12,14 @@
         {
           "cameraPermission": "Allow $(PRODUCT_NAME) to access your camera."
         }
+      ],
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "Allow $(PRODUCT_NAME) to use your location.",
+          "isIosBackgroundLocationEnabled": true,
+          "isAndroidBackgroundLocationEnabled": true
+        }
       ]
     ],
     "splash": {
@@ -23,7 +31,7 @@
     "ios": {
       "supportsTablet": false,
       "bundleIdentifier": "com.shapiniony.sightquest",
-      "buildNumber": "2",
+      "buildNumber": "3",
       "infoPlist": {
         "NSLocationWhenInUseUsageDescription": "This app uses your location to give you hints on navigating the city.",
         "NSLocationAlwaysAndWhenInUseUsageDescription": "This app uses your location to give you hints on navigating the city.",
