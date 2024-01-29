@@ -1,8 +1,8 @@
-import { CustomButton } from '@/components/ui/custom-button'
-import React from 'react'
-import { Text, View, Image, TouchableOpacity } from 'react-native'
-import ProfileIcon from '@/assets/icons/profile.icon'
-import { useNavigation } from '@react-navigation/native'
+import { CustomButton } from '@/components/ui/custom-button';
+import React from 'react';
+import { Text, View, Image, TouchableOpacity } from 'react-native';
+import ProfileIcon from '@/assets/icons/profile.icon';
+import { useNavigation } from '@react-navigation/native';
 
 export const HomeScreen = () => {
   const navigation = useNavigation();
@@ -14,35 +14,37 @@ export const HomeScreen = () => {
           <View className='flex-row flex-1 items-center relative'>
             <TouchableOpacity
               className='absolute right-5'
-              onPress={() => { navigation.navigate('ProfileScreen'); }}
+              onPress={() => {
+                // @ts-ignore
+                navigation.navigate('ProfileScreen');
+              }}
             >
-              <ProfileIcon
-                className='stroke-primary'
-                width={36}
-                height={36}
-              />
+              <ProfileIcon className='stroke-primary' width={36} height={36} />
             </TouchableOpacity>
           </View>
         </View>
         <View className='top-1/2'>
           <View className='items-center gap-y-5'>
-            <Image 
+            <Image
               className='w-56 h-56 rounded-full'
               source={require('@/assets/spas-na-krovi.jpg')}
             />
             <Text className='text-primary text-2xl'>Санкт-Петербург</Text>
 
             <View className='flex-row'>
-              <CustomButton>
+              <CustomButton
+                onPress={() => {
+                  // @ts-ignore
+                  navigation.navigate('Map');
+                }}
+              >
                 Играть
               </CustomButton>
-              <CustomButton type='secondary'>
-                Играть
-              </CustomButton>
+              <CustomButton type='secondary'>Играть</CustomButton>
             </View>
           </View>
         </View>
       </View>
     </View>
-  )
-}
+  );
+};
