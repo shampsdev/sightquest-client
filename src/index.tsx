@@ -11,9 +11,7 @@ export const Main = () => {
   return (
     <View className='w-full h-full'>
       <NavigationContainer>
-        <Stack.Navigator
-          screenOptions={{ headerShown: false }}
-        >
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
           <Stack.Screen name='Map' component={Map} />
           <Stack.Screen name='Camera' component={CameraModule} />
         </Stack.Navigator>
