@@ -28,7 +28,7 @@ export const PlayerMarker = ({
           <Animated.View
             entering={FadeInLeft}
             exiting={FadeOutLeft}
-            className='h-fit w-24 left-12 py-3 top-3 bg-white rounded-lg z-10 absolute'
+            className='h-fit w-28 left-12 py-3 top-3 bg-white rounded-lg z-10 absolute'
           >
             <Text className='text-xs text-center leading-2'>{user.username}</Text>
             <Text className='text-[10px] text-center italic'>{role}</Text>

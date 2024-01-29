@@ -11,12 +11,6 @@ export const useSockets = () => {
   useEffect(() => {
     initializeWebSocket();
 
-    return () => {
-      closeWebSocket();
-    };
-  }, []);
-
-  useEffect(() => {
     (async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== 'granted') {
@@ -27,9 +21,15 @@ export const useSockets = () => {
       let location = await Location.getCurrentPositionAsync({});
       updatePlayerPosition(location.coords);
     })();
+
+    return () => {
+      closeWebSocket();
+    };
   }, []);
 
   const updatePlayerPosition = (coordinates: ICoords) => {
+    console.log('sent!');
+
     let updatePositionEvent: ILocationUpdate = {
       type: 'location_update',
       location: coordinates,
