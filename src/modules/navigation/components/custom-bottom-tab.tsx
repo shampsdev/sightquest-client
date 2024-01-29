@@ -2,7 +2,7 @@ import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 import React from 'react'
 import { Pressable, StyleSheet, Text, View, useWindowDimensions } from 'react-native';
 import { BottomTabIcon } from './bottom-tab.icon';
-import Animated, { useAnimatedStyle, withSpring, withTiming } from 'react-native-reanimated'
+import Animated, { useAnimatedStyle, withTiming } from 'react-native-reanimated'
 
 export const CustomBottomTab = ({ 
   state, 
@@ -66,7 +66,7 @@ export const CustomBottomTab = ({
             onLongPress={onLongPress}
             style={{ flex: 1 }}
           >
-            <View className='flex-1 justify-center items-center gap-1'>
+            <View className='flex-1 justify-center items-center gap-y-1'>
               <BottomTabIcon route={route.name} isFocused={isFocused}/>
               { isFocused && (
               <Text style={{ color: isFocused ? '#0067FF' : 'white', fontSize: 12 }}>

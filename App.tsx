@@ -1,9 +1,7 @@
 /// <reference types="nativewind/types" />
 
 import { RootNavigator } from "@/modules/navigation/root-navigator";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
-import { HomeScreen } from "@/pages/settings.screen";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
 // import { Main } from './src';
@@ -22,8 +20,6 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 //     </GestureHandlerRootView>
 //   );
 // }
-
-const Tab = createBottomTabNavigator();
 
 function App() {
   return (

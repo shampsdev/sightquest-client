@@ -1,11 +1,11 @@
 import React from 'react';
-import { Text, View } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack'
-import { HomeScreen } from '@/pages/settings.screen';
 import { BottomTabNavigator } from './components/bottom-tab-navigator';
+import { ProfileScreen } from '@/pages/profile.screen';
 
 export type RootStackParamList = {
-  HomeTab: undefined
+  HomeScreen: undefined;
+  ProfileScreen: undefined;
 }
 
 export const RootNavigator = () => {
@@ -14,8 +14,15 @@ export const RootNavigator = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen 
-        name='HomeTab' 
+        name='HomeScreen' 
         component={BottomTabNavigator}
+        options={{
+          headerShown: false
+        }}
+      />
+      <Stack.Screen
+        name='ProfileScreen'
+        component={ ProfileScreen }
         options={{
           headerShown: false
         }}

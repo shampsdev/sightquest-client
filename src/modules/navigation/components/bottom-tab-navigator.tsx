@@ -1,12 +1,15 @@
 import React from 'react'
 import { BottomTabBarProps, createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import { HomeScreen } from '@/pages/settings.screen';
+import { HomeScreen } from '@/pages/home.screen';
 import { CustomBottomTab } from './custom-bottom-tab';
+import { ProfileScreen } from '@/pages/profile.screen';
+import { RoutesScreen } from '@/pages/routes.screen';
+import { SettingsScreen } from '@/pages/settings.screen';
 
 export type BottomTabParamList = {
-  Home: undefined;
-  Settings: undefined;
-  A: undefined;
+  HomeTab: undefined;
+  SettingsTab: undefined;
+  ProfileTab: undefined;
   B: undefined;
 }
 
@@ -23,10 +26,10 @@ export const BottomTabNavigator = () => {
       tabBar={CustomBottomTabs}
       screenOptions={{ headerShown: false }}
     >
-      <Tab.Screen name='Home' component={HomeScreen}/>
-      <Tab.Screen name='A' component={HomeScreen}/>
-      <Tab.Screen name='B' component={HomeScreen}/>
-      <Tab.Screen name='Settings' component={HomeScreen}/>
+      <Tab.Screen name='HomeTab' component={HomeScreen}/>
+      <Tab.Screen name='ProfileTab' component={ProfileScreen}/>
+      <Tab.Screen name='B' component={RoutesScreen}/>
+      <Tab.Screen name='SettingsTab' component={SettingsScreen}/>
     </Tab.Navigator>
   )
 }
