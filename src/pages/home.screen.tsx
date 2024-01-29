@@ -1,8 +1,7 @@
-import { CustomButton } from '@/components/ui/custom-button';
 import React from 'react';
-import { Text, View, Image, TouchableOpacity } from 'react-native';
-import ProfileIcon from '@/assets/icons/profile.icon';
+import { Text, TouchableOpacity, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { PeterPaul } from '@/assets/peterpaul';
 
 export const HomeScreen = () => {
   const navigation = useNavigation();
@@ -10,38 +9,22 @@ export const HomeScreen = () => {
   return (
     <View className=''>
       <View className='items-center relative'>
-        <View className='absolute top-10 h-12 w-full'>
-          <View className='flex-row flex-1 items-center relative'>
+        <View className='h-[80vh] w-full pt-20 px-5 space-y-5 flex flex-col justify-center'>
+          <View className='h-72 rounded-3xl bg-primary p-5 flex flex-col overflow-hidden justify-between'>
+            <PeterPaul className='absolute bottom-4 -left-20 fill-secondary' />
+            <Text className='text-white font-bold text-5xl text-right'>
+              Санкт-Петербург
+            </Text>
             <TouchableOpacity
-              className='absolute right-5'
               onPress={() => {
                 // @ts-ignore
-                navigation.navigate('ProfileScreen');
+                navigation.navigate('Map');
               }}
             >
-              <ProfileIcon className='stroke-primary' width={36} height={36} />
+              <Text className='text-white font-bold text-3xl text-right'>
+                {'—>'}
+              </Text>
             </TouchableOpacity>
-          </View>
-        </View>
-        <View className='top-1/2'>
-          <View className='items-center gap-y-5'>
-            <Image
-              className='w-56 h-56 rounded-full'
-              source={require('@/assets/spas-na-krovi.jpg')}
-            />
-            <Text className='text-primary text-2xl'>Санкт-Петербург</Text>
-
-            <View className='flex-row'>
-              <CustomButton
-                onPress={() => {
-                  // @ts-ignore
-                  navigation.navigate('Map');
-                }}
-              >
-                Играть
-              </CustomButton>
-              <CustomButton type='secondary'>Играть</CustomButton>
-            </View>
           </View>
         </View>
       </View>
