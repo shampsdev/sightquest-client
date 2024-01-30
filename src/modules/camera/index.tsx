@@ -89,7 +89,6 @@ export const CameraModule = () => {
             className='bottom-20 mx-auto z-10 absolute flex w-full justify-center items-center'
             onPress={async () => {
               setData(await cameraRef.current?.takePictureAsync());
-              // navigation.goBack();
             }}
           >
             <View className='bg-white p-5 rounded-full'>
