@@ -10,9 +10,9 @@ export const HomeScreen = () => {
     <View className=''>
       <View className='items-center relative'>
         <View className='h-[80vh] w-full pt-20 px-5 space-y-5 flex flex-col justify-center'>
-          <View className='h-72 rounded-3xl bg-primary p-5 flex flex-col overflow-hidden justify-between'>
+          <View className='h-72 rounded-3xl bg-slate-400 p-5 flex flex-col overflow-hidden justify-between'>
             <PeterPaul className='absolute bottom-4 -left-20 fill-secondary' />
-            <Text className='text-white font-bold text-5xl text-right'>
+            <Text className='text-white font-bold text-4xl text-right'>
               Санкт-Петербург
             </Text>
             <TouchableOpacity
