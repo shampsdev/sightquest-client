@@ -1,7 +1,7 @@
 import * as React from "react"
 import Svg, { Path } from "react-native-svg"
 
-const SvgComponent = (props: SvgProps) => (
+const HomeIcon = (props: SvgProps) => (
   <Svg
     width={800}
     height={800}
@@ -17,4 +17,4 @@ const SvgComponent = (props: SvgProps) => (
   </Svg>
 )
 
-export default SvgComponent
+export default HomeIcon
