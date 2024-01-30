@@ -19,7 +19,7 @@ export const HomeScreen = () => {
             </Text>
             <TouchableOpacity
               onPress={() => {
-                navigation.navigate('Map');
+                navigation.navigate('LobbyScreen');
               }}
             >
               <Text className='text-white font-bold text-3xl text-right'>
