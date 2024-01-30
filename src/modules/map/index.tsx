@@ -11,13 +11,16 @@ import { ICoords } from '@/interfaces/ICoords';
 import { Platform, View } from 'react-native';
 import { Timer } from './components/Timer';
 import { EventPopup } from './components/EventPopup';
+import { AdMarker } from './components/AdMarker';
+import * as Linking from 'expo-linking';
 
 export const Map = () => {
   useSockets();
 
-  const [markers, players] = useGameStore((store) => [
+  const [markers, players, ads] = useGameStore((store) => [
     store.rules.quest_points,
     store.players,
+    store.ads,
   ]);
 
   const [questPoint, setQuestPoint, updatePopup] = useMapStore((store) => [
@@ -33,8 +36,7 @@ export const Map = () => {
   });
 
   const measure = (lat1: number, lon1: number, lat2: number, lon2: number) => {
-    // generally used geo measurement function
-    const R = 6378.137; // Radius of earth in KM
+    const R = 6378.137;
     const dLat = (lat2 * Math.PI) / 180 - (lat1 * Math.PI) / 180;
     const dLon = (lon2 * Math.PI) / 180 - (lon1 * Math.PI) / 180;
     const a =
@@ -45,7 +47,7 @@ export const Map = () => {
         Math.sin(dLon / 2);
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     const d = R * c;
-    return d * 1000; // meters
+    return d;
   };
 
   return (
@@ -73,6 +75,25 @@ export const Map = () => {
           Platform.OS != 'ios' ? 'satellite' : ('satelliteFlyover' as MapType)
         }
       >
+        {ads.map((x, index) => {
+          return (
+            <AdMarker
+              key={index}
+              coordinate={x.coordinates}
+              src={{ uri: x.src }}
+              extended={
+                Math.abs(coords.latitude - x.coordinates.latitude) +
+                  Math.abs(coords.longitude - x.coordinates.longitude) >
+                0.005
+                  ? false
+                  : true
+              }
+              onPress={() => {
+                Linking.openURL('https://expo.dev');
+              }}
+            />
+          );
+        })}
         {players.map((x, index) => {
           return (
             <PlayerMarker

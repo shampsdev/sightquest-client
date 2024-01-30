@@ -1,3 +1,4 @@
+import { ICoords } from '@/interfaces/ICoords';
 import { IGameState } from '@/interfaces/IGameState';
 import { create } from 'zustand';
 
@@ -5,7 +6,18 @@ interface IGameStateActions {
   updateGameState: (state: IGameState) => void;
 }
 
-export const useGameStore = create<IGameState & IGameStateActions>((set) => ({
+interface IAd {
+  src: string;
+  coordinates: ICoords;
+}
+
+interface IGameStateAds {
+  ads: IAd[];
+}
+
+export const useGameStore = create<
+  IGameState & IGameStateActions & IGameStateAds
+>((set) => ({
   players: [
     {
       user: {
@@ -51,5 +63,14 @@ export const useGameStore = create<IGameState & IGameStateActions>((set) => ({
     ],
     time: new Date(),
   },
+  ads: [
+    {
+      src: 'https://i6.photo.2gis.com/images/branch/0/30258560060372674_1b94.jpg',
+      coordinates: {
+        latitude: 59.958752,
+        longitude: 30.306332,
+      },
+    },
+  ],
   updateGameState: (state) => set(state),
 }));
