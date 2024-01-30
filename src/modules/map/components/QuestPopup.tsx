@@ -4,13 +4,15 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useMapStore } from '../store/useMapStore';
 import { useNavigation } from '@react-navigation/native';
 import Animated, { ZoomIn } from 'react-native-reanimated';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RootStackParamList } from '@/modules/navigation/root-navigator';
 
 interface IPopupProps {
   questPoint: IQuestPoint;
 }
 
 export const QuestPopup = ({ questPoint }: IPopupProps) => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
   const setQuestPoint = useMapStore((store) => store.setSelectedQuestPoint);
 
   var random = Math.round(Math.random());
@@ -44,7 +46,6 @@ export const QuestPopup = ({ questPoint }: IPopupProps) => {
           <TouchableOpacity
             className='p-8'
             onPress={() => {
-              // @ts-ignore да, но что поделаешь
               navigation.navigate('Camera');
             }}
           >

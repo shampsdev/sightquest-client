@@ -11,9 +11,11 @@ import { Camera, CameraCapturedPicture, CameraType } from 'expo-camera';
 import { useNavigation } from '@react-navigation/native';
 import { useMapStore } from '../map/store/useMapStore';
 import { useSockets } from '../map/hooks/useSockets';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RootStackParamList } from '../navigation/root-navigator';
 
 export const CameraModule = () => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
   const [permission, requestPermission] = Camera.useCameraPermissions();
   const cameraRef = useRef<Camera>(null);
   const [data, setData] = useState<CameraCapturedPicture>();
@@ -76,7 +78,6 @@ export const CameraModule = () => {
           <TouchableOpacity
             className='top-10 left-5 absolute'
             onPress={() => {
-              // @ts-ignore
               navigation.goBack();
             }}
           >

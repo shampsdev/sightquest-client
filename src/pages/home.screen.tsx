@@ -2,9 +2,11 @@ import React from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { PeterPaul } from '@/assets/peterpaul';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RootStackParamList } from '@/modules/navigation/root-navigator';
 
 export const HomeScreen = () => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
 
   return (
     <View className=''>
@@ -17,7 +19,6 @@ export const HomeScreen = () => {
             </Text>
             <TouchableOpacity
               onPress={() => {
-                // @ts-ignore
                 navigation.navigate('Map');
               }}
             >
