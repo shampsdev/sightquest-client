@@ -41,7 +41,9 @@ export const CustomMarker = ({
             exiting={FadeOutUp}
             className='h-fit w-24 bg-white p-3 rounded-lg top-10 pt-8 z-10 absolute'
           >
-            <Text className='text-xs text-center'>{(distance/1000).toFixed(2)}km</Text>
+            <Text className='text-xs text-center'>
+              {(distance / 1000).toFixed(2)}km
+            </Text>
           </Animated.View>
         )}
       </View>
