@@ -6,7 +6,7 @@ import EditIcon from '@/assets/icons/edit.icon'
 export const ProfileScreen = () => {
   return (
     <View>
-      <View className='relative h-28 bg-primary'>
+      <View className='relative h-36 bg-primary'>
         <View className='absolute left-5 flex-row justify-start -bottom-5 gap-x-5 items-center'>
           <TouchableOpacity className='rounded-full border-2 border-white'>
             <Image 
@@ -15,7 +15,7 @@ export const ProfileScreen = () => {
             />
           </TouchableOpacity>
            <View className='-translate-y-1'>
-              <Text className='text-secondary text-xl'>Victor Secret</Text>
+              <Text className='text-secondary text-xl'>John Doe</Text>
               <Text className='text-secondary text-xs'>Пройдено квестов: 5</Text>
            </View>
         </View>
