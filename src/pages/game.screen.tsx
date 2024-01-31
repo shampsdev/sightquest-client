@@ -1,20 +1,25 @@
 import React from 'react';
 import MapView, { MapType } from 'react-native-maps';
-import { CustomMarker } from './components/CustomMarker';
-import { QuestPopup } from './components/QuestPopup';
-import { useGameStore } from './store/useGameStore';
-import { useMapStore } from './store/useMapStore';
+import { CustomMarker } from '../modules/game/components/CustomMarker';
+import { QuestPopup } from '../modules/game/components/QuestPopup';
+import { useGameStore } from '../modules/game/store/useGameStore';
+import { useMapStore } from '../modules/game/store/useMapStore';
 import { useRef, useState } from 'react';
-import { PlayerMarker } from './components/PlayerMarker';
-import { useSockets } from './hooks/useSockets';
+import { PlayerMarker } from '../modules/game/components/PlayerMarker';
+import { useSockets } from '../modules/game/hooks/useSockets';
 import { ICoords } from '@/interfaces/ICoords';
 import { Platform, View } from 'react-native';
+<<<<<<< HEAD:src/modules/map/index.tsx
 import { Timer } from './components/Timer';
 import { EventPopup } from './components/EventPopup';
 import { AdMarker } from './components/AdMarker';
 import * as Linking from 'expo-linking';
+=======
+import { Timer } from '../modules/game/components/Timer';
+import { EventPopup } from '../modules/game/components/EventPopup';
+>>>>>>> 471296a (Added lobby & moved map from module to screen (could regret it)):src/pages/game.screen.tsx
 
-export const Map = () => {
+export const GameScreen = () => {
   useSockets();
 
   const [markers, players, ads] = useGameStore((store) => [

@@ -15,7 +15,7 @@ export const QuestPopup = ({ questPoint }: IPopupProps) => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
   const setQuestPoint = useMapStore((store) => store.setSelectedQuestPoint);
 
-  var random = Math.round(Math.random());
+  const random = Math.round(Math.random());
 
   return (
     <Animated.View

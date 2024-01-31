@@ -3,7 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { BottomTabNavigator } from './components/bottom-tab-navigator';
 import { ProfileScreen } from '@/pages/profile.screen';
 import { CameraModule } from '@/modules/camera';
-import { Map } from '@/modules/map';
+import { GameScreen } from '@/pages/game.screen';
 import { LobbyScreen } from '@/pages/lobby.screen';
 
 export type RootStackParamList = {
@@ -11,7 +11,7 @@ export type RootStackParamList = {
   ProfileScreen: undefined;
   LobbyScreen: undefined;
   Camera: undefined;
-  Map: undefined;
+  GameScreen: undefined;
 };
 
 export const RootNavigator = () => {
@@ -23,7 +23,7 @@ export const RootNavigator = () => {
       <Stack.Screen name='ProfileScreen' component={ProfileScreen} />
       <Stack.Screen name='LobbyScreen' component={LobbyScreen} />
       <Stack.Screen name='Camera' component={CameraModule} />
-      <Stack.Screen name='Map' component={Map} />
+      <Stack.Screen name='GameScreen' component={GameScreen} />
     </Stack.Navigator>
   );
 };

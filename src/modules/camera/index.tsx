@@ -9,8 +9,8 @@ import {
 } from 'react-native';
 import { Camera, CameraCapturedPicture, CameraType } from 'expo-camera';
 import { useNavigation } from '@react-navigation/native';
-import { useMapStore } from '../map/store/useMapStore';
-import { useSockets } from '../map/hooks/useSockets';
+import { useMapStore } from '../game/store/useMapStore';
+import { useSockets } from '../game/hooks/useSockets';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../navigation/root-navigator';
 

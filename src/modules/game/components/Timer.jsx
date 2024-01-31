@@ -9,7 +9,6 @@ export const Timer = () => {
   });
 
   useEffect(() => {
-    console.log(time);
     if (time.minutes > 0 || time.seconds > 0) {
       const interval = setInterval(
         () => [
