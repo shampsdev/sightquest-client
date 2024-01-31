@@ -26,6 +26,12 @@
         {
           "photosPermission": "The app accesses your photos to let you share them with your friends."
         }
+      ],
+      [
+      "expo-font",
+      {
+        "fonts": ["./src/assets/fonts/FormaDJRCyrillicText.ttf"]
+      }
       ]
     ],
     "splash": {
@@ -33,7 +39,9 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": false,
       "bundleIdentifier": "com.shapiniony.sightquest",

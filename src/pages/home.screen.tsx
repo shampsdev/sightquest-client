@@ -1,34 +1,53 @@
-import { Text, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { PeterPaul } from '@/assets/peterpaul';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '@/modules/navigation/root-navigator';
-import Animated from 'react-native-reanimated';
+import React, { useCallback } from 'react';
+import LeftArrowIcon from '@/assets/icons/left-arrow.icon';
+import { ScreenHeader } from '@/components/screen-header';
+import { Layout } from '@/components/layout';
 
 export const HomeScreen = () => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
 
   return (
-    <View className=''>
-      <View className='items-center relative'>
-        <View className='h-[80vh] w-full pt-20 px-5 space-y-5 flex flex-col justify-center'>
-          <Animated.View className='h-72 rounded-3xl bg-slate-400 p-5 flex flex-col overflow-hidden justify-between'>
-            <PeterPaul className='absolute bottom-4 -left-20 fill-secondary' />
-            <Text className='text-white font-bold text-4xl text-right'>
-              Санкт-Петербург
-            </Text>
-            <TouchableOpacity
-              onPress={() => {
-                navigation.navigate('LobbyScreen');
-              }}
-            >
-              <Text className='text-white font-bold text-3xl text-right'>
-                {'—>'}
-              </Text>
-            </TouchableOpacity>
-          </Animated.View>
+    <View className='pt-10'>
+      <Layout>
+        <ScreenHeader/>
+
+        <Text className='text-4xl'>
+          Привет, Виктор!
+        </Text>
+
+        <View className='flex-row gap-x-2 items-center'>
+          <Text 
+          style={{ fontFamily: 'Inter-Black' }} 
+          className='w-max text-4xl'>Готов</Text>
+          <View className='flex-grow bg-detail h-8 rounded-lg'/>
+          <Text className='w-max text-4xl '>играть</Text>
         </View>
-      </View>
+
+        <View className='flex-row gap-x-2 items-center'>
+          <Text className='w-max text-4xl'>в</Text>
+          <View className='flex-grow bg-detail h-8 rounded-lg'/>
+          <Text className='w-max text-4xl '>догонялки?</Text>
+        </View>
+
+        <View className='mt-5 rounded-[39px] bg-primary h-64 relative'>
+          <Text className='absolute bg-secondary p-4 rounded-full top-4 left-4 text-xl'>
+            Санкт-Петербург
+          </Text>
+
+          <View className='absolute p-4 bg-secondary bottom-4 left-4 rounded-full'>
+            <LeftArrowIcon/>
+          </View>
+
+          <View className='absolute p-4 bg-secondary bottom-4 right-4 rounded-full'>
+            <LeftArrowIcon/>
+          </View>
+          <View/>
+        </View>
+      </Layout>
     </View>
   );
 };

@@ -26,7 +26,7 @@ export const CustomBottomTab = ({
   return (
     <View
       style={{ width: TAB_BAR_WIDTH, bottom: MARGIN }}
-      className='flex-1 flex-row h-20 absolute rounded-full self-center bg-slate-500 items-center justify-around overflow-hidden'
+      className='flex-1 flex-row h-20 absolute rounded-full self-center bg-primary items-center justify-around overflow-hidden'
     >
       <Animated.View
         className='items-center justify-center'
@@ -36,7 +36,7 @@ export const CustomBottomTab = ({
           translateAnimation,
         ]}
       >
-        <View className='w-16 h-16 rounded-full bg-slate-400' />
+        <View className='w-16 h-16 rounded-full bg-secondary' />
       </Animated.View>
       {state.routes.map((route, index) => {
         const { options } = descriptors[route.key];

@@ -1,3 +1,5 @@
+import { StyleSheet } from "react-native";
+
 type SvgProps = {
   className?: string;
   stroke?: string;

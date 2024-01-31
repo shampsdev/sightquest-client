@@ -5,13 +5,13 @@ module.exports = {
     extend: {
       colors: {
         primary: {
-          DEFAULT: '#64748b',
+          DEFAULT: '#AEADAD',
         },
         secondary: {
           DEFAULT: '#fff',
         },
         detail: {
-          DEFAULT: '#474306',
+          DEFAULT: '#D9D9D9',
         },
       },
     },
