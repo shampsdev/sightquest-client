@@ -3,9 +3,11 @@ import { Text, TouchableOpacity, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '@/modules/navigation/root-navigator';
+import { useGame } from '@/modules/game/hooks/useGame';
 
 export const LobbyScreen = () => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
+  const game = useGame();
 
   return (
     <View className='h-full w-full flex flex-col pt-20 pb-10 px-10 justify-between'>
@@ -37,7 +39,7 @@ export const LobbyScreen = () => {
       <TouchableOpacity
         className='w-full p-5 border rounded-2xl'
         onPress={() => {
-          navigation.navigate('GameScreen');
+          game.lobby.joinLobby(1);
         }}
       >
         <Text className='text-center'>Start</Text>
