@@ -2,11 +2,8 @@ import React from 'react';
 import MapView, { MapType } from 'react-native-maps';
 import { CustomMarker } from '../modules/game/components/CustomMarker';
 import { QuestPopup } from '../modules/game/components/QuestPopup';
-import { useGameStore } from '../modules/game/store/useGameStore';
-import { useMapStore } from '../modules/game/store/useMapStore';
 import { useRef, useState } from 'react';
 import { PlayerMarker } from '../modules/game/components/PlayerMarker';
-import { useSockets } from '../modules/game/hooks/useSockets';
 import { ICoords } from '@/interfaces/ICoords';
 import { Platform, View } from 'react-native';
 <<<<<<< HEAD:src/modules/map/index.tsx
@@ -17,24 +14,12 @@ import * as Linking from 'expo-linking';
 =======
 import { Timer } from '../modules/game/components/Timer';
 import { EventPopup } from '../modules/game/components/EventPopup';
->>>>>>> 471296a (Added lobby & moved map from module to screen (could regret it)):src/pages/game.screen.tsx
+import { useGame } from '@/modules/game/hooks/useGame';
 
 export const GameScreen = () => {
-  useSockets();
+  const { state, ui } = useGame();
 
-  const [markers, players, ads] = useGameStore((store) => [
-    store.rules.quest_points,
-    store.players,
-    store.ads,
-  ]);
-
-  const [questPoint, setQuestPoint, updatePopup] = useMapStore((store) => [
-    store.slected_quest_point,
-    store.setSelectedQuestPoint,
-    store.update_popup,
-  ]);
   const mapRef = useRef<MapView>(null);
-
   const [coords, setCoords] = useState<ICoords>({
     latitude: 0,
     longitude: 0,
@@ -80,26 +65,7 @@ export const GameScreen = () => {
           Platform.OS != 'ios' ? 'satellite' : ('satelliteFlyover' as MapType)
         }
       >
-        {ads.map((x, index) => {
-          return (
-            <AdMarker
-              key={index}
-              coordinate={x.coordinates}
-              src={{ uri: x.src }}
-              extended={
-                Math.abs(coords.latitude - x.coordinates.latitude) +
-                  Math.abs(coords.longitude - x.coordinates.longitude) >
-                0.005
-                  ? false
-                  : true
-              }
-              onPress={() => {
-                Linking.openURL('https://expo.dev');
-              }}
-            />
-          );
-        })}
-        {players.map((x, index) => {
+        {state.players.map((x, index) => {
           return (
             <PlayerMarker
               key={index}
@@ -116,7 +82,7 @@ export const GameScreen = () => {
             />
           );
         })}
-        {markers.map((x, index) => (
+        {state.markers.map((x, index) => (
           <CustomMarker
             key={index}
             extended={
@@ -136,7 +102,7 @@ export const GameScreen = () => {
                 },
                 250
               );
-              setQuestPoint(x);
+              ui.setQuestPoint(x);
             }}
             coordinate={x.location}
             distance={measure(
@@ -149,8 +115,8 @@ export const GameScreen = () => {
           />
         ))}
       </MapView>
-      {questPoint && <QuestPopup questPoint={questPoint} />}
-      {updatePopup && <EventPopup questCompleted={updatePopup} />}
+      {ui.questPoint && <QuestPopup questPoint={ui.questPoint} />}
+      {ui.updatePopup && <EventPopup questCompleted={ui.updatePopup} />}
     </>
   );
 };
