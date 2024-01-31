@@ -1,32 +1,19 @@
 import React from 'react';
 import MapView, { MapType } from 'react-native-maps';
-import { CustomMarker } from './components/CustomMarker';
-import { QuestPopup } from './components/QuestPopup';
-import { useGameStore } from './store/useGameStore';
-import { useMapStore } from './store/useMapStore';
+import { CustomMarker } from '../modules/game/components/CustomMarker';
+import { QuestPopup } from '../modules/game/components/QuestPopup';
 import { useRef, useState } from 'react';
-import { PlayerMarker } from './components/PlayerMarker';
-import { useSockets } from './hooks/useSockets';
+import { PlayerMarker } from '../modules/game/components/PlayerMarker';
 import { ICoords } from '@/interfaces/ICoords';
 import { Platform, View } from 'react-native';
-import { Timer } from './components/Timer';
-import { EventPopup } from './components/EventPopup';
+import { Timer } from '../modules/game/components/Timer';
+import { EventPopup } from '../modules/game/components/EventPopup';
+import { useGame } from '@/modules/game/hooks/useGame';
 
-export const Map = () => {
-  useSockets();
+export const GameScreen = () => {
+  const { state, ui } = useGame();
 
-  const [markers, players] = useGameStore((store) => [
-    store.rules.quest_points,
-    store.players,
-  ]);
-
-  const [questPoint, setQuestPoint, updatePopup] = useMapStore((store) => [
-    store.slected_quest_point,
-    store.setSelectedQuestPoint,
-    store.update_popup,
-  ]);
   const mapRef = useRef<MapView>(null);
-
   const [coords, setCoords] = useState<ICoords>({
     latitude: 0,
     longitude: 0,
@@ -73,7 +60,7 @@ export const Map = () => {
           Platform.OS != 'ios' ? 'satellite' : ('satelliteFlyover' as MapType)
         }
       >
-        {players.map((x, index) => {
+        {state.players.map((x, index) => {
           return (
             <PlayerMarker
               key={index}
@@ -90,7 +77,7 @@ export const Map = () => {
             />
           );
         })}
-        {markers.map((x, index) => (
+        {state.markers.map((x, index) => (
           <CustomMarker
             key={index}
             extended={
@@ -110,7 +97,7 @@ export const Map = () => {
                 },
                 250
               );
-              setQuestPoint(x);
+              ui.setQuestPoint(x);
             }}
             coordinate={x.location}
             distance={measure(
@@ -123,8 +110,8 @@ export const Map = () => {
           />
         ))}
       </MapView>
-      {questPoint && <QuestPopup questPoint={questPoint} />}
-      {updatePopup && <EventPopup questCompleted={updatePopup} />}
+      {ui.questPoint && <QuestPopup questPoint={ui.questPoint} />}
+      {ui.updatePopup && <EventPopup questCompleted={ui.updatePopup} />}
     </>
   );
 };

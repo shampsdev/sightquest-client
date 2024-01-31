@@ -8,11 +8,9 @@ interface IPopupProps {
 }
 
 export const EventPopup = ({ questCompleted }: IPopupProps) => {
-  var random = Math.round(Math.random());
+  const random = Math.round(Math.random());
 
   const [setUpdatePopup] = useMapStore((store) => [store.setUpdatePopup]);
-
-  console.log(questCompleted);
 
   return (
     <Animated.View
