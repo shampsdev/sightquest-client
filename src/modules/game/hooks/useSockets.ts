@@ -12,13 +12,12 @@ export const useSockets = () => {
     initializeWebSocket();
 
     (async () => {
-      let { status } = await Location.requestForegroundPermissionsAsync();
+      const { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== 'granted') {
-        console.error('Permission to access location was denied');
         return;
       }
 
-      let location = await Location.getCurrentPositionAsync({});
+      const location = await Location.getCurrentPositionAsync({});
       updatePlayerPosition(location.coords);
     })();
 
@@ -28,9 +27,7 @@ export const useSockets = () => {
   }, []);
 
   const updatePlayerPosition = (coordinates: ICoords) => {
-    console.log('sent!');
-
-    let updatePositionEvent: ILocationUpdate = {
+    const updatePositionEvent: ILocationUpdate = {
       type: 'location_update',
       location: coordinates,
       user: {
@@ -47,7 +44,7 @@ export const useSockets = () => {
   };
 
   const updateQuestCompleted = (photo: string) => {
-    let updateQuestCompleted: IQuestCompleted = {
+    const updateQuestCompleted: IQuestCompleted = {
       type: 'quest_completed',
       user: {
         id: 0,
