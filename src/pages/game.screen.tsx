@@ -1,18 +1,18 @@
 import React from 'react';
 import MapView, { MapType } from 'react-native-maps';
-import { CustomMarker } from './components/CustomMarker';
-import { QuestPopup } from './components/QuestPopup';
-import { useGameStore } from './store/useGameStore';
-import { useMapStore } from './store/useMapStore';
+import { CustomMarker } from '../modules/game/components/CustomMarker';
+import { QuestPopup } from '../modules/game/components/QuestPopup';
+import { useGameStore } from '../modules/game/store/useGameStore';
+import { useMapStore } from '../modules/game/store/useMapStore';
 import { useRef, useState } from 'react';
-import { PlayerMarker } from './components/PlayerMarker';
-import { useSockets } from './hooks/useSockets';
+import { PlayerMarker } from '../modules/game/components/PlayerMarker';
+import { useSockets } from '../modules/game/hooks/useSockets';
 import { ICoords } from '@/interfaces/ICoords';
 import { Platform, View } from 'react-native';
-import { Timer } from './components/Timer';
-import { EventPopup } from './components/EventPopup';
+import { Timer } from '../modules/game/components/Timer';
+import { EventPopup } from '../modules/game/components/EventPopup';
 
-export const Map = () => {
+export const GameScreen = () => {
   useSockets();
 
   const [markers, players] = useGameStore((store) => [
