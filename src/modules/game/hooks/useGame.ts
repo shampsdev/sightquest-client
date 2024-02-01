@@ -7,7 +7,6 @@ import axios, { AxiosResponse } from 'axios';
 import { useMapStore } from '../store/useMapStore';
 import { ILocationUpdate, IQuestCompleted } from '@/interfaces/IEvent';
 import { useAuth } from '@/modules/auth/hooks/useAuth';
-import { useLocation } from './useLocation';
 
 export const useGame = () => {
   const sockets = useSockets();

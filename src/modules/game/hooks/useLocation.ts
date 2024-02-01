@@ -51,16 +51,26 @@ const requestPermissions = async () => {
   }
 };
 
-TaskManager.defineTask(LOCATION_TASK_NAME, ({ data, error }) => {
-  if (error) {
-    console.error(error);
-    return;
+
+  
+
+type LocationTaskParams = {
+  locations: Array<Location.LocationObject>;
+};
+
+TaskManager.defineTask<LocationTaskParams>(
+  LOCATION_TASK_NAME,
+  ({ data, error }) => {
+    if (error) {
+      console.error(error);
+      return;
+    }
+    if (data) {
+      const { locations } = data;
+      event.emit('location_update', {
+        latitude: locations[0].coords.latitude,
+        longitude: locations[0].coords.longitude,
+      });
+    }
   }
-  if (data) {
-    const { locations } = data;
-    event.emit('location_update', {
-      latitude: locations[0].coords.latitude,
-      longitude: locations[0].coords.longitude,
-    });
-  }
-});
+);
