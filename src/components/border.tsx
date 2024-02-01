@@ -1,16 +1,23 @@
 import React from 'react'
-import { View } from 'react-native'
-import { twMerge } from 'tailwind-merge';
+import { RegisteredStyle, StyleSheet, View, ViewStyle } from 'react-native'
 
 type IBorder = {
   children?: React.ReactNode;
-  className?: string;
+  styles?: ViewStyle | RegisteredStyle<ViewStyle>;
 }
 
-export const Border = ({ children, className } : IBorder) => {
+export const Border = ({ children, styles } : IBorder) => {
   return (
-    <View className={twMerge('bg-secondary rounded-[24px] p-4', className)}>
+    <View style={[borderStyles.border, styles]}>
       { children }
     </View>
   )
 }
+
+const borderStyles = StyleSheet.create({
+  border: {
+    borderRadius: 24,
+    padding: 12,
+    backgroundColor: '#AEADAD',
+  },
+})
