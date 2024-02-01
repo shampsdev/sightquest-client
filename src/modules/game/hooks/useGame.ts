@@ -5,11 +5,15 @@ import { API_URL, WS_URL } from '@env';
 import { IGameState } from '@/interfaces/IGameState';
 import axios, { AxiosResponse } from 'axios';
 import { useMapStore } from '../store/useMapStore';
+import { ILocationUpdate, IQuestCompleted } from '@/interfaces/IEvent';
+import { useAuth } from '@/modules/auth/hooks/useAuth';
 
 export const useGame = () => {
   const sockets = useSockets();
   const gameState = useGameStore((store) => store);
   const mapState = useMapStore((store) => store);
+  const { user } = useAuth();
+  if (user == null) throw Error('Cannot use game, user is null.');
 
   const createLobby = async () => {
     const res = await axios.post<
@@ -27,8 +31,14 @@ export const useGame = () => {
     return res.data.id;
   };
 
-  const joinLobby = (id: number) => {
-    sockets.connect(`${WS_URL}/ws/lobby/${id}/`);
+  const joinLobby = async (id: number) => {
+    await sockets.connect(`${WS_URL}/ws/game/${id}/`);
+    sockets.send(
+      JSON.stringify({
+        event: 'authorization',
+        token: user.id,
+      })
+    );
   };
 
   const parseIncomingMessage = (event: WebSocketMessageEvent) => {
@@ -38,22 +48,49 @@ export const useGame = () => {
       case 'quest_completed':
         mapState.setUpdatePopup(updatedState);
         break;
+      case 'location_update':
+        gameState.updatePlayerPosition(
+          updatedState.id,
+          updatedState.coordinates
+        );
+        break;
       default:
-        gameState.updateGameState({
-          ...gameState,
-          players: updatedState,
-        });
+        console.log(updatedState);
     }
   };
 
   sockets.receive(parseIncomingMessage);
 
   const updatePlayerPosition = (coordinates: ICoords) => {
-    sockets.send(JSON.stringify(coordinates));
+    const locationUpdate: ILocationUpdate = {
+      type: 'location_update',
+      user: {
+        id: 0,
+        username: 'Mike',
+        avatar:
+          'https://media.licdn.com/dms/image/D4E03AQEZcX3i65uV9g/profile-displayphoto-shrink_200_200/0/1681386993606?e=2147483647&v=beta&t=Rh0f_0hKja2gh4zuI1WFlOo2Tyu4gjlm8kTzD7zfy6Y',
+      },
+      timestamp: new Date(),
+      location: coordinates,
+    };
+
+    sockets.send(JSON.stringify(locationUpdate));
   };
 
   const updateQuestCompleted = (photo: string) => {
-    sockets.send(photo);
+    const updateQuestCompleted: IQuestCompleted = {
+      type: 'quest_completed',
+      user: {
+        id: 0,
+        username: 'Mike',
+        avatar:
+          'https://media.licdn.com/dms/image/D4E03AQEZcX3i65uV9g/profile-displayphoto-shrink_200_200/0/1681386993606?e=2147483647&v=beta&t=Rh0f_0hKja2gh4zuI1WFlOo2Tyu4gjlm8kTzD7zfy6Y',
+      },
+      timestamp: new Date(),
+      photo: photo,
+    };
+
+    sockets.send(JSON.stringify(updateQuestCompleted));
   };
 
   return {

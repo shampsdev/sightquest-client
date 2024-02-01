@@ -9,10 +9,9 @@ import {
 } from 'react-native';
 import { Camera, CameraCapturedPicture, CameraType } from 'expo-camera';
 import { useNavigation } from '@react-navigation/native';
-import { useMapStore } from '../game/store/useMapStore';
-import { useSockets } from '../game/hooks/useSockets';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../navigation/root-navigator';
+import { useGame } from '../game/hooks/useGame';
 
 export const CameraModule = () => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
@@ -20,9 +19,7 @@ export const CameraModule = () => {
   const cameraRef = useRef<Camera>(null);
   const [data, setData] = useState<CameraCapturedPicture>();
 
-  const [setQuestPoint] = useMapStore((store) => [store.setSelectedQuestPoint]);
-
-  const { updateQuestCompleted } = useSockets();
+  const { state, ui } = useGame();
 
   if (!permission) {
     return <View />;
@@ -47,8 +44,8 @@ export const CameraModule = () => {
           <View className='bottom-20 mx-auto z-10 absolute flex w-full justify-center items-center flex-row gap-5'>
             <TouchableOpacity
               onPress={async () => {
-                setQuestPoint(null);
-                updateQuestCompleted(data.uri);
+                ui.setQuestPoint(null);
+                state.updateQuestCompleted(data.uri);
                 navigation.goBack();
               }}
             >

@@ -40,6 +40,7 @@ export const LobbyScreen = () => {
         className='w-full p-5 border rounded-2xl'
         onPress={() => {
           game.lobby.joinLobby(1);
+          navigation.navigate('GameScreen');
         }}
       >
         <Text className='text-center'>Start</Text>
