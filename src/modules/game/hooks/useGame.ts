@@ -7,6 +7,7 @@ import axios, { AxiosResponse } from 'axios';
 import { useMapStore } from '../store/useMapStore';
 import { ILocationUpdate, IQuestCompleted } from '@/interfaces/IEvent';
 import { useAuth } from '@/modules/auth/hooks/useAuth';
+import { useLocation } from './useLocation';
 
 export const useGame = () => {
   const sockets = useSockets();
@@ -44,18 +45,18 @@ export const useGame = () => {
   const parseIncomingMessage = (event: WebSocketMessageEvent) => {
     const updatedState = JSON.parse(event.data);
 
-    switch (updatedState.type) {
+    switch (updatedState.event) {
       case 'quest_completed':
         mapState.setUpdatePopup(updatedState);
         break;
       case 'location_update':
         gameState.updatePlayerPosition(
-          updatedState.id,
-          updatedState.coordinates
+          updatedState.user,
+          updatedState.location
         );
         break;
       default:
-        console.log(updatedState);
+        console.log(updatedState.event);
     }
   };
 
@@ -63,13 +64,8 @@ export const useGame = () => {
 
   const updatePlayerPosition = (coordinates: ICoords) => {
     const locationUpdate: ILocationUpdate = {
-      type: 'location_update',
-      user: {
-        id: 0,
-        username: 'Mike',
-        avatar:
-          'https://media.licdn.com/dms/image/D4E03AQEZcX3i65uV9g/profile-displayphoto-shrink_200_200/0/1681386993606?e=2147483647&v=beta&t=Rh0f_0hKja2gh4zuI1WFlOo2Tyu4gjlm8kTzD7zfy6Y',
-      },
+      event: 'location_update',
+      user: user,
       timestamp: new Date(),
       location: coordinates,
     };
@@ -79,13 +75,8 @@ export const useGame = () => {
 
   const updateQuestCompleted = (photo: string) => {
     const updateQuestCompleted: IQuestCompleted = {
-      type: 'quest_completed',
-      user: {
-        id: 0,
-        username: 'Mike',
-        avatar:
-          'https://media.licdn.com/dms/image/D4E03AQEZcX3i65uV9g/profile-displayphoto-shrink_200_200/0/1681386993606?e=2147483647&v=beta&t=Rh0f_0hKja2gh4zuI1WFlOo2Tyu4gjlm8kTzD7zfy6Y',
-      },
+      event: 'quest_completed',
+      user: user,
       timestamp: new Date(),
       photo: photo,
     };

@@ -1,10 +1,11 @@
 import { ICoords } from '@/interfaces/ICoords';
 import { IGameState } from '@/interfaces/IGameState';
+import { IUser } from '@/interfaces/IUser';
 import { create } from 'zustand';
 
 interface IGameStateActions {
   updateGameState: (state: IGameState) => void;
-  updatePlayerPosition: (id: number, coordinates: ICoords) => void;
+  updatePlayerPosition: (id: IUser, coordinates: ICoords) => void;
 }
 
 export const useGameStore = create<IGameState & IGameStateActions>((set) => ({
@@ -50,17 +51,36 @@ export const useGameStore = create<IGameState & IGameStateActions>((set) => ({
     },
   ],
   updateGameState: (state) => set(state),
-  updatePlayerPosition: (id, coordinates) => {
-    set((state) => ({
-      players: state.players.map((player) => {
-        if (player.user.id === id) {
-          return {
-            ...player,
-            coordinates: coordinates,
-          };
-        }
-        return player;
-      }),
-    }));
+  updatePlayerPosition: (user, coordinates) => {
+    console.log(coordinates);
+    set((state) => {
+      const playerIndex = state.players.findIndex(
+        (player) => player.user.id === user.id
+      );
+
+      if (playerIndex === -1) {
+        // Player not found, add a new player
+        return {
+          players: [
+            ...state.players,
+            {
+              user: user,
+              coordinates,
+              role: 'runner',
+            },
+          ],
+        };
+      }
+
+      // Player found, update their coordinates
+      return {
+        players: state.players.map((player, index) => {
+          if (index === playerIndex) {
+            return { ...player, coordinates };
+          }
+          return player;
+        }),
+      };
+    });
   },
 }));
