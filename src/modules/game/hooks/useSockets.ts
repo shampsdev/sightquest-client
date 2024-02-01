@@ -2,7 +2,6 @@ let socket: null | WebSocket = null;
 
 export const useSockets = () => {
   const send = async (data: string) => {
-    console.log(data);
     getWebSocket().send(data);
   };
 

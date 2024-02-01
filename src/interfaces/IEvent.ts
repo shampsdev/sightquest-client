@@ -3,16 +3,16 @@ import { IUser } from './IUser';
 
 interface IEvent {
   user: IUser;
-  type: 'location_update' | 'quest_completed';
+  event: 'location_update' | 'quest_completed' | 'player_joined';
   timestamp: Date;
 }
 
 export interface ILocationUpdate extends IEvent {
-  type: 'location_update';
+  event: 'location_update';
   location: ICoords;
 }
 
 export interface IQuestCompleted extends IEvent {
-  type: 'quest_completed';
+  event: 'quest_completed';
   photo: string;
 }

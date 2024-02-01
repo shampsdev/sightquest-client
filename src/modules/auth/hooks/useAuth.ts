@@ -1,11 +1,14 @@
+import { API_URL } from '@env';
 import { useAuthStore, IAuthStore } from '../store/useAuthStore';
 import { useLocalStorage } from '@/modules/storage/hooks/useLocalStorage';
+import axios, { AxiosResponse } from 'axios';
+import { IUser } from '@/interfaces/IUser';
 
 export const useAuth = () => {
   const localStorage = useLocalStorage();
   const { user, token, updateUser } = useAuthStore((store) => store);
 
-  const login = async () => {
+  const login = async (username: string) => {
     console.log('Login initiated.');
     if (user != null) return;
 
@@ -17,44 +20,35 @@ export const useAuth = () => {
       return;
     }
 
-    // console.log('Creating a new user.');
-    // const res = await axios.post<{ username: string }, AxiosResponse<IUser>>(
-    //   `${API_URL}/api/users/`,
-    //   {
-    //     username: username,
-    //   }
-    // );
-    // console.log(res);
+    console.log('Creating a new user.');
+    const user_data = (
+      await axios.post<{ username: string }, AxiosResponse<IUser, IUser>>(
+        `${API_URL}/api/users/`,
+        {
+          username: username,
+        }
+      )
+    ).data;
 
-    // console.log('Getting user with id 1');
+    console.log(user_data);
 
-    // console.log(`${API_URL}/api/users/${1}`);
-    // const res = await axios.get(`${API_URL}/api/users/${1}`).catch((e) => {
-    //   console.log(e);
-    // });
-    // const user_data = res.data;
+    const { token, refresh } = (
+      await axios.post(`${API_URL}/api/users/token/`, {
+        username: user_data.username,
+        password: 'penis',
+      })
+    ).data;
 
-    // console.log(user_data);
+    const authStore = {
+      user: user_data,
+      token,
+      refresh,
+    };
 
-    // const ans = await axios.post(`${API_URL}/api/users/token/`, {
-    //   username: user_data.username,
-    //   password: 'penis',
-    // });
+    console.log(authStore);
 
-    // console.log(ans);
-
-    // const { token, refresh } = ans.data;
-
-    // const authStore = {
-    //   user: user_data,
-    //   token,
-    //   refresh,
-    // };
-
-    // console.log(authStore);
-
-    // localStorage.storeData<IAuthStore>('user', authStore);
-    // updateUser(authStore);
+    localStorage.storeData<IAuthStore>('user', authStore);
+    updateUser(authStore);
   };
 
   return {

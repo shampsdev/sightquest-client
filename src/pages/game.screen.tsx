@@ -9,8 +9,10 @@ import { Platform, View } from 'react-native';
 import { Timer } from '../modules/game/components/Timer';
 import { EventPopup } from '../modules/game/components/EventPopup';
 import { useGame } from '@/modules/game/hooks/useGame';
+import { useLocation } from '@/modules/game/hooks/useLocation';
 
 export const GameScreen = () => {
+  useLocation();
   const { state, ui } = useGame();
 
   const mapRef = useRef<MapView>(null);
