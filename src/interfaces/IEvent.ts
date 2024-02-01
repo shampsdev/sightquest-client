@@ -4,7 +4,6 @@ import { IUser } from './IUser';
 interface IEvent {
   user: IUser;
   type: 'location_update' | 'quest_completed';
-  game: number;
   timestamp: Date;
 }
 
