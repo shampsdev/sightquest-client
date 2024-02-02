@@ -7,11 +7,12 @@ import Animated from 'react-native-reanimated';
 import { useAuth } from '@/modules/auth/hooks/useAuth';
 
 export const HomeScreen = () => {
-  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
-
   const { manage } = useAuth();
-  manage.login();
 
+  // manage.clear();
+  manage.login('Mike');
+
+  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
   return (
     <View className=''>
       <View className='items-center relative'>

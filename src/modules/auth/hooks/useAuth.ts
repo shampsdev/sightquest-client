@@ -1,13 +1,13 @@
 import { API_URL } from '@env';
 import { useAuthStore, IAuthStore } from '../store/useAuthStore';
 import { useLocalStorage } from '@/modules/storage/hooks/useLocalStorage';
-import axios, { AxiosResponse } from 'axios';
-import { IUser } from '@/interfaces/IUser';
+import axios from 'axios';
 
 export const useAuth = () => {
   const localStorage = useLocalStorage();
   const { user, token, updateUser } = useAuthStore((store) => store);
 
+  // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
   const login = async (username: string) => {
     console.log('Login initiated.');
     if (user != null) return;
@@ -20,21 +20,14 @@ export const useAuth = () => {
       return;
     }
 
-    console.log('Creating a new user.');
-    const user_data = (
-      await axios.post<{ username: string }, AxiosResponse<IUser, IUser>>(
-        `${API_URL}/api/users/`,
-        {
-          username: username,
-        }
-      )
-    ).data;
+    console.log('Getting user.');
 
-    console.log(user_data);
+    // Some code to get the user
+    const user_data = (await axios.get(`${API_URL}/api/users/${1}`)).data;
 
     const { token, refresh } = (
       await axios.post(`${API_URL}/api/users/token/`, {
-        username: user_data.username,
+        username: 'mike',
         password: 'penis',
       })
     ).data;
@@ -51,11 +44,16 @@ export const useAuth = () => {
     updateUser(authStore);
   };
 
+  const clear = async () => {
+    await localStorage.clear();
+  };
+
   return {
     user,
     token,
     manage: {
       login,
+      clear,
     },
   };
 };

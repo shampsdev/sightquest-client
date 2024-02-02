@@ -54,8 +54,6 @@ export const useGame = () => {
           updatedState.location
         );
         break;
-      default:
-        console.log(updatedState.event);
     }
   };
 
@@ -99,5 +97,6 @@ export const useGame = () => {
       setQuestPoint: mapState.setSelectedQuestPoint,
       updatePopup: mapState.update_popup,
     },
+    player: gameState.players.find((x) => x.user.id == user.id),
   };
 };
