@@ -16,17 +16,47 @@ export const GameBottomDrawer = () => {
 
   // renders
   return (
-    <View className='flex-1 w-full p-20 bottom-0 h-full absolute'>
-      <BottomSheet
-        ref={bottomSheetRef}
-        index={1}
-        snapPoints={snapPoints}
-        onChange={handleSheetChanges}
-      >
-        <View>
-          <Text>Awesome 🎉</Text>
+    <BottomSheet
+      ref={bottomSheetRef}
+      index={1}
+      snapPoints={snapPoints}
+      onChange={handleSheetChanges}
+      backgroundStyle={{
+        backgroundColor: '#E5E5E5',
+      }}
+    >
+      <View className='flex px-5 pt-2 gap-y-3'>
+        <View className='w-full bg-white h-24 rounded-3xl flex flex-row items-center px-2 justify-between'>
+          <Text className='text-2xl'>Стрелка В.О</Text>
+          <View className='h-2 w-2 bg-slate-300 rounded-full' />
+          <View className='h-2 w-2 bg-slate-300 rounded-full' />
+          <View className='h-2 w-2 bg-slate-300 rounded-full' />
+          <View className='h-20 w-20 bg-slate-300 rounded-3xl flex justify-center items-center'>
+            <Text className='text-3xl'>25</Text>
+            <Text>(мин)</Text>
+          </View>
         </View>
-      </BottomSheet>
-    </View>
+        <View className='w-full bg-white h-24 rounded-3xl flex flex-row items-center px-2 justify-between'>
+          <View className='h-20 w-20 bg-slate-300 rounded-3xl flex justify-center items-center'>
+            <Text className='text-3xl'>25</Text>
+            <Text>(мин)</Text>
+          </View>
+          <View className='h-2 w-2 bg-slate-300 rounded-full' />
+          <View className='h-2 w-2 bg-slate-300 rounded-full' />
+          <View className='h-2 w-2 bg-slate-300 rounded-full' />
+          <Text className='text-2xl'>Стрелка В.О</Text>
+        </View>
+        <View className='w-full bg-white h-24 rounded-3xl flex flex-row items-center px-2 justify-between'>
+          <Text className='text-2xl'>Стрелка В.О</Text>
+          <View className='h-2 w-2 bg-slate-300 rounded-full' />
+          <View className='h-2 w-2 bg-slate-300 rounded-full' />
+          <View className='h-2 w-2 bg-slate-300 rounded-full' />
+          <View className='h-20 w-20 bg-slate-300 rounded-3xl flex justify-center items-center'>
+            <Text className='text-3xl'>25</Text>
+            <Text>(мин)</Text>
+          </View>
+        </View>
+      </View>
+    </BottomSheet>
   );
 };

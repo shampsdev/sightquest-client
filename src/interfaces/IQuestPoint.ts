@@ -1,8 +1,10 @@
 import { ICoords } from './ICoords';
+import { IQuestTask } from './IQuestTask';
 
 export interface IQuestPoint {
-  title: string;
-  description: string;
   location: ICoords;
+  description: string;
+  title: string;
   photo: string;
+  tasks: IQuestTask[];
 }
