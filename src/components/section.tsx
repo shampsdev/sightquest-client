@@ -6,11 +6,13 @@ type ISection = {
   text?: string; 
   children: React.ReactNode
   styles?: ViewStyle | RegisteredStyle<View>;
+  openAll?: boolean;
 }
 
-export const Section = ({ text, children, styles }: ISection) => {
+export const Section = ({ text, children }: ISection) => {
+  // const headerStyle = openAll ? headerStyles.
   return (
-    <View style={styles}>
+    <View>
       <CustomText size='lg' styles={{
         marginBottom: 8,
       }}>{ text }</CustomText>
@@ -18,3 +20,13 @@ export const Section = ({ text, children, styles }: ISection) => {
     </View>
   )
 }
+
+
+// const headerStyles = StyleSheet.create({
+//   headerWithAll: {
+
+//   },
+//   header: {
+
+//   }
+// })

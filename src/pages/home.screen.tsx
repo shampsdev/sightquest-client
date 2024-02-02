@@ -1,20 +1,11 @@
-import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { RootStackParamList } from '@/modules/navigation/root-navigator';
-import React, { useCallback } from 'react';
-import LeftArrowIcon from '@/assets/icons/left-arrow.icon';
+import { ScrollView, View } from 'react-native';
+import React from 'react';
 import { ScreenHeader } from '@/components/screen-header';
 import { Layout } from '@/components/layout';
 import { CustomText } from '@/components/ui/custom-text';
-import { Story } from '@/modules/stories/story';
 import { Border } from '@/components/border';
 import { Section } from '@/components/section';
-import GroupIcon from '@/assets/icons/group.icon';
 import { UserCard } from '@/modules/user-card/user-card';
-import Animated from 'react-native-reanimated';
-import { PanGestureHandler, TextInput } from 'react-native-gesture-handler';
-import { Stories } from '@/modules/stories/stories';
 import InstaStory from 'react-native-insta-story';
 import { CityCards } from '@/modules/city-cards/city-cards';
 import { BestRoutes } from '@/modules/best-routes/best-routes';
@@ -93,11 +84,11 @@ export const HomeScreen = () => {
         <Section text='Узнать больше'>
           <CityCards data={[{
             'cityTitle': 'Санкт-Петербург',
-            'amount': '132',
+            'amount': 132,
           },
           {
             'cityTitle': 'Москва',
-            'amount': '182',
+            'amount': 182,
           }
           ]}/>
         </Section>

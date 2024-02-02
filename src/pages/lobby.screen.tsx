@@ -1,30 +1,18 @@
 import React from 'react';
 import { TouchableOpacity, View } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { RootStackParamList } from '@/modules/navigation/root-navigator';
-import { ArrowIcon } from '@/assets/icons/arrow.icon';
 import { CustomText } from '@/components/ui/custom-text';
 import { Layout } from '@/components/layout';
 import { Section } from '@/components/section';
 import { Border } from '@/components/border';
 import { ScrollView } from 'react-native-gesture-handler';
 import SwipeButton from '@/components/ui/swipe-button';
+import { ScreenHeaderBack } from '@/components/screen-header-back';
 
 export const LobbyScreen = () => {
-  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
-
   return (
     <View className='h-full'>
       <ScrollView className='pt-10'>
-        <View className='w-full h-12'>
-          <TouchableOpacity
-            className='absolute left-8'
-            onPress={() => navigation.navigate('HomeScreen')}
-            >
-            <ArrowIcon/>
-          </TouchableOpacity>
-        </View>
+        <ScreenHeaderBack/>
         <Layout
           styles={{
             gap: 16,
@@ -119,26 +107,3 @@ export const LobbyScreen = () => {
     </View>
   );
 };
-
-
-    {/* <View className='flex justify-center items-center relative h-screen w-full'>
-      
-      <TouchableOpacity>
-      <ArrowIcon/>
-        </TouchableOpacity>
-      </View>
-      <TouchableOpacity
-        onPress={() => {
-          navigation.navigate('Map');
-        }}
-      >
-        <Text>Start</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        onPress={() => {
-          navigation.navigate('HomeScreen');
-        }}
-      >
-        <Text>Back</Text>
-      </TouchableOpacity>
-    </View> */}

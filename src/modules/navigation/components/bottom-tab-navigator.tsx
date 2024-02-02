@@ -34,7 +34,7 @@ export const BottomTabNavigator = () => {
       <Tab.Screen name='HomeTab' component={HomeScreen} />
       {/* <Tab.Screen name='HomeTab' component={LobbyScreen} /> */}
       {/* <Tab.Screen name='HomeTab' component={InfoScreen} /> */}
-      {/* <Tab.Screen name='HomeTab' component={LoadScreen} /> */}
+      {/* <Tab.Screen name='HomeTab' component={RoutesScreen} /> */}
       <Tab.Screen name='FriendsTab' component={FriendsScreen} />
       <Tab.Screen name='RoutesTab' component={RoutesScreen} />
       <Tab.Screen name='ProfileTab' component={ProfileScreen} />

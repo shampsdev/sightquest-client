@@ -1,12 +1,12 @@
-import GroupIcon from '@/assets/icons/group.icon'
 import { Border } from '@/components/border'
 import { CustomText } from '@/components/ui/custom-text'
+import { UserAmount } from '@/components/user-amount'
 import React from 'react'
-import { StyleSheet, View, useWindowDimensions } from 'react-native'
+import { View } from 'react-native'
 
 export type CityCardProps = {
   cityTitle: string;
-  amount: string;
+  amount: number;
 }
 
 export const CityCard = ({ cityTitle, amount }: CityCardProps) => {
@@ -27,20 +27,14 @@ export const CityCard = ({ cityTitle, amount }: CityCardProps) => {
           }}
         >{ cityTitle }</CustomText>
       </Border>
-      <Border
+      <UserAmount
         styles={{
-          backgroundColor: 'white',
           position: 'absolute',
-          gap: 10,
-          flexDirection: 'row',
-          alignItems: 'center',
           bottom: 8, 
-          left: 8
+          left: 8,
         }}
-      >
-        <GroupIcon/>
-        <CustomText>{ `+${amount}` }</CustomText>
-      </Border>
+        amount={amount}
+      />
     </View>
   )
 }

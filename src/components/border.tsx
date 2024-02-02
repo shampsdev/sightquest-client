@@ -3,20 +3,18 @@ import { RegisteredStyle, StyleSheet, View, ViewStyle } from 'react-native'
 
 type IBorder = {
   children?: React.ReactNode;
-  styles?: ViewStyle | RegisteredStyle<ViewStyle>;
-  ref?: React.RefObject<View>;
+  styles?: ViewStyle | RegisteredStyle<ViewStyle> | (ViewStyle | RegisteredStyle<ViewStyle>)[];
 }
 
-export const Border = ({ children, styles, ref } : IBorder) => {
+export const Border = ({ children, styles} : IBorder) => {
   return (
     <View 
-      ref={ref}
-      style={[borderStyles.border, styles]}
+      style={[borderStyles.border, ...(Array.isArray(styles) ? styles : [styles])]}
     >
       { children }
     </View>
   )
-}
+};
 
 const borderStyles = StyleSheet.create({
   border: {

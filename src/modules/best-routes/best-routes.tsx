@@ -14,7 +14,7 @@ export const BestRoutes = ({ data }: BestRoutesProps) => {
       showsVerticalScrollIndicator={false}
       keyExtractor={(_, index) => index.toString()}
       horizontal
-      renderItem={({ item, index }) => {
+      renderItem={({ item }) => {
         return (
           <BestRoute title={item.title} amount={item.amount}/>
         )
