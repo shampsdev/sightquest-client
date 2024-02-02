@@ -4,10 +4,15 @@ import { PeterPaul } from '@/assets/peterpaul';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '@/modules/navigation/root-navigator';
 import Animated from 'react-native-reanimated';
+import { useAuth } from '@/modules/auth/hooks/useAuth';
 
 export const HomeScreen = () => {
-  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
+  const { manage } = useAuth();
 
+  // manage.clear();
+  manage.login('Mike');
+
+  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
   return (
     <View className=''>
       <View className='items-center relative'>

@@ -44,7 +44,7 @@ export const CameraModule = () => {
           <View className='bottom-20 mx-auto z-10 absolute flex w-full justify-center items-center flex-row gap-5'>
             <TouchableOpacity
               onPress={async () => {
-                ui.setQuestPoint;
+                ui.setQuestPoint(null);
                 state.updateQuestCompleted(data.uri);
                 navigation.goBack();
               }}

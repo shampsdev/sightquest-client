@@ -1,13 +1,29 @@
 let socket: null | WebSocket = null;
 
 export const useSockets = () => {
-  const send = (data: string) => {
-    getWebSocket().send(data);
+  const send = async (data: string) => {
+    try {
+      getWebSocket().send(data);
+    } catch (e) {
+      console.log(e);
+    }
   };
 
-  const connect = (uri: string) => {
+  const connect = async (uri: string) => {
     if (socket != null) throw Error('Socket already connected!');
     socket = new WebSocket(uri);
+
+    // Wait until socket is available beofre resolving.
+    return new Promise<void>((resolve, reject) => {
+      if (socket != null) {
+        socket.onopen = () => {
+          return resolve();
+        };
+        socket.onerror = (error) => {
+          return reject(error);
+        };
+      }
+    });
   };
 
   const disconnect = () => {
@@ -24,7 +40,7 @@ export const useSockets = () => {
   };
 
   function getWebSocket() {
-    if (socket == null) throw Error();
+    if (socket == null) throw Error('Socket is not connected!');
     socket.onmessage = onreceive;
     return socket;
   }

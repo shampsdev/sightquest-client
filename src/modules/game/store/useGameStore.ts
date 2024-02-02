@@ -1,27 +1,16 @@
+import { ICoords } from '@/interfaces/ICoords';
 import { IGameState } from '@/interfaces/IGameState';
+import { IUser } from '@/interfaces/IUser';
 import { create } from 'zustand';
 
 interface IGameStateActions {
   updateGameState: (state: IGameState) => void;
+  updatePlayerPosition: (id: IUser, coordinates: ICoords) => void;
 }
 
 export const useGameStore = create<IGameState & IGameStateActions>((set) => ({
   id: 1,
-  players: [
-    {
-      user: {
-        id: 1,
-        username: 'Mike',
-        avatar:
-          'https://media.licdn.com/dms/image/D4E03AQEZcX3i65uV9g/profile-displayphoto-shrink_200_200/0/1681386993606?e=2147483647&v=beta&t=Rh0f_0hKja2gh4zuI1WFlOo2Tyu4gjlm8kTzD7zfy6Y',
-      },
-      role: 'runner',
-      coordinates: {
-        latitude: 59.9311,
-        longitude: 30.3609,
-      },
-    },
-  ],
+  players: [],
   time_left: new Date(),
   rules: {
     quest_points: [
@@ -53,4 +42,35 @@ export const useGameStore = create<IGameState & IGameStateActions>((set) => ({
     time: new Date(),
   },
   updateGameState: (state) => set(state),
+  updatePlayerPosition: (user, coordinates) => {
+    set((state) => {
+      const playerIndex = state.players.findIndex(
+        (player) => player.user.id === user.id
+      );
+
+      if (playerIndex === -1) {
+        // Player not found, add a new player
+        return {
+          players: [
+            ...state.players,
+            {
+              user: user,
+              coordinates,
+              role: 'runner',
+            },
+          ],
+        };
+      }
+
+      // Player found, update their coordinates
+      return {
+        players: state.players.map((player, index) => {
+          if (index === playerIndex) {
+            return { ...player, coordinates };
+          }
+          return player;
+        }),
+      };
+    });
+  },
 }));
