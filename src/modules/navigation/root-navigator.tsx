@@ -6,7 +6,6 @@ import { Map } from '@/modules/map';
 import { LobbyScreen } from '@/pages/lobby.screen';
 import { RoutesScreen } from '@/pages/routes.screen';
 import { ProfileScreen } from '@/pages/profile.screen';
-import { HomeScreen } from '@/pages/home.screen';
 
 export type RootStackParamList = {
   HomeScreen: undefined;

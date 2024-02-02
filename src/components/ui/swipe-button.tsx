@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet} from 'react-native';
+import {RegisteredStyle, StyleSheet, ViewStyle} from 'react-native';
 
 import {PanGestureHandler} from 'react-native-gesture-handler';
 import Animated, {
@@ -14,6 +14,7 @@ import Animated, {
 } from 'react-native-reanimated';
 import {useState} from 'react';
 import LeftArrow2 from '@/assets/icons/left-arrow-2.icon';
+import { View } from 'react-native-reanimated/lib/typescript/Animated';
 
 const BUTTON_WIDTH = 350;
 const BUTTON_HEIGHT = 80;
@@ -23,7 +24,13 @@ const SWIPEABLE_DIMENSIONS = BUTTON_HEIGHT - 2 * BUTTON_PADDING;
 const H_WAVE_RANGE = SWIPEABLE_DIMENSIONS + 2 * BUTTON_PADDING;
 const H_SWIPE_RANGE = BUTTON_WIDTH - 2 * BUTTON_PADDING - SWIPEABLE_DIMENSIONS;
 
-const SwipeButton = ({className, onToggle} : { className?: string, onToggle: (value: boolean) => void; }) => {
+type SwipeButtonProps = {
+  additionStyles?: ViewStyle | RegisteredStyle<View>;
+  // eslint-disable-next-line no-unused-vars
+  onToggle: (value: boolean) => void;
+}
+
+const SwipeButton = ({additionStyles, onToggle} : SwipeButtonProps) => {
   const X = useSharedValue(0);
   const [toggled, setToggled] = useState(false);
 
@@ -106,9 +113,8 @@ const SwipeButton = ({className, onToggle} : { className?: string, onToggle: (va
   };
 
   return (
-    <Animated.View 
-      style={[styles.swipeCont, AnimatedStyles.swipeCont]}
-      className={className}
+    <Animated.View
+      style={[styles.swipeCont, AnimatedStyles.swipeCont, additionStyles]}
     >
       <PanGestureHandler onGestureEvent={animatedGestureHandler}>
         <Animated.View style={[styles.swipeable, AnimatedStyles.swipeable]}>
@@ -164,7 +170,8 @@ const styles = StyleSheet.create({
   swipeText: {
     color: '#767676',
     alignSelf: 'center',
-    fontSize: 20,
+    fontFamily: 'Inter-Black',
+    fontSize: 16,
     zIndex: 2,
   },
 });

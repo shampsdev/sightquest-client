@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '@/modules/navigation/root-navigator';
@@ -11,19 +11,70 @@ import { Story } from '@/modules/stories/story';
 import { Border } from '@/components/border';
 import { Section } from '@/components/section';
 import GroupIcon from '@/assets/icons/group.icon';
+import { UserCard } from '@/modules/user-card/user-card';
+import Animated from 'react-native-reanimated';
+import { PanGestureHandler } from 'react-native-gesture-handler';
+import { Stories } from '@/modules/stories/stories';
+import InstaStory from 'react-native-insta-story';
+import { CityCards } from '@/modules/city-cards/city-cards';
+import { BestRoutes } from '@/modules/best-routes/best-routes';
+
+const data = [
+  {
+    user_id: 1,
+    user_image:
+      'https://pbs.twimg.com/profile_images/1222140802475773952/61OmyINj.jpg',
+    user_name: 'Ahmet Çağlar Durmuş',
+    stories: [
+      {
+        story_id: 1,
+        story_image:
+          'https://image.freepik.com/free-vector/universe-mobile-wallpaper-with-planets_79603-600.jpg',
+        swipeText: 'Custom swipe text for this story',
+        onPress: () => console.log('story 1 swiped'),
+      },
+      {
+        story_id: 2,
+        story_image:
+          'https://image.freepik.com/free-vector/mobile-wallpaper-with-fluid-shapes_79603-601.jpg',
+      },
+    ],
+  },
+  {
+    user_id: 2,
+    user_image:
+      'https://images.unsplash.com/photo-1511367461989-f85a21fda167?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cHJvZmlsZXxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&w=1000&q=80',
+    user_name: 'Test User',
+    stories: [
+      {
+        story_id: 1,
+        story_image:
+          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjORKvjcbMRGYPR3QIs3MofoWkD4wHzRd_eg&usqp=CAU',
+        swipeText: 'Custom swipe text for this story',
+        onPress: () => console.log('story 1 swiped'),
+      },
+      {
+        story_id: 2,
+        story_image:
+          'https://files.oyebesmartest.com/uploads/preview/vivo-u20-mobile-wallpaper-full-hd-(1)qm6qyz9v60.jpg',
+        swipeText: 'Custom swipe text for this story',
+        onPress: () => console.log('story 2 swiped'),
+      },
+    ],
+  },
+];
 
 export const HomeScreen = () => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
 
   return (
-    <View className='pt-10'>
+    <ScrollView className='pt-10'>
       <Layout styles={{
         gap: 16,
       }}>
         <ScreenHeader/>
-        {/* <View className='flex-row'>
-          { [1, 2, 3].map((value, indx) => <Story key={indx} text='Сторис'/>)  }
-        </View>
+        {/* <Stories data={['1', '2', '3', '4', '5']}/> */}
+
         <Border>
           <CustomText size='2xl'>
             Привет, Виктор!
@@ -31,9 +82,14 @@ export const HomeScreen = () => {
           <CustomText size='lg'>
             Готов играть в догонялки?
           </CustomText>
-        </Border> */}
+        </Border>
+        
+        <InstaStory 
+          data={data}
+          duration={5}
+        />
 
-        {/* <Section text='Создать комнату'>
+        <Section text='Создать комнату'>
           <View className='flex-row justify-center gap-x-1'>
             <Border styles={{
               width: '49%'
@@ -55,91 +111,41 @@ export const HomeScreen = () => {
               </Border>
             </View>
           </View>
-        </Section> */}
+        </Section>
 
-        {/* <Section text='Узнать больше'>
-          <View className='flex-row'>
-            <View className='h-96 w-4/5 bg-primary rounded-3xl relative'>
-              <Border
-                styles={{
-                  backgroundColor: 'white',
-                  position: 'absolute',
-                  top: 8,
-                  left: 8,
-                }}
-              >
-                <CustomText
-                  styles={{
-                    flexDirection: 'row'
-                  }}
-                >Санкт-Петербург</CustomText>
-              </Border>
-              <Border
-                styles={{
-                  backgroundColor: 'white',
-                  position: 'absolute',
-                  gap: 10,
-                  flexDirection: 'row',
-                  bottom: 8, 
-                  left: 8
-                }}
-              >
-                <GroupIcon/>
-                <CustomText>+147</CustomText>
-              </Border>
-            </View>
-          </View>
-        </Section> */}
-
-        {/* <Section text='Топ маршрутов'>
-          <View 
-            className='flex-row'
-            style={{
-              gap: 8,
-            }}
-          >
-            { [1, 2, 3].map((_, indx) => (
-            <Border 
-              styles={{
-                height: 140,
-                width: '60%',
-                position: 'relative'
-              }}
-            >
-              <Border
-                styles={{
-                  position: 'absolute',
-                  backgroundColor: 'white',
-                  paddingBottom: 4, 
-                  paddingTop: 4, 
-                  paddingLeft: 12, 
-                  paddingRight: 12,
-                  top: 8,
-                  left: 8,
-                }}
-              >
-                <CustomText>
-                  XXI
-                </CustomText>
-              </Border>
-
-              <View
-                className='absolute bottom-4 left-4 flex-row'
-              >
-                {
-                ([1, 2, 3, 4,].map((_, indx) => (
-                  <View key={indx} className='bg-secondary rounded-full w-6 h-6'/>
-                  )))
-                }
-              </View>
-
-              <Border>
-                XXII
-              </Border>
-            </Border>)) }
-          </View>
-        </Section> */}
+        <Section text='Узнать больше'>
+          <CityCards data={[{
+            'cityTitle': 'Санкт-Петербург',
+            'amount': '132',
+          },
+          {
+            'cityTitle': 'Москва',
+            'amount': '182',
+          }
+          ]}/>
+        </Section>
+        <Section text='Топ маршрутов'>
+          <BestRoutes 
+            data={[
+              {
+                title: 'XXI',
+                amount: '133/217'
+              },
+              {
+                title: 'XX',
+                amount: '52/52'
+              },
+            ]}
+          />
+        </Section>
+        <Section text='Промокоды'>
+          <View/>
+        </Section>
+        <Section text='Лучшие за месяц'>
+          <UserCard/>
+        </Section>
+        <View className='h-36'/>
       </Layout>
-    </View>
+    </ScrollView>
   );
 };
