@@ -5,17 +5,11 @@ import { QuestPopup } from '../modules/game/components/QuestPopup';
 import { useRef, useState } from 'react';
 import { PlayerMarker } from '../modules/game/components/PlayerMarker';
 import { ICoords } from '@/interfaces/ICoords';
-import { Platform, View } from 'react-native';
-<<<<<<< HEAD:src/modules/map/index.tsx
-import { Timer } from './components/Timer';
-import { EventPopup } from './components/EventPopup';
-import { AdMarker } from './components/AdMarker';
-import * as Linking from 'expo-linking';
-=======
-import { Timer } from '../modules/game/components/Timer';
+import { Platform, Text, View } from 'react-native';
 import { EventPopup } from '../modules/game/components/EventPopup';
 import { useGame } from '@/modules/game/hooks/useGame';
 import { useLocation } from '@/modules/game/hooks/useLocation';
+import { GameBottomDrawer } from '@/modules/game/components/GameBottomDrawer';
 
 export const GameScreen = () => {
   useLocation();
@@ -44,8 +38,8 @@ export const GameScreen = () => {
 
   return (
     <>
-      <View className='absolute top-14 w-full z-20'>
-        <Timer />
+      <View className='absolute left-4 right-4 top-14 z-20 bg-[#E5E5E5] h-20 rounded-3xl justify-center p-4'>
+        <Text className='text-xl w-fit'>Задание выполнено!</Text>
       </View>
       <MapView
         ref={mapRef}
@@ -119,6 +113,7 @@ export const GameScreen = () => {
       </MapView>
       {ui.questPoint && <QuestPopup questPoint={ui.questPoint} />}
       {ui.updatePopup && <EventPopup questCompleted={ui.updatePopup} />}
+      <GameBottomDrawer></GameBottomDrawer>
     </>
   );
 };
