@@ -1,32 +1,21 @@
 import React from 'react';
 import MapView, { MapType } from 'react-native-maps';
-import { CustomMarker } from './components/CustomMarker';
-import { QuestPopup } from './components/QuestPopup';
-import { useGameStore } from './store/useGameStore';
-import { useMapStore } from './store/useMapStore';
+import { CustomMarker } from '../modules/game/components/CustomMarker';
+import { QuestPopup } from '../modules/game/components/QuestPopup';
 import { useRef, useState } from 'react';
-import { PlayerMarker } from './components/PlayerMarker';
-import { useSockets } from './hooks/useSockets';
+import { PlayerMarker } from '../modules/game/components/PlayerMarker';
 import { ICoords } from '@/interfaces/ICoords';
-import { Platform, View } from 'react-native';
-import { Timer } from './components/Timer';
-import { EventPopup } from './components/EventPopup';
+import { Platform, Text, View } from 'react-native';
+import { EventPopup } from '../modules/game/components/EventPopup';
+import { useGame } from '@/modules/game/hooks/useGame';
+import { useLocation } from '@/modules/game/hooks/useLocation';
+import { GameBottomDrawer } from '@/modules/game/components/GameBottomDrawer';
 
-export const Map = () => {
-  useSockets();
+export const GameScreen = () => {
+  useLocation();
+  const { state, ui, player } = useGame();
 
-  const [markers, players] = useGameStore((store) => [
-    store.rules.quest_points,
-    store.players,
-  ]);
-
-  const [questPoint, setQuestPoint, updatePopup] = useMapStore((store) => [
-    store.slected_quest_point,
-    store.setSelectedQuestPoint,
-    store.update_popup,
-  ]);
   const mapRef = useRef<MapView>(null);
-
   const [coords, setCoords] = useState<ICoords>({
     latitude: 0,
     longitude: 0,
@@ -50,15 +39,15 @@ export const Map = () => {
 
   return (
     <>
-      <View className='absolute top-14 w-full z-20'>
-        <Timer />
+      <View className='absolute left-4 right-4 top-14 z-20 bg-[#E5E5E5] h-20 rounded-3xl justify-center p-4'>
+        <Text className='text-xl w-fit'>Задание выполнено!</Text>
       </View>
       <MapView
         ref={mapRef}
         className='h-full w-full'
         initialRegion={{
-          latitude: 59.9311,
-          longitude: 30.3609,
+          latitude: player?.coordinates.latitude ?? 59.9311,
+          longitude: player?.coordinates.latitude ?? 30.3609,
           latitudeDelta: 0.01,
           longitudeDelta: 0.01,
         }}
@@ -73,7 +62,7 @@ export const Map = () => {
           Platform.OS != 'ios' ? 'satellite' : ('satelliteFlyover' as MapType)
         }
       >
-        {players.map((x, index) => {
+        {state.players.map((x, index) => {
           return (
             <PlayerMarker
               key={index}
@@ -90,7 +79,7 @@ export const Map = () => {
             />
           );
         })}
-        {markers.map((x, index) => (
+        {state.markers.map((x, index) => (
           <CustomMarker
             key={index}
             extended={
@@ -110,7 +99,7 @@ export const Map = () => {
                 },
                 250
               );
-              setQuestPoint(x);
+              ui.setQuestPoint(x);
             }}
             coordinate={x.location}
             distance={measure(
@@ -123,8 +112,9 @@ export const Map = () => {
           />
         ))}
       </MapView>
-      {questPoint && <QuestPopup questPoint={questPoint} />}
-      {updatePopup && <EventPopup questCompleted={updatePopup} />}
+      {ui.questPoint && <QuestPopup questPoint={ui.questPoint} />}
+      {ui.updatePopup && <EventPopup questCompleted={ui.updatePopup} />}
+      <GameBottomDrawer></GameBottomDrawer>
     </>
   );
 };

@@ -8,8 +8,27 @@ import { RootNavigator } from '@/modules/navigation/root-navigator';
 import * as SplashScreen from 'expo-splash-screen';
 import { useFonts } from 'expo-font';
 import { useCallback } from 'react';
+import axios from 'axios';
 
 SplashScreen.preventAutoHideAsync();
+
+axios.interceptors.response.use(
+  (res) => {
+    return res;
+  },
+  (err) => {
+    return Promise.reject(err);
+  }
+);
+
+axios.interceptors.request.use(
+  (res) => {
+    return res;
+  },
+  (err) => {
+    return Promise.reject(err);
+  }
+);
 
 function App() {
   const [fontsLoaded, fontError] = useFonts({

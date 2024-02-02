@@ -1,8 +1,10 @@
-import { IRules } from './IRules';
+import { ISettings } from './ISettings';
 import { IUserState } from './IUserState';
 
 export interface IGameState {
+  id: number;
   players: IUserState[];
   time_left: Date;
-  rules: IRules;
+  settings: ISettings;
+  state: 'lobby' | 'playing' | 'ended';
 }

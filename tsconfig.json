@@ -5,9 +5,10 @@
     },
 
     /* Linting */
-    "strict": true,
+    "strict": true
   },
   "extends": "@tsconfig/react-native/tsconfig.json",
   "include": ["./src/**/*.tsx", "./src/**/*.ts", "App.tsx"],
-  "exclude": ["__tests__/**/*-test.ts"]
+  "exclude": ["__tests__/**/*-test.ts"],
+  "typeRoots": ["./types"]
 }
