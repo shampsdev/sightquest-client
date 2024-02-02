@@ -1,18 +1,27 @@
 import * as React from "react"
-import Svg, { Path } from "react-native-svg"
+import Svg, { Path, SvgProps } from "react-native-svg"
 
 const HomeIcon = (props: SvgProps) => (
   <Svg
-    width={800}
-    height={800}
+    width={32}
+    height={32}
     fill="none"
-    viewBox="0 0 24 24"
+    className="translate-y-[1px] translate-x-[1.5px]"
     {...props}
   >
     <Path
-      fillRule="evenodd"
-      d="M2.52 7.823C2 8.77 2 9.915 2 12.203v1.522c0 3.9 0 5.851 1.172 7.063C4.343 22 6.229 22 10 22h4c3.771 0 5.657 0 6.828-1.212C22 19.576 22 17.626 22 13.725v-1.521c0-2.289 0-3.433-.52-4.381-.518-.949-1.467-1.537-3.364-2.715l-2-1.241C14.111 2.622 13.108 2 12 2c-1.108 0-2.11.622-4.116 1.867l-2 1.241C3.987 6.286 3.038 6.874 2.519 7.823ZM9 17.25a.75.75 0 0 0 0 1.5h6a.75.75 0 0 0 0-1.5H9Z"
-      clipRule="evenodd"
+      stroke="#000"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M26.602 24.65v-9.598a5.83 5.83 0 0 0-.45-2.25 5.705 5.705 0 0 0-1.279-1.884l-8.857-8.634a2.74 2.74 0 0 0-1.913-.784 2.74 2.74 0 0 0-1.913.784L3.33 10.918a5.706 5.706 0 0 0-1.278 1.884 5.831 5.831 0 0 0-.45 2.25v9.597c0 .756.292 1.481.813 2.016.52.535 1.227.835 1.964.835h19.445c.736 0 1.443-.3 1.964-.835a2.89 2.89 0 0 0 .813-2.016Z"
+    />
+    <Path
+      stroke="#000"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M9 18.14c0-.817.351-1.6.976-2.178a3.477 3.477 0 0 1 2.357-.902h3.334c.884 0 1.732.325 2.357.902.625.578.976 1.361.976 2.178v9.24H9v-9.24Z"
     />
   </Svg>
 )
