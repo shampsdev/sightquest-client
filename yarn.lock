@@ -1248,6 +1248,11 @@
     "@babel/helper-validator-identifier" "^7.22.20"
     to-fast-properties "^2.0.0"
 
+"@backpackapp-io/react-native-toast@^0.10.0":
+  version "0.10.0"
+  resolved "https://registry.yarnpkg.com/@backpackapp-io/react-native-toast/-/react-native-toast-0.10.0.tgz#08a765b7fecab46f430b246da148ee184c5dd963"
+  integrity sha512-kuFAkTu+HlCoIiTbHgKi0lXwpQzntrhzMy4LorJyXb8SdiPEMs9ZiCzHYUzsgIga4xjlY73wxlgwyo4QWa7JZA==
+
 "@egjs/hammerjs@^2.0.17":
   version "2.0.17"
   resolved "https://registry.yarnpkg.com/@egjs/hammerjs/-/hammerjs-2.0.17.tgz#5dc02af75a6a06e4c2db0202cae38c9263895124"

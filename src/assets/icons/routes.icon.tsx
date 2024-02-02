@@ -1,10 +1,11 @@
 import * as React from "react"
-import Svg, { Circle, Path } from "react-native-svg"
+import Svg, { Circle, Path, SvgProps } from "react-native-svg"
 
 const RoutesIcon = (props: SvgProps) => (
   <Svg
-    width={30}
-    height={28}
+    className='translate-y-[2px] translate-x-[1px]'
+    width={32}
+    height={32}
     fill="none"
     {...props}
   >

@@ -13,11 +13,13 @@ import { Section } from '@/components/section';
 import GroupIcon from '@/assets/icons/group.icon';
 import { UserCard } from '@/modules/user-card/user-card';
 import Animated from 'react-native-reanimated';
-import { PanGestureHandler } from 'react-native-gesture-handler';
+import { PanGestureHandler, TextInput } from 'react-native-gesture-handler';
 import { Stories } from '@/modules/stories/stories';
 import InstaStory from 'react-native-insta-story';
 import { CityCards } from '@/modules/city-cards/city-cards';
 import { BestRoutes } from '@/modules/best-routes/best-routes';
+import { CreateRoom } from '@/modules/home-sections/create-room';
+import { Toasts } from '@backpackapp-io/react-native-toast';
 
 const data = [
   {
@@ -65,15 +67,12 @@ const data = [
 ];
 
 export const HomeScreen = () => {
-  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
-
   return (
     <ScrollView className='pt-10'>
       <Layout styles={{
         gap: 16,
       }}>
         <ScreenHeader/>
-        {/* <Stories data={['1', '2', '3', '4', '5']}/> */}
 
         <Border>
           <CustomText size='2xl'>
@@ -89,29 +88,7 @@ export const HomeScreen = () => {
           duration={5}
         />
 
-        <Section text='Создать комнату'>
-          <View className='flex-row justify-center gap-x-1'>
-            <Border styles={{
-              width: '49%'
-            }}>
-              <CustomText>Играть с друзьями</CustomText>
-            </Border>
-            <View style={{
-              width: '49%'
-            }}>
-              <Border styles={{
-                height: 140,
-              }}>
-                <CustomText>Одному/</CustomText>
-              </Border>
-              <Border styles={{
-                marginTop: 4,
-              }}>
-                <CustomText>Ввести код</CustomText>
-              </Border>
-            </View>
-          </View>
-        </Section>
+        <CreateRoom/>
 
         <Section text='Узнать больше'>
           <CityCards data={[{
@@ -146,6 +123,7 @@ export const HomeScreen = () => {
         </Section>
         <View className='h-36'/>
       </Layout>
+      <Toasts />
     </ScrollView>
   );
 };

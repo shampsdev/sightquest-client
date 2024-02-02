@@ -3,9 +3,10 @@ import Svg, { Path, SvgProps } from "react-native-svg"
 
 const PlayIcon = (props: SvgProps) => (
   <Svg
-    width={29}
-    height={31}
+    width={32}
+    height={32}
     fill="none"
+    className="translate-y-[0.5px] translate-x-[1px]"
     {...props}
   >
     <Path stroke="#000" strokeLinecap="round" strokeWidth={2} d="M11.602 1h6" />

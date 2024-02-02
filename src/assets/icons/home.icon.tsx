@@ -1,11 +1,12 @@
 import * as React from "react"
-import Svg, { Path } from "react-native-svg"
+import Svg, { Path, SvgProps } from "react-native-svg"
 
 const HomeIcon = (props: SvgProps) => (
   <Svg
-    width={30}
-    height={30}
+    width={32}
+    height={32}
     fill="none"
+    className="translate-y-[1px] translate-x-[1.5px]"
     {...props}
   >
     <Path
