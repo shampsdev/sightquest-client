@@ -89,7 +89,7 @@ export const useGame = () => {
     state: {
       updateQuestCompleted,
       updatePlayerPosition,
-      markers: gameState.rules.quest_points,
+      markers: gameState.settings.quest_points,
       players: gameState.players,
     },
     ui: {

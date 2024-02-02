@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import MapView, { MapType } from 'react-native-maps';
 import { CustomMarker } from '../modules/game/components/CustomMarker';
 import { QuestPopup } from '../modules/game/components/QuestPopup';
@@ -7,19 +7,98 @@ import { PlayerMarker } from '../modules/game/components/PlayerMarker';
 import { ICoords } from '@/interfaces/ICoords';
 import { Platform, Text, View } from 'react-native';
 import { EventPopup } from '../modules/game/components/EventPopup';
-import { useGame } from '@/modules/game/hooks/useGame';
-import { useLocation } from '@/modules/game/hooks/useLocation';
 import { GameBottomDrawer } from '@/modules/game/components/GameBottomDrawer';
+import { IGameState } from '@/interfaces/IGameState';
+import { IUserState } from '@/interfaces/IUserState';
+import { IQuestPoint } from '@/interfaces/IQuestPoint';
+import { useUserInterface } from '@/modules/game/hooks/useUserInterface';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import { PerkIcon } from '@/assets/icons/perk.icon';
+import { LocationIcon } from '@/assets/icons/location.icon';
+
+const player: IUserState = {
+  user: {
+    id: 0,
+    username: 'mikedegeofroy',
+    avatar:
+      'https://media.licdn.com/dms/image/D4E03AQEZcX3i65uV9g/profile-displayphoto-shrink_800_800/0/1681386993606?e=2147483647&v=beta&t=6xXgX1YBGZNI17rfS5vadMzxfSAW4nnqp-kyZsIrjg4',
+  },
+  coordinates: {
+    latitude: 59.94515,
+    longitude: 30.29800,
+  },
+  role: 'runner',
+  completed: [],
+  secret: '',
+};
+
+const state: IGameState & { markers: IQuestPoint[] } = {
+  players: [player],
+  id: 0,
+  time_left: new Date(),
+  settings: {
+    quest_points: [],
+    time: new Date(),
+  },
+  state: 'lobby',
+  markers: [
+    {
+      title: 'Стрелка В.О.',
+      description: 'Раньше этот остров называли Хирвасаатри',
+      location: {
+        latitude: 59.944049,
+        longitude: 30.30645,
+      },
+      tasks: [],
+      photo:
+        'https://i6.photo.2gis.com/images/geo/0/30258560058537396_8894_656x340.jpg',
+    },
+    {
+      title: 'Кунсткамера',
+      description: 'Первый публичный музей Европы.',
+      location: {
+        latitude: 59.94134,
+        longitude: 30.302521,
+      },
+      tasks: [],
+      photo:
+        'https://i8.photo.2gis.com/images/branch/0/30258560088639614_d3e4_656x340.jpg',
+    },
+    {
+      title: 'Эрмитаж',
+      description: 'Коллекция составляет более 3 миллионов экспонатов.',
+      location: {
+        latitude: 59.940485,
+        longitude: 30.31408,
+      },
+      tasks: [],
+      photo:
+        'https://i6.photo.2gis.com/images/branch/0/30258560078475071_04cc_656x340.jpg',
+    },
+  ],
+};
 
 export const GameScreen = () => {
-  useLocation();
-  const { state, ui, player } = useGame();
+  const ui = useUserInterface();
 
   const mapRef = useRef<MapView>(null);
   const [coords, setCoords] = useState<ICoords>({
     latitude: 0,
     longitude: 0,
   });
+
+  const [traking, setTracking] = useState(false);
+  const [perkMenu, setPerkMenu] = useState(false);
+
+  useEffect(() => {
+    if (traking) {
+      mapRef.current?.animateToRegion({
+        ...player.coordinates,
+        latitudeDelta: 0.01,
+        longitudeDelta: 0.01,
+      });
+    }
+  }, [player, traking]);
 
   const measure = (lat1: number, lon1: number, lat2: number, lon2: number) => {
     // generally used geo measurement function
@@ -52,6 +131,9 @@ export const GameScreen = () => {
           longitudeDelta: 0.01,
         }}
         showsCompass={false}
+        onPanDrag={() => {
+          if (traking) setTracking(!traking);
+        }}
         onRegionChange={(r) => {
           setCoords({
             latitude: r.latitude,
@@ -76,6 +158,8 @@ export const GameScreen = () => {
                   ? false
                   : true
               }
+              completed={[]}
+              secret={''}
             />
           );
         })}
@@ -101,20 +185,37 @@ export const GameScreen = () => {
               );
               ui.setQuestPoint(x);
             }}
-            coordinate={x.location}
             distance={measure(
               59.9311,
               30.3609,
               x.location.latitude,
               x.location.longitude
             )}
-            src={{ uri: x.photo }}
+            point={x}
           />
         ))}
       </MapView>
+      <View className='absolute right-0 bottom-[15%] flex gap-y-3 pr-2 pb-3'>
+        <TouchableOpacity
+          className='h-20 w-20 rounded-3xl bg-white flex items-center justify-center p-2'
+          onPress={() => {
+            setPerkMenu(!perkMenu);
+          }}
+        >
+          <PerkIcon />
+        </TouchableOpacity>
+        <TouchableOpacity
+          className='h-20 w-20 rounded-3xl bg-white flex items-center justify-center p-2'
+          onPress={() => {
+            setTracking(!traking);
+          }}
+        >
+          <LocationIcon fill={traking ? 'black' : 'none'} />
+        </TouchableOpacity>
+      </View>
       {ui.questPoint && <QuestPopup questPoint={ui.questPoint} />}
       {ui.updatePopup && <EventPopup questCompleted={ui.updatePopup} />}
-      <GameBottomDrawer></GameBottomDrawer>
+      <GameBottomDrawer mapRef={mapRef} questPoints={state.markers} />
     </>
   );
 };
