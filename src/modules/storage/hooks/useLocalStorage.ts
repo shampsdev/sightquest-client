@@ -19,8 +19,13 @@ export const useLocalStorage = () => {
     }
   };
 
+  const clear = async () => {
+    await AsyncStorage.clear();
+  };
+
   return {
     storeData,
     getData,
+    clear,
   };
 };

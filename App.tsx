@@ -5,6 +5,25 @@ import { NavigationContainer } from '@react-navigation/native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import axios from 'axios';
+
+axios.interceptors.response.use(
+  (res) => {
+    return res;
+  },
+  (err) => {
+    return Promise.reject(err);
+  }
+);
+
+axios.interceptors.request.use(
+  (res) => {
+    return res;
+  },
+  (err) => {
+    return Promise.reject(err);
+  }
+);
 
 function App() {
   return (

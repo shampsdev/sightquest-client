@@ -52,7 +52,6 @@ export const useGameStore = create<IGameState & IGameStateActions>((set) => ({
   ],
   updateGameState: (state) => set(state),
   updatePlayerPosition: (user, coordinates) => {
-    console.log(coordinates);
     set((state) => {
       const playerIndex = state.players.findIndex(
         (player) => player.user.id === user.id

@@ -19,7 +19,7 @@ import { useLocation } from '@/modules/game/hooks/useLocation';
 
 export const GameScreen = () => {
   useLocation();
-  const { state, ui } = useGame();
+  const { state, ui, player } = useGame();
 
   const mapRef = useRef<MapView>(null);
   const [coords, setCoords] = useState<ICoords>({
@@ -51,8 +51,8 @@ export const GameScreen = () => {
         ref={mapRef}
         className='h-full w-full'
         initialRegion={{
-          latitude: 59.9311,
-          longitude: 30.3609,
+          latitude: player?.coordinates.latitude ?? 59.9311,
+          longitude: player?.coordinates.latitude ?? 30.3609,
           latitudeDelta: 0.01,
           longitudeDelta: 0.01,
         }}
