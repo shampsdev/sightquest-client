@@ -28,10 +28,12 @@
         }
       ],
       [
-      "expo-font",
-      {
-        "fonts": ["./src/assets/fonts/FormaDJRCyrillicText.ttf"]
-      }
+        "expo-font",
+        {
+          "fonts": [
+            "./src/assets/fonts/FormaDJRCyrillicText.ttf"
+          ]
+        }
       ]
     ],
     "splash": {
@@ -45,7 +47,7 @@
     "ios": {
       "supportsTablet": false,
       "bundleIdentifier": "com.shapiniony.sightquest",
-      "buildNumber": "3",
+      "buildNumber": "4",
       "infoPlist": {
         "NSLocationWhenInUseUsageDescription": "This app uses your location to give you hints on navigating the city.",
         "NSLocationAlwaysAndWhenInUseUsageDescription": "This app uses your location to give you hints on navigating the city.",
@@ -56,7 +58,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.shapiniony.sightquest"
     },
     "web": {
       "favicon": "./assets/favicon.png"

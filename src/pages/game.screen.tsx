@@ -25,7 +25,7 @@ const player: IUserState = {
   },
   coordinates: {
     latitude: 59.94515,
-    longitude: 30.29800,
+    longitude: 30.298,
   },
   role: 'runner',
   completed: [],
@@ -119,6 +119,7 @@ export const GameScreen = () => {
   return (
     <>
       <View className='absolute left-4 right-4 top-14 z-20 bg-[#E5E5E5] h-20 rounded-3xl justify-center p-4'>
+        <Text className='text-xl w-fit'>Задание выполнено!</Text>
         <Text className='text-xl w-fit'>Задание выполнено!</Text>
       </View>
       <MapView
