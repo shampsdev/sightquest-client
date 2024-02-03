@@ -33,7 +33,7 @@ export const GameScreen = () => {
         Math.sin(dLon / 2);
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     const d = R * c;
-    return d;
+    return d * 1000; // meters
   };
 
   return (
