@@ -15,42 +15,41 @@ export const QuestPopup = ({ questPoint }: IPopupProps) => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
   const setQuestPoint = useMapStore((store) => store.setSelectedQuestPoint);
 
-  const random = Math.round(Math.random());
-
   return (
     <Animated.View
       entering={ZoomIn.delay(200).duration(200).springify()}
       className='absolute w-full h-full'
     >
-      <View
-        className={`bg-white rounded-2xl overflow-hidden mt-28 mx-5 ${
-          random ? 'rotate-1' : '-rotate-1'
-        }`}
-      >
-        <View className='absolute z-10 right-0'>
-          <TouchableOpacity
-            className='p-5'
-            onPress={() => {
-              setQuestPoint(null);
-            }}
-          >
-            <Text className='w-fit text-white'>X</Text>
-          </TouchableOpacity>
-        </View>
-        <Image className='w-full h-60' source={{ uri: questPoint.photo }} />
+      <View className='bg-[#CACACA] rounded-3xl overflow-hidden mt-60 mx-5'>
         <View className='p-5 space-y-5 flex justify-between'>
-          <Text className='font-bold text-2xl'>{questPoint.title}</Text>
-          <Text className='font-muted opacity-50'>
+          <Text className='font-bold text-2xl text-center'>
+            {questPoint.title}
+          </Text>
+          <Text className='font-muted opacity-50 mx-auto w-2/3 text-center'>
             {questPoint.description}
           </Text>
-          <TouchableOpacity
-            className='p-8'
-            onPress={() => {
-              navigation.navigate('Camera');
-            }}
-          >
-            <Text className='font-bold text-2xl text-center'>Готово!</Text>
-          </TouchableOpacity>
+          <Image
+            className='w-full h-28 rounded-3xl'
+            source={{ uri: questPoint.photo }}
+          />
+          <View className='flex flex-row justify-around'>
+            <TouchableOpacity
+              className='p-4 bg-[#EAEAEA] rounded-full'
+              onPress={() => {
+                setQuestPoint(null);
+              }}
+            >
+              <Text className='text-lg text-center'>Отмена</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              className='p-4 bg-white rounded-full'
+              onPress={() => {
+                navigation.navigate('Camera');
+              }}
+            >
+              <Text className='text-lg text-center'>Погнали!</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
     </Animated.View>

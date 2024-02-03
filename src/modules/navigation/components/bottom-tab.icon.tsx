@@ -3,6 +3,8 @@ import HomeIcon from '@/assets/icons/home.icon';
 import SettingsIcon from '@/assets/icons/settings.icon';
 import { View } from 'react-native';
 import ProfileIcon from '@/assets/icons/profile.icon';
+import RoutesIcon from '@/assets/icons/routes.icon';
+import PlayIcon from '@/assets/icons/play.icon';
 
 type Props = {
   route: string;
@@ -16,20 +18,30 @@ export const BottomTabIcon = ({ route, isFocused }: Props) => {
 
     switch (route) {
       case 'HomeTab':
-        return <HomeIcon width={width} height={height} fill={'white'} />;
+        return (
+        <HomeIcon 
+          width={width}
+          height={height} 
+         />
+        );
       case 'ProfileTab':
         return (
           <ProfileIcon
-            color={isFocused ? '#94a3b8' : '#64748b'}
             width={width}
             height={height}
-            fill={'white'}
+          />
+        );
+      case 'RoutesTab':
+        return (
+          <RoutesIcon
+            width={width}
+            height={height}
           />
         );
       case 'FriendsTab':
-        return <SettingsIcon width={width} height={height} fill={'white'} />;
+        return <PlayIcon width={width} height={height} />;
       default:
-        return <HomeIcon width={width} height={height} fill={'white'} />;
+        return <HomeIcon width={width} height={height} />;
     }
   };
 

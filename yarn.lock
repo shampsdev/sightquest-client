@@ -1248,6 +1248,11 @@
     "@babel/helper-validator-identifier" "^7.22.20"
     to-fast-properties "^2.0.0"
 
+"@backpackapp-io/react-native-toast@^0.10.0":
+  version "0.10.0"
+  resolved "https://registry.yarnpkg.com/@backpackapp-io/react-native-toast/-/react-native-toast-0.10.0.tgz#08a765b7fecab46f430b246da148ee184c5dd963"
+  integrity sha512-kuFAkTu+HlCoIiTbHgKi0lXwpQzntrhzMy4LorJyXb8SdiPEMs9ZiCzHYUzsgIga4xjlY73wxlgwyo4QWa7JZA==
+
 "@egjs/hammerjs@^2.0.17":
   version "2.0.17"
   resolved "https://registry.yarnpkg.com/@egjs/hammerjs/-/hammerjs-2.0.17.tgz#5dc02af75a6a06e4c2db0202cae38c9263895124"
@@ -1297,10 +1302,10 @@
     mv "~2"
     safe-json-stringify "~1"
 
-"@expo/cli@0.17.2":
-  version "0.17.2"
-  resolved "https://registry.yarnpkg.com/@expo/cli/-/cli-0.17.2.tgz#398b504e9f938eb6786abf3834b423932f582a05"
-  integrity sha512-0uJGuiV8XGjsTGnga95CiCZAtAymtQlo8FxRBp7AjLKpG/oTXG7+s368H7ZIC+XQBsvWx83iv+HyXQfOtPbsxQ==
+"@expo/cli@0.17.4":
+  version "0.17.4"
+  resolved "https://registry.yarnpkg.com/@expo/cli/-/cli-0.17.4.tgz#ac720bc03e16cc9f4130b4319118053743b50395"
+  integrity sha512-6pswecVC9qCBp1qa004D2HjPeXKYDaw/PhyUOsqnF7AUCwunlKa1tJO0Ik8zxzF68kuywIOXUnTJl74Z2aHqiw==
   dependencies:
     "@babel/runtime" "^7.20.0"
     "@expo/code-signing-certificates" "0.0.5"
@@ -4281,6 +4286,13 @@ expo-notifications@~0.27.6:
     expo-constants "~15.4.0"
     fs-extra "^9.1.0"
 
+expo-splash-screen@~0.26.4:
+  version "0.26.4"
+  resolved "https://registry.yarnpkg.com/expo-splash-screen/-/expo-splash-screen-0.26.4.tgz#bc1fb226c6eae03ee351a3ebe5521a37f868cbc7"
+  integrity sha512-2DwofTQ0FFQCsvDysm/msENsbyNsJiAJwK3qK/oXeizECAPqD7bK19J4z9kuEbr7ORPX9MLnTQYKl6kmX3keUg==
+  dependencies:
+    "@expo/prebuild-config" "6.7.4"
+
 expo-status-bar@~1.11.1:
   version "1.11.1"
   resolved "https://registry.yarnpkg.com/expo-status-bar/-/expo-status-bar-1.11.1.tgz#a11318741d361048c11db2b16c4364a79a74af30"
@@ -4320,13 +4332,13 @@ expo-updates@~0.24.9:
     fbemitter "^3.0.0"
     resolve-from "^5.0.0"
 
-expo@~50.0.3:
-  version "50.0.3"
-  resolved "https://registry.yarnpkg.com/expo/-/expo-50.0.3.tgz#0179de2e133644464f3f71f4a1139e4719c21948"
-  integrity sha512-3Yk42YShkugC90S24Dbo0mhrq/N3Kfn30FscrjCk3o8ldXh9OdE5RhVi/mc5Cqp28nw5a4DfiGSDFs0mA0t2ng==
+expo@~50.0.5:
+  version "50.0.5"
+  resolved "https://registry.yarnpkg.com/expo/-/expo-50.0.5.tgz#16c13eca981990fce2c884e974885935aca74da8"
+  integrity sha512-gfZbJv8eqVG1xX8QqlQHF4Mn6HnLFuE14Kq5FRUVZQWE+IhlrP+mr+un7Zdp/3a63Bp/VkPzHi77G1bVP1pM7A==
   dependencies:
     "@babel/runtime" "^7.20.0"
-    "@expo/cli" "0.17.2"
+    "@expo/cli" "0.17.4"
     "@expo/config" "8.5.4"
     "@expo/config-plugins" "7.8.4"
     "@expo/metro-config" "0.17.3"
@@ -6906,7 +6918,7 @@ prompts@^2.3.2, prompts@^2.4.2:
     kleur "^3.0.3"
     sisteransi "^1.0.5"
 
-prop-types@15.x.x, prop-types@^15.7.2, prop-types@^15.8.1:
+prop-types@15.x.x, prop-types@^15.5.10, prop-types@^15.6.2, prop-types@^15.7.2, prop-types@^15.8.1:
   version "15.8.1"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.8.1.tgz#67d87bf1a694f48435cf332c24af10214a3140b5"
   integrity sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==
@@ -7031,6 +7043,15 @@ react-native-get-location@^4.0.1:
   resolved "https://registry.yarnpkg.com/react-native-get-location/-/react-native-get-location-4.0.1.tgz#0687e224889f33420377bd0d716f4136af9129df"
   integrity sha512-blDWHI7f+gfzXbrrlFNRjpVMuuMTng3hsKR0Yi3iPNIM5LRs0EJDYvvdQaauFk7mJPryOxRE3+A5XAr+3kkpFg==
 
+react-native-insta-story@^1.1.9:
+  version "1.1.9"
+  resolved "https://registry.yarnpkg.com/react-native-insta-story/-/react-native-insta-story-1.1.9.tgz#490b44b5287c993f8ce4aa4a13ef58e09ec49f92"
+  integrity sha512-ugWgr4QZuZrSnDRyhhNF38QuLCxchthVBqrn5EESar7NWdxnJeFmlWt8tF03SKhbBgPVvu5T9FYaLHn/4zuNiQ==
+  dependencies:
+    prop-types "^15.6.2"
+    react-native-modalbox "^2.0.2"
+    react-native-swipe-gestures "^1.0.5"
+
 react-native-iphone-x-helper@^1.3.0:
   version "1.3.1"
   resolved "https://registry.yarnpkg.com/react-native-iphone-x-helper/-/react-native-iphone-x-helper-1.3.1.tgz#20c603e9a0e765fd6f97396638bdeb0e5a60b010"
@@ -7042,6 +7063,13 @@ react-native-maps@^1.10.0:
   integrity sha512-Zs6lHZucEijTwkRVFyInMbPVkJ2UudDEI2fJPc8ArdzdnwDFAdL6OagqTjNRZyI1DBPHRihazfIWpy2+X1VwLg==
   dependencies:
     "@types/geojson" "^7946.0.13"
+
+react-native-modalbox@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/react-native-modalbox/-/react-native-modalbox-2.0.2.tgz#8a7b3d2e7be79b5d1cb9530b2c6bc535b1bc8c66"
+  integrity sha512-uSuoZ+siPPNqWGyw8NXhA/Aots7mOx2+qijFoeovequY0kczZEPZDd0ARHbzg+1cE3H3AATJEwGdkVA8lUxs0g==
+  dependencies:
+    prop-types "^15.5.10"
 
 react-native-navigation@^7.37.2:
   version "7.37.2"
@@ -7084,6 +7112,11 @@ react-native-svg@14.1.0:
   dependencies:
     css-select "^5.1.0"
     css-tree "^1.1.3"
+
+react-native-swipe-gestures@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/react-native-swipe-gestures/-/react-native-swipe-gestures-1.0.5.tgz#a172cb0f3e7478ccd681fd36b8bfbcdd098bde7c"
+  integrity sha512-Ns7Bn9H/Tyw278+5SQx9oAblDZ7JixyzeOczcBK8dipQk2pD7Djkcfnf1nB/8RErAmMLL9iXgW0QHqiII8AhKw==
 
 react-native@0.73.2:
   version "0.73.2"

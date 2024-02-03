@@ -26,6 +26,14 @@
         {
           "photosPermission": "The app accesses your photos to let you share them with your friends."
         }
+      ],
+      [
+        "expo-font",
+        {
+          "fonts": [
+            "./src/assets/fonts/FormaDJRCyrillicText.ttf"
+          ]
+        }
       ]
     ],
     "splash": {
@@ -33,11 +41,13 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": false,
       "bundleIdentifier": "com.shapiniony.sightquest",
-      "buildNumber": "3",
+      "buildNumber": "5",
       "infoPlist": {
         "NSLocationWhenInUseUsageDescription": "This app uses your location to give you hints on navigating the city.",
         "NSLocationAlwaysAndWhenInUseUsageDescription": "This app uses your location to give you hints on navigating the city.",
@@ -48,7 +58,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.shapiniony.sightquest"
     },
     "web": {
       "favicon": "./assets/favicon.png"
