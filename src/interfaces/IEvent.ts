@@ -35,7 +35,7 @@ export interface ISettingsUpdate extends IEvent {
 }
 
 export interface IAuthorization extends IEvent {
-  event: 'settings_update';
+  event: 'authorization';
   token: string;
 }
 

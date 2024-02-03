@@ -74,7 +74,8 @@ const state: IGameState & { markers: IQuestPoint[] } = {
   time_left: new Date(),
   settings: {
     quest_points: [],
-    time: new Date(),
+    duration: new Date(),
+    mode: 'base',
   },
   state: 'lobby',
   markers: [
