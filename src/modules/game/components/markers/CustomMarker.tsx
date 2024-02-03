@@ -1,3 +1,4 @@
+import { CustomText } from '@/components/ui/custom-text';
 import { IQuestPoint } from '@/interfaces/IQuestPoint';
 import { Image, Text, View } from 'react-native';
 import { Marker } from 'react-native-maps';
@@ -38,10 +39,14 @@ export const CustomMarker = ({
             className='h-34 w-56 bg-white py-2 px-3 rounded-3xl -left-2 bottom-11 z-10 absolute'
           >
             <View className='flex flex-row items-center justify-between pb-1'>
-              <Text className='text-lg'>{point.title}</Text>
-              <Text className='text-xs text-slate-700'>({(distance / 1000).toFixed(2)}km)</Text>
+              <CustomText size='lg'>{point.title}</CustomText>
+              <CustomText size='xs'>
+                {`(${(distance / 1000).toFixed(2)}km)`}
+              </CustomText>
             </View>
-            <Text className='text-xs text-slate-700 pb-5'>{point.description}</Text>
+            <Text className='text-xs text-slate-700 pb-5'>
+              {point.description}
+            </Text>
           </Animated.View>
         )}
       </View>

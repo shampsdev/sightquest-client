@@ -3,7 +3,7 @@ import { RegisteredStyle, StyleSheet, Text, TextStyle } from 'react-native';
 
 type IText = {
   children?: string;
-  size?: 'lg' | 'xl' | '2xl' | '3xl';
+  size?: 'xs' | 'lg' | 'xl' | '2xl' | '3xl';
   styles?: TextStyle | RegisteredStyle<TextStyle>;
 };
 
@@ -11,9 +11,7 @@ export function CustomText({ children, size, styles }: IText) {
   const textSizeStyles = getSizeStyles(size);
 
   return (
-    <Text style={[textStyles.text, textSizeStyles, styles]}>
-      {children}
-    </Text>
+    <Text style={[textStyles.text, textSizeStyles, styles]}>{children}</Text>
   );
 }
 
@@ -23,8 +21,10 @@ const textStyles = StyleSheet.create({
   },
 });
 
-const getSizeStyles = (size?: 'lg' | 'xl' | '2xl' | '3xl') => {
+const getSizeStyles = (size?: 'xs' | 'lg' | 'xl' | '2xl' | '3xl') => {
   switch (size) {
+    case 'xs':
+      return { fontSize: 12 };
     case 'lg':
       return { fontSize: 18 };
     case 'xl':

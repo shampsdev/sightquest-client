@@ -41,7 +41,7 @@ export const Timer = () => {
 
   return (
     <View className='h-20 flex-row'>
-      <View className='absolute h-20 bg-[#E5E5E5] rounded-2xl flex justify-center items-center px-8'>
+      <View className='absolute h-20 bg-[#E5E5E5] w-68 rounded-2xl flex justify-center items-center px-8'>
         <CustomText size='3xl'>
           {`${time.hours.toString().padStart(2, '0')}:  ${time.minutes
             .toString()

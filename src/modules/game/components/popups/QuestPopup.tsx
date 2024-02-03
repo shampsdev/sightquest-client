@@ -1,7 +1,7 @@
 import { IQuestPoint } from '@/interfaces/IQuestPoint';
 import { Image, Text, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { useMapStore } from '../store/useMapStore';
+import { useMapStore } from '../../store/useMapStore';
 import { useNavigation } from '@react-navigation/native';
 import Animated, { ZoomIn } from 'react-native-reanimated';
 import { StackNavigationProp } from '@react-navigation/stack';

@@ -1,6 +1,6 @@
 import { View, TouchableOpacity, Text, Image } from 'react-native';
 import Animated, { ZoomIn } from 'react-native-reanimated';
-import { useMapStore } from '../store/useMapStore';
+import { useMapStore } from '../../store/useMapStore';
 import { IQuestCompleted } from '@/interfaces/IEvent';
 
 interface IPopupProps {

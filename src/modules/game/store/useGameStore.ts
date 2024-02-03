@@ -9,10 +9,10 @@ interface IGameStateActions {
 }
 
 export const useGameStore = create<IGameState & IGameStateActions>((set) => ({
-  id: 1,
+  code: '1345',
   players: [],
   time_left: new Date(),
-  rules: {
+  settings: {
     quest_points: [
       {
         title: 'Спас на Крови',
@@ -21,6 +21,7 @@ export const useGameStore = create<IGameState & IGameStateActions>((set) => ({
         location: { latitude: 59.940148, longitude: 30.328847 },
         photo:
           'https://lh3.googleusercontent.com/p/AF1QipMM3V5X_dNT9Fv6Jp8atoWyjs6UYBBDtxDtzwdp=s1360-w1360-h1020',
+        tasks: [],
       },
       {
         title: 'Исаакиевский Собор',
@@ -29,6 +30,7 @@ export const useGameStore = create<IGameState & IGameStateActions>((set) => ({
         location: { latitude: 59.934095, longitude: 30.306118 },
         photo:
           'https://lh3.googleusercontent.com/p/AF1QipOn-baVgB54Mp1S2evwchGUwDT1P3nErl_IJcKE=s1360-w1360-h1020',
+        tasks: [],
       },
       {
         title: 'Петропавловская Крепость',
@@ -37,19 +39,12 @@ export const useGameStore = create<IGameState & IGameStateActions>((set) => ({
         location: { latitude: 59.949874, longitude: 30.315384 },
         photo:
           'https://avatars.mds.yandex.net/get-altay/1881820/2a0000016ae309b684b391e345b4b2ca894a/XXXL',
+        tasks: [],
       },
     ],
     time: new Date(),
   },
-  ads: [
-    {
-      src: 'https://i6.photo.2gis.com/images/branch/0/30258560060372674_1b94.jpg',
-      coordinates: {
-        latitude: 59.958752,
-        longitude: 30.306332,
-      },
-    },
-  ],
+  state: 'playing',
   updateGameState: (state) => set(state),
   updatePlayerPosition: (user, coordinates) => {
     set((state) => {

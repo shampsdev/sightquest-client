@@ -7,5 +7,7 @@ export const useUserInterface = () => {
     questPoint: mapState.slected_quest_point,
     setQuestPoint: mapState.setSelectedQuestPoint,
     updatePopup: mapState.update_popup,
+    setRotationPopup: mapState.setRotationPopup,
+    rotationPopup: mapState.rotation_popup,
   };
 };

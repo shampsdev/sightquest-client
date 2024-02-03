@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
 import MapView, { MapType } from 'react-native-maps';
-import { CustomMarker } from '../modules/game/components/CustomMarker';
-import { QuestPopup } from '../modules/game/components/QuestPopup';
+import { CustomMarker } from '../modules/game/components/markers/CustomMarker';
+import { QuestPopup } from '../modules/game/components/popups/QuestPopup';
 import { useRef, useState } from 'react';
-import { PlayerMarker } from '../modules/game/components/PlayerMarker';
+import { PlayerMarker } from '../modules/game/components/markers/PlayerMarker';
 import { ICoords } from '@/interfaces/ICoords';
 import { Platform, View } from 'react-native';
-import { EventPopup } from '../modules/game/components/EventPopup';
+import { EventPopup } from '../modules/game/components/popups/EventPopup';
 import { GameBottomDrawer } from '@/modules/game/components/GameBottomDrawer';
 import { IGameState } from '@/interfaces/IGameState';
 import { IUserState } from '@/interfaces/IUserState';
@@ -20,6 +20,7 @@ import { CoinsIcon } from '@/assets/icons/coins.icon';
 import VelocityIcon from '@/assets/icons/velocity.icon';
 import { Timer } from '@/modules/game/components/Timer';
 import { CustomText } from '@/components/ui/custom-text';
+import { RotationPopup } from '@/modules/game/components/popups/RotationPopup';
 
 const player: IUserState = {
   user: {
@@ -38,7 +39,37 @@ const player: IUserState = {
 };
 
 const state: IGameState & { markers: IQuestPoint[] } = {
-  players: [player],
+  players: [
+    player,
+    {
+      user: {
+        id: 1,
+        username: 'mityaiii',
+        avatar: 'https://avatars.githubusercontent.com/u/93881631?v=4',
+      },
+      coordinates: {
+        latitude: 59.95015,
+        longitude: 30.298,
+      },
+      role: 'runner',
+      completed: [],
+      secret: '',
+    },
+    {
+      user: {
+        id: 2,
+        username: 'vaniog',
+        avatar: 'https://avatars.githubusercontent.com/u/79862574?v=4',
+      },
+      coordinates: {
+        latitude: 59.94515,
+        longitude: 30.299,
+      },
+      role: 'catcher',
+      completed: [],
+      secret: '',
+    },
+  ],
   code: 'abcd1234',
   time_left: new Date(),
   settings: {
@@ -105,19 +136,30 @@ export const GameScreen = () => {
     }
   }, [player, traking]);
 
-  const measure = (lat1: number, lon1: number, lat2: number, lon2: number) => {
+  const measure = (coordinates1: ICoords, coordinates2: ICoords) => {
     const R = 6378.137;
-    const dLat = (lat2 * Math.PI) / 180 - (lat1 * Math.PI) / 180;
-    const dLon = (lon2 * Math.PI) / 180 - (lon1 * Math.PI) / 180;
+    const dLat =
+      (coordinates2.latitude * Math.PI) / 180 -
+      (coordinates1.latitude * Math.PI) / 180;
+    const dLon =
+      (coordinates2.longitude * Math.PI) / 180 -
+      (coordinates1.longitude * Math.PI) / 180;
     const a =
       Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-      Math.cos((lat1 * Math.PI) / 180) *
-        Math.cos((lat2 * Math.PI) / 180) *
+      Math.cos((coordinates1.latitude * Math.PI) / 180) *
+        Math.cos((coordinates2.latitude * Math.PI) / 180) *
         Math.sin(dLon / 2) *
         Math.sin(dLon / 2);
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     const d = R * c;
     return d * 1000; // meters
+  };
+
+  const inRange = () => {
+    const runners = state.players.filter((x) => x.role == 'runner');
+    return runners.some(
+      (x) => measure(x.coordinates, player.coordinates) <= 100
+    );
   };
 
   return (
@@ -164,11 +206,11 @@ export const GameScreen = () => {
               key={index}
               user={x.user}
               coordinates={x.coordinates}
-              role={'runner'}
+              role={x.role}
               extended={
                 Math.abs(coords.latitude - x.coordinates.latitude) +
                   Math.abs(coords.longitude - x.coordinates.longitude) >
-                0.005
+                  0.005 || x.user.id == player.user.id
                   ? false
                   : true
               }
@@ -200,10 +242,11 @@ export const GameScreen = () => {
               ui.setQuestPoint(x);
             }}
             distance={measure(
-              59.9311,
-              30.3609,
-              x.location.latitude,
-              x.location.longitude
+              {
+                latitude: 59.9311,
+                longitude: 30.3609,
+              },
+              x.location
             )}
             point={x}
           />
@@ -267,7 +310,21 @@ export const GameScreen = () => {
       )}
       {ui.questPoint && <QuestPopup questPoint={ui.questPoint} />}
       {ui.updatePopup && <EventPopup questCompleted={ui.updatePopup} />}
-      <GameBottomDrawer mapRef={mapRef} questPoints={state.markers} />
+      {ui.rotationPopup && <RotationPopup />}
+      {player.role == 'runner' && (
+        <GameBottomDrawer mapRef={mapRef} questPoints={state.markers} />
+      )}
+      {player.role == 'catcher' && inRange() && (
+        <View className='rounded-3xl absolute z-10 bottom-8 bg-white left-2 right-2  h-20 flex justify-center items-center'>
+          <TouchableOpacity
+            onPress={() => {
+              console.log('yes');
+            }}
+          >
+            <CustomText size='xl'>Поймать</CustomText>
+          </TouchableOpacity>
+        </View>
+      )}
     </>
   );
 };
