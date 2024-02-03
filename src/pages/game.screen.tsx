@@ -119,8 +119,7 @@ export const GameScreen = () => {
   return (
     <>
       <View className='absolute left-4 right-4 top-14 z-20 bg-[#E5E5E5] h-20 rounded-3xl justify-center p-4'>
-        <Text className='text-xl w-fit'>Задание выполнено!</Text>
-        <Text className='text-xl w-fit'>Задание выполнено!</Text>
+        <Text className='text-xl w-fit'>Вы бегун!</Text>
       </View>
       <MapView
         ref={mapRef}
