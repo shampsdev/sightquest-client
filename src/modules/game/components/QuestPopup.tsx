@@ -20,7 +20,7 @@ export const QuestPopup = ({ questPoint }: IPopupProps) => {
       entering={ZoomIn.delay(200).duration(200).springify()}
       className='absolute w-full h-full'
     >
-      <View className='bg-[#CACACA] rounded-3xl overflow-hidden mt-52 mx-5'>
+      <View className='bg-[#CACACA] rounded-3xl overflow-hidden mt-60 mx-5'>
         <View className='p-5 space-y-5 flex justify-between'>
           <Text className='font-bold text-2xl text-center'>
             {questPoint.title}

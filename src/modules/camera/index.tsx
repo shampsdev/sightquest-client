@@ -1,25 +1,26 @@
 import React, { useRef, useState } from 'react';
+import { TouchableOpacity, View, Text, Button, Image } from 'react-native';
 import {
-  TouchableOpacity,
-  View,
-  Text,
-  StyleSheet,
-  Button,
-  Image,
-} from 'react-native';
-import { Camera, CameraCapturedPicture, CameraType } from 'expo-camera';
+  Camera,
+  CameraCapturedPicture,
+  CameraType,
+  FlashMode,
+} from 'expo-camera';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../navigation/root-navigator';
-import { useGame } from '../game/hooks/useGame';
+import { CustomText } from '@/components/ui/custom-text';
+import { FlashIcon } from '@/assets/icons/flash.icon';
+import { PhotoButtonIcon } from '@/assets/icons/photo-button.icon';
+import { BackArrowIcon } from '@/assets/icons/back-arrow.icon';
+import { TickIcon } from '@/assets/icons/tick.icon';
 
 export const CameraModule = () => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
   const [permission, requestPermission] = Camera.useCameraPermissions();
   const cameraRef = useRef<Camera>(null);
   const [data, setData] = useState<CameraCapturedPicture>();
-
-  const { state, ui } = useGame();
+  const [flashMode, setFlashMode] = useState<FlashMode>(FlashMode.auto);
 
   if (!permission) {
     return <View />;
@@ -27,7 +28,7 @@ export const CameraModule = () => {
 
   if (!permission.granted) {
     return (
-      <View style={styles.container}>
+      <View className='flex justify-center items-center'>
         <Text style={{ textAlign: 'center' }}>
           We need your permission to show the camera
         </Text>
@@ -39,71 +40,59 @@ export const CameraModule = () => {
   return (
     <View className='w-full h-full'>
       {data ? (
-        <>
-          <Image source={{ uri: data.uri }} className='h-full w-full'></Image>
-          <View className='bottom-20 mx-auto z-10 absolute flex w-full justify-center items-center flex-row gap-5'>
-            <TouchableOpacity
-              onPress={async () => {
-                ui.setQuestPoint(null);
-                state.updateQuestCompleted(data.uri);
-                navigation.goBack();
-              }}
-            >
-              <View className='bg-white p-5 rounded-full w-20'>
-                <Text className='text-center'>Use</Text>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={async () => {
-                setData(undefined);
-              }}
-            >
-              <View className='bg-white p-5 rounded-full'>
-                <Text>Retake</Text>
-              </View>
-            </TouchableOpacity>
-          </View>
-        </>
+        <Image src={data.uri} className='h-full w-full'></Image>
       ) : (
-        <>
-          <Camera
-            ref={cameraRef}
-            style={styles.camera}
-            type={CameraType.back}
-            autoFocus={true}
-          ></Camera>
+        <Camera
+          flashMode={flashMode}
+          ref={cameraRef}
+          style={{
+            flex: 1,
+          }}
+          type={CameraType.back}
+          autoFocus={true}
+        ></Camera>
+      )}
+      <View className='absolute pt-10 h-32 w-full bg-[#EAEAEA] rounded-b-3xl top-0 flex justify-center items-center'>
+        <CustomText size='xl'>Сделай фото</CustomText>
+      </View>
+      {data && (
+        <TouchableOpacity
+          onPress={() => {
+            navigation.goBack();
+          }}
+          className='h-20 w-20 bg-[#EAEAEA] rounded-3xl absolute bottom-32 right-0 z-20 m-5 flex justify-center items-center'
+        >
+          <TickIcon />
+        </TouchableOpacity>
+      )}
+      <View className='absolute h-32 w-full bg-[#EAEAEA] rounded-t-3xl bottom-0 items-center flex-row'>
+        <View className='w-3/4 flex flex-row mx-auto items-center'>
           <TouchableOpacity
-            className='top-10 left-5 absolute'
             onPress={() => {
               navigation.goBack();
             }}
           >
-            <View className='p-5 rounded-full'>
-              <Text className='text-white font-bold text-xl'>X</Text>
-            </View>
+            <BackArrowIcon />
           </TouchableOpacity>
           <TouchableOpacity
-            className='bottom-20 mx-auto z-10 absolute flex w-full justify-center items-center'
+            className='mx-auto z-10 flex'
             onPress={async () => {
               setData(await cameraRef.current?.takePictureAsync());
             }}
           >
-            <View className='bg-white p-5 rounded-full'>
-              <Text>Take Pic</Text>
-            </View>
+            <PhotoButtonIcon />
           </TouchableOpacity>
-        </>
-      )}
+          <TouchableOpacity
+            onPress={() => {
+              setFlashMode(
+                flashMode == FlashMode.on ? FlashMode.off : FlashMode.on
+              );
+            }}
+          >
+            <FlashIcon fill={flashMode == FlashMode.on ? 'black' : 'none'} />
+          </TouchableOpacity>
+        </View>
+      </View>
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-  },
-  camera: {
-    flex: 1,
-  },
-});

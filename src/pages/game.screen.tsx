@@ -5,7 +5,7 @@ import { QuestPopup } from '../modules/game/components/QuestPopup';
 import { useRef, useState } from 'react';
 import { PlayerMarker } from '../modules/game/components/PlayerMarker';
 import { ICoords } from '@/interfaces/ICoords';
-import { Platform, Text, View } from 'react-native';
+import { Platform, View } from 'react-native';
 import { EventPopup } from '../modules/game/components/EventPopup';
 import { GameBottomDrawer } from '@/modules/game/components/GameBottomDrawer';
 import { IGameState } from '@/interfaces/IGameState';
@@ -15,6 +15,11 @@ import { useUserInterface } from '@/modules/game/hooks/useUserInterface';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { PerkIcon } from '@/assets/icons/perk.icon';
 import { LocationIcon } from '@/assets/icons/location.icon';
+import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
+import { CoinsIcon } from '@/assets/icons/coins.icon';
+import VelocityIcon from '@/assets/icons/velocity.icon';
+import { Timer } from '@/modules/game/components/Timer';
+import { CustomText } from '@/components/ui/custom-text';
 
 const player: IUserState = {
   user: {
@@ -34,7 +39,7 @@ const player: IUserState = {
 
 const state: IGameState & { markers: IQuestPoint[] } = {
   players: [player],
-  id: 0,
+  code: 'abcd1234',
   time_left: new Date(),
   settings: {
     quest_points: [],
@@ -118,8 +123,18 @@ export const GameScreen = () => {
 
   return (
     <>
-      <View className='absolute left-4 right-4 top-14 z-20 bg-[#E5E5E5] h-20 rounded-3xl justify-center p-4'>
-        <Text className='text-xl w-fit'>Вы бегун!</Text>
+      <View className='absolute left-4 right-4 top-20 z-20 gap-y-5'>
+        <Timer />
+        <View className='h-12 flex-row'>
+          <View className='absolute h-12 w-24 bg-[#afafaf] rounded-2xl left-16 flex justify-center items-center flex-row'>
+            <CoinsIcon className='mr-2' />
+            <CustomText>20</CustomText>
+          </View>
+          <View className='absolute h-12 w-20 bg-[#E5E5E5] rounded-2xl flex justify-center items-center flex-row'>
+            <VelocityIcon className='mr-2' />
+            <CustomText>20</CustomText>
+          </View>
+        </View>
       </View>
       <MapView
         ref={mapRef}
@@ -195,7 +210,10 @@ export const GameScreen = () => {
           />
         ))}
       </MapView>
-      <View className='absolute right-0 bottom-[15%] flex gap-y-3 pr-2 pb-3'>
+      <View
+        className='absolute right-0 bottom-[15%] flex gap-y-3 pr-2 pb-3'
+        style={{ zIndex: perkMenu ? 30 : 0 }}
+      >
         <TouchableOpacity
           className='h-20 w-20 rounded-3xl bg-white flex items-center justify-center p-2'
           onPress={() => {
@@ -213,6 +231,41 @@ export const GameScreen = () => {
           <LocationIcon fill={traking ? 'black' : 'none'} />
         </TouchableOpacity>
       </View>
+      {perkMenu && (
+        <Animated.View
+          entering={FadeIn}
+          exiting={FadeOut}
+          className='w-full h-full absolute z-20'
+        >
+          <View className='w-full h-full bg-black opacity-40'></View>
+          <View className='absolute bottom-[15%] flex gap-y-5 pr-2 pb-3 z-30'>
+            <TouchableOpacity
+              className='h-20 w-20 rounded-full bg-white flex items-center justify-center p-2'
+              onPress={() => {
+                setPerkMenu(!perkMenu);
+              }}
+            >
+              <PerkIcon />
+            </TouchableOpacity>
+            <TouchableOpacity
+              className='h-20 w-20 rounded-full bg-white flex items-center justify-center p-2'
+              onPress={() => {
+                setPerkMenu(!perkMenu);
+              }}
+            >
+              <PerkIcon />
+            </TouchableOpacity>
+            <TouchableOpacity
+              className='h-20 w-20 rounded-full bg-white flex items-center justify-center p-2'
+              onPress={() => {
+                setPerkMenu(!perkMenu);
+              }}
+            >
+              <PerkIcon />
+            </TouchableOpacity>
+          </View>
+        </Animated.View>
+      )}
       {ui.questPoint && <QuestPopup questPoint={ui.questPoint} />}
       {ui.updatePopup && <EventPopup questCompleted={ui.updatePopup} />}
       <GameBottomDrawer mapRef={mapRef} questPoints={state.markers} />
