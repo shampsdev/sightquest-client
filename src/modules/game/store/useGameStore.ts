@@ -41,6 +41,15 @@ export const useGameStore = create<IGameState & IGameStateActions>((set) => ({
     ],
     time: new Date(),
   },
+  ads: [
+    {
+      src: 'https://i6.photo.2gis.com/images/branch/0/30258560060372674_1b94.jpg',
+      coordinates: {
+        latitude: 59.958752,
+        longitude: 30.306332,
+      },
+    },
+  ],
   updateGameState: (state) => set(state),
   updatePlayerPosition: (user, coordinates) => {
     set((state) => {
