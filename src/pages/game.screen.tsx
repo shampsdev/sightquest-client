@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
 import MapView, { MapType } from 'react-native-maps';
-import { CustomMarker } from '../modules/game/components/markers/CustomMarker';
-import { QuestPopup } from '../modules/game/components/popups/QuestPopup';
+import { CustomMarker } from '@/modules/game/components/markers/CustomMarker';
+import { QuestPopup } from '@/modules/game/components/popups/QuestPopup';
 import { useRef, useState } from 'react';
 import { PlayerMarker } from '../modules/game/components/markers/PlayerMarker';
 import { ICoords } from '@/interfaces/ICoords';
 import { Platform, View } from 'react-native';
-import { EventPopup } from '../modules/game/components/popups/EventPopup';
+import { EventPopup } from '@/modules/game/components/popups/EventPopup';
 import { GameBottomDrawer } from '@/modules/game/components/GameBottomDrawer';
 import { IGameState } from '@/interfaces/IGameState';
 import { IUserState } from '@/interfaces/IUserState';
