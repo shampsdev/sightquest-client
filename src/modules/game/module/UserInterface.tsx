@@ -1,6 +1,5 @@
 import { CoinsIcon } from '@/assets/icons/coins.icon';
 import { LocationIcon } from '@/assets/icons/location.icon';
-import { PerkIcon } from '@/assets/icons/perk.icon';
 import VelocityIcon from '@/assets/icons/velocity.icon';
 import { CustomText } from '@/components/ui/custom-text';
 import { View, TouchableOpacity } from 'react-native';
@@ -18,7 +17,6 @@ import { useGame } from '../hooks/useGame';
 export const UserInterface = ({ mapRef }: { mapRef: RefObject<MapView> }) => {
   const {
     perkMenu,
-    setPerkMenu,
     tracking,
     setTracking,
     questPoint,
@@ -47,14 +45,14 @@ export const UserInterface = ({ mapRef }: { mapRef: RefObject<MapView> }) => {
         className='absolute right-0 bottom-[15%] flex gap-y-3 pr-2 pb-3'
         style={{ zIndex: perkMenu ? 30 : 0 }}
       >
-        <TouchableOpacity
+        {/* <TouchableOpacity
           className='h-20 w-20 rounded-3xl bg-white flex items-center justify-center p-2'
           onPress={() => {
             setPerkMenu(!perkMenu);
           }}
         >
           <PerkIcon />
-        </TouchableOpacity>
+        </TouchableOpacity> */}
         <TouchableOpacity
           className='h-20 w-20 rounded-3xl bg-white flex items-center justify-center p-2'
           onPress={() => {

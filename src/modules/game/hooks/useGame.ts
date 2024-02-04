@@ -7,20 +7,14 @@ import { ILocationUpdate, ITaskCompleted } from '@/interfaces/IEvent';
 import { measure } from '../lib/helper-functions';
 import { useSockets } from './useSockets';
 import { useLocation } from './useLocation';
-import { IUser } from '@/interfaces/IUser';
+import { useAuth } from '@/modules/auth/hooks/useAuth';
 
 export const useGame = () => {
   const gameState = useGameStore((store) => store);
   const sockets = useSockets();
   const location = useLocation();
 
-  // const { user } = useAuth();
-  const user: IUser = {
-    id: 2,
-    username: 'mike',
-    avatar:
-      'https://media.licdn.com/dms/image/D4E03AQEZcX3i65uV9g/profile-displayphoto-shrink_800_800/0/1681386993606?e=2147483647&v=beta&t=6xXgX1YBGZNI17rfS5vadMzxfSAW4nnqp-kyZsIrjg4',
-  };
+  const { user } = useAuth();
   if (user == null) throw Error('No user found!');
 
   const createLobby = async () => {
@@ -55,6 +49,7 @@ export const useGame = () => {
       case 'quest_completed':
         break;
       case 'location_update':
+        gameState.updatePlayerPosition(message.user, message.coordinates);
         break;
       case 'authorization':
         break;
@@ -75,7 +70,7 @@ export const useGame = () => {
     const locationUpdate: ILocationUpdate = {
       event: 'location_update',
       user: user,
-      timestamp: new Date(),
+      timestamp: new Date().toDateString(),
       coordinates,
     };
 
@@ -89,7 +84,7 @@ export const useGame = () => {
     const updateQuestCompleted: ITaskCompleted = {
       event: 'task_completed',
       user: user,
-      timestamp: new Date(),
+      timestamp: new Date().toDateString(),
       photo: photo,
       task_id: 0,
     };

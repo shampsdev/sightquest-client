@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { View } from 'react-native';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import * as ImagePicker from 'expo-image-picker';
@@ -17,17 +17,20 @@ import { CharacteristicBar } from '@/components/ui/characteristic-bar';
 import SpeedIcon from '@/assets/icons/speed.icon';
 import TimeIcon from '@/assets/icons/time.icon';
 import { CircleImage } from '@/components/ui/CircleImage';
+import { useAuth } from '@/modules/auth/hooks/useAuth';
 
-const purchases = [4, 6]
-const values = [1, 2, 3]
+const purchases = [4, 6];
+const values = [1, 2, 3];
 
 const lastPlayersText = `Последние
-с кем играли`
+с кем играли`;
 
 export const ProfileScreen = () => {
-  const [image, setImage] = useState<string>();
+  // const [image, setImage] = useState<string>();
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
-  
+
+  const { user } = useAuth();
+
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
     const result = await ImagePicker.launchImageLibraryAsync({
@@ -38,115 +41,142 @@ export const ProfileScreen = () => {
     });
 
     if (!result.canceled) {
-      setImage(result.assets[0].uri);
+      // setImage(result.assets[0].uri);
     }
   };
 
   return (
-    <ScrollView 
+    <ScrollView
       style={{
         paddingTop: '13%',
         backgroundColor: colors.background,
       }}
     >
       <Layout>
-        <ScreenHeader/>
-        <View style={{
-          gap: 16
-        }}>
-          <View style={{
-            gap: 8,
-            flexDirection: 'row',
-          }}>
-
+        <ScreenHeader />
+        <View
+          style={{
+            gap: 16,
+          }}
+        >
+          <View
+            style={{
+              gap: 8,
+              flexDirection: 'row',
+            }}
+          >
             <View
-              style={[globalStyles.border, {
-                width: '66%',
-                gap: 16
-              }]}
+              style={[
+                globalStyles.border,
+                {
+                  width: '66%',
+                  gap: 16,
+                },
+              ]}
             >
-              
               <View className='flex-row justify-between items-center'>
                 <View>
-                  <CustomText size='2xl'>Виктор</CustomText>
-                  <CustomText size='lg'>_victorgezz</CustomText>
+                  <CustomText size='2xl'>{user?.username}</CustomText>
+                  {/* <CustomText size='lg'>_victorgezz</CustomText> */}
                 </View>
 
                 <TouchableOpacity
                   onPress={() => {
                     pickImage();
                   }}
-                  >
-                  <CircleImage source={image ? { uri: image } : require('@/assets/default-avatar.jpg')}/>
+                >
+                  <CircleImage
+                    source={
+                      user?.avatar ?? require('@/assets/default-avatar.jpg')
+                    }
+                  />
                 </TouchableOpacity>
               </View>
-              <Edit2Icon/>
+              <Edit2Icon />
             </View>
             <View
               className='flex-1 relative'
               style={[
                 globalStyles.border,
                 {
-                  backgroundColor: colors.secondary
-                }
+                  backgroundColor: colors.secondary,
+                },
               ]}
             >
-              <View style={{
-                paddingTop: 8,
-                gap: 6
-              }} className='flex-row items-center'>
-                <CustomText styles={{
-                  color: colors.primary
-                }} size='xl'>
+              <View
+                style={{
+                  paddingTop: 8,
+                  gap: 6,
+                }}
+                className='flex-row items-center'
+              >
+                <CustomText
+                  styles={{
+                    color: colors.primary,
+                  }}
+                  size='xl'
+                >
                   290
                 </CustomText>
-                <CoinsIcon
-                  stroke={colors.primary}
-                />
+                <CoinsIcon stroke={colors.primary} />
               </View>
 
-              <CustomText styles={{
-                position: 'absolute',
-                bottom: 16,
-                left: 8,
-                color: colors.primary
-              }} size='lg'>Баланс</CustomText>
+              <CustomText
+                styles={{
+                  position: 'absolute',
+                  bottom: 16,
+                  left: 8,
+                  color: colors.primary,
+                }}
+                size='lg'
+              >
+                Баланс
+              </CustomText>
             </View>
           </View>
 
-          <View style={{
-            gap: 8,
-            flexDirection: 'row-reverse',
-          }}>
+          <View
+            style={{
+              gap: 8,
+              flexDirection: 'row-reverse',
+            }}
+          >
             <View
-              style={[globalStyles.border, {
-                width: '66%',
-                gap: 16,
-                backgroundColor: colors.secondary,
-              }]}
+              style={[
+                globalStyles.border,
+                {
+                  width: '66%',
+                  gap: 16,
+                  backgroundColor: colors.secondary,
+                },
+              ]}
             >
-              <CustomText styles={{
-                color: colors.primary
-              }} size='lg'>
+              <CustomText
+                styles={{
+                  color: colors.primary,
+                }}
+                size='lg'
+              >
                 {lastPlayersText}
               </CustomText>
-              <View style={{
-                position: 'relative'
-              }}>
-
-                { values.map((_, index) => (
+              <View
+                style={{
+                  position: 'relative',
+                }}
+              >
+                {values.map((_, index) => (
                   <CircleImage
                     key={index}
                     source={require('@/assets/default-avatar.jpg')}
                     styles={{
-                      left: index * 48, 
+                      left: index * 48,
                       zIndex: values.length - index,
                       borderWidth: 2,
                       borderColor: colors.primary,
-                      position: 'absolute'
+                      position: 'absolute',
                     }}
                   />
-                ))  }
+                ))}
               </View>
             </View>
 
@@ -155,99 +185,117 @@ export const ProfileScreen = () => {
                 flexGrow: 1,
                 position: 'relative',
                 borderRadius: borderRadius,
-                backgroundColor: colors.primary
+                backgroundColor: colors.primary,
               }}
             >
-              <CustomText styles={{
-                textAlign: 'center',
-                marginVertical: 4,
-              }} size='lg'>Друзья</CustomText>
+              <CustomText
+                styles={{
+                  textAlign: 'center',
+                  marginVertical: 4,
+                }}
+                size='lg'
+              >
+                Друзья
+              </CustomText>
 
-              <TouchableOpacity style={{
-                width: '100%',
-                height: 120,
-                borderRadius: borderRadius,
-                marginHorizontal: 'auto',
-                backgroundColor: colors.secondary
-              }}>
-                <PlusIcon className='m-auto'/>
+              <TouchableOpacity
+                style={{
+                  width: '100%',
+                  height: 120,
+                  borderRadius: borderRadius,
+                  marginHorizontal: 'auto',
+                  backgroundColor: colors.secondary,
+                }}
+              >
+                <PlusIcon className='m-auto' />
               </TouchableOpacity>
             </View>
           </View>
 
-          <View
-            style={globalStyles.border}
-          >
+          <View style={globalStyles.border}>
             <View className='flex-row items-center justify-between px-4'>
               <CustomText size='lg'>Ваши покупки</CustomText>
               <TouchableOpacity
                 onPress={() => navigation.navigate('StoreScreen')}
               >
-                <PlusIcon
-                  fill='black'
-                />
+                <PlusIcon fill='black' />
               </TouchableOpacity>
             </View>
-              
-            { 
-            purchases.length === 0
-            ?
-            <CustomText styles={{
-              paddingHorizontal: 16,
-              paddingTop: 16,
-            }}>У вас нет активных способностей</CustomText>
-            : 
-            purchases.map((_, indx) => (
-              <View key={indx} className='my-2 w-full h-12 rounded-full flex-row justify-between pr-4 bg-secondary items-center'>
-              <View className='border-2 border-secondary bg-primary rounded-full h-full'>
-                <PlusIcon 
-                  className='mx-[10px] my-auto'
-                  fill='black'
-                />
-              </View>
-              <CustomText styles={{
-                color: colors.primary
-              }}>Невидимка</CustomText>
-              <View style={{
-                flexDirection: 'row',
-                gap: 4,
-                alignItems: 'center'
-              }}>
-                <CustomText styles={{
-                  color: colors.primary
-                }}>310</CustomText>
-                <CoinsIcon
-                  stroke={colors.primary}
-                />
-              </View>
-            </View>
-            ))
-            }
+
+            {purchases.length === 0 ? (
+              <CustomText
+                styles={{
+                  paddingHorizontal: 16,
+                  paddingTop: 16,
+                }}
+              >
+                У вас нет активных способностей
+              </CustomText>
+            ) : (
+              purchases.map((_, indx) => (
+                <View
+                  key={indx}
+                  className='my-2 w-full h-12 rounded-full flex-row justify-between pr-4 bg-secondary items-center'
+                >
+                  <View className='border-2 border-secondary bg-primary rounded-full h-full'>
+                    <PlusIcon className='mx-[10px] my-auto' fill='black' />
+                  </View>
+                  <CustomText
+                    styles={{
+                      color: colors.primary,
+                    }}
+                  >
+                    Невидимка
+                  </CustomText>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      gap: 4,
+                      alignItems: 'center',
+                    }}
+                  >
+                    <CustomText
+                      styles={{
+                        color: colors.primary,
+                      }}
+                    >
+                      310
+                    </CustomText>
+                    <CoinsIcon stroke={colors.primary} />
+                  </View>
+                </View>
+              ))
+            )}
           </View>
 
-
           <View
-            style={[globalStyles.border, 
+            style={[
+              globalStyles.border,
               {
                 marginTop: 16,
                 gap: 16,
                 paddingHorizontal: 16,
-                backgroundColor: colors.secondary
-              }
-          ]}
-          > 
-            <CustomText styles={{
-              paddingHorizontal: 16,
-              color: colors.primary
-            }} size='lg'>Ваши показатели</CustomText>
-            
+                backgroundColor: colors.secondary,
+              },
+            ]}
+          >
+            <CustomText
+              styles={{
+                paddingHorizontal: 16,
+                color: colors.primary,
+              }}
+              size='lg'
+            >
+              Ваши показатели
+            </CustomText>
+
             <CharacteristicBar
               styles={{
                 width: '100%',
               }}
               amount={5}
-              total={10} 
-              icon={<SpeedIcon/>}        
+              total={10}
+              icon={<SpeedIcon />}
             />
 
             <CharacteristicBar
@@ -255,8 +303,8 @@ export const ProfileScreen = () => {
                 width: '100%',
               }}
               amount={5}
-              total={10} 
-              icon={<TimeIcon/>}        
+              total={10}
+              icon={<TimeIcon />}
             />
 
             <CharacteristicBar
@@ -264,12 +312,12 @@ export const ProfileScreen = () => {
                 width: '100%',
               }}
               amount={1}
-              total={10} 
-              icon={<CoinsIcon/>}        
+              total={10}
+              icon={<CoinsIcon />}
             />
           </View>
 
-          <View className='h-40'/>
+          <View className='h-40' />
         </View>
       </Layout>
     </ScrollView>
