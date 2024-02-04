@@ -10,7 +10,6 @@ export const ArrowIcon = (props: SvgProps) => {
     {...props}
   >
     <Path
-      fill="#fff"
       stroke="#000"
       strokeWidth={2}
       d="M1 18.5C1 28.116 9.232 36 19.5 36 29.767 36 38 28.116 38 18.5S29.767 1 19.5 1C9.232 1 1 8.884 1 18.5Z"

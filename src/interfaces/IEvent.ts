@@ -2,9 +2,10 @@ import { ICompletedTask } from './ICompletedTask';
 import { ICoords } from './ICoords';
 import { IGameState } from './IGameState';
 import { ISettings } from './ISettings';
+import { IUser } from './IUser';
 
 interface IEvent {
-  user_id: number;
+  user: IUser;
   event:
     | 'authorization'
     | 'location_update'
@@ -13,6 +14,7 @@ interface IEvent {
     | 'start_game'
     | 'settings_update'
     | 'status'
+    | 'get_game_state'
     | 'gamestate_update';
   timestamp: Date;
 }
@@ -52,5 +54,10 @@ export interface IGamestateUpdate extends IEvent {
 
 export interface IStatusUpdate extends IEvent {
   event: 'status';
+  message: string;
+}
+
+export interface IGetGameState extends IEvent {
+  event: 'get_game_state';
   message: string;
 }

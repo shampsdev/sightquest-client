@@ -74,7 +74,7 @@ export const useGame = () => {
   const updatePlayerPosition = (coordinates: ICoords) => {
     const locationUpdate: ILocationUpdate = {
       event: 'location_update',
-      user_id: user.id,
+      user: user,
       timestamp: new Date(),
       coordinates,
     };
@@ -88,7 +88,7 @@ export const useGame = () => {
   const updateQuestCompleted = (photo: string) => {
     const updateQuestCompleted: ITaskCompleted = {
       event: 'task_completed',
-      user_id: user.id,
+      user: user,
       timestamp: new Date(),
       photo: photo,
       task_id: 0,
