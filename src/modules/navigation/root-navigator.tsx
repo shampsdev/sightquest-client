@@ -36,7 +36,6 @@ export const RootNavigator = () => {
       <Stack.Screen name='StoreScreen' component={StoreScreen} />
       <Stack.Screen name='ProfileScreen' component={ProfileScreen} />
       <Stack.Screen name='LobbyScreen' component={LobbyScreen} />
-      <Stack.Screen name='RoutesScreen' component={RoutesScreen} />
       <Stack.Screen name='GameScreen' component={GameScreen} />
       <Stack.Screen name='PromocodsScreen' component={PromocodsScreen} />
       <Stack.Screen name='Camera' component={CameraModule} />
