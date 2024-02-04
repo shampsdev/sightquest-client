@@ -15,9 +15,8 @@ export const PlayerMarker = ({
       style={{
         transform: [{ scale: 1 }],
       }}
-      className='flex justify-center items-center'
     >
-      <View className='flex items-center'>
+      <View className='flex'>
         <Image
           className='w-16 h-16 rounded-full m-2 border-4 z-20'
           // это плохо, но это тут так как nativewind кидает ошибку если сделать border-white
@@ -30,12 +29,15 @@ export const PlayerMarker = ({
           <Animated.View
             entering={FadeInLeft}
             exiting={FadeOutLeft}
-            className='h-fit w-28 left-12 py-3 top-3 bg-white rounded-lg z-10 absolute'
+            className='h-34 w-52 bg-white py-2 px-3 rounded-3xl -left-2 bottom-11 z-10 absolute'
           >
-            <Text className='text-xs text-center leading-2'>
-              {user.username}
+            <View className='flex flex-row items-center justify-between'>
+              <Text className='text-lg'>{user.username}</Text>
+              <Text className='text-lg text-slate-700'>(2.4 km)</Text>
+            </View>
+            <Text className='text-lg text-slate-700 pb-5'>
+              {role == 'catcher' ? 'ловец' : 'бегун'}
             </Text>
-            <Text className='text-[10px] text-center italic'>{role}</Text>
           </Animated.View>
         )}
       </View>

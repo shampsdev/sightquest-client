@@ -1,27 +1,29 @@
+import { ICompletedTask } from './ICompletedTask';
 import { ICoords } from './ICoords';
+import { IGameState } from './IGameState';
 import { ISettings } from './ISettings';
-import { IUser } from './IUser';
 
 interface IEvent {
-  user: IUser;
+  user_id: number;
   event:
     | 'authorization'
     | 'location_update'
-    | 'quest_completed'
+    | 'task_completed'
     | 'player_caught'
     | 'start_game'
-    | 'settings_update';
+    | 'settings_update'
+    | 'status'
+    | 'gamestate_update';
   timestamp: Date;
 }
 
 export interface ILocationUpdate extends IEvent {
   event: 'location_update';
-  location: ICoords;
+  coordinates: ICoords;
 }
 
-export interface IQuestCompleted extends IEvent {
-  event: 'quest_completed';
-  photo: string;
+export interface ITaskCompleted extends IEvent, ICompletedTask {
+  event: 'task_completed';
 }
 
 export interface IPlayerCaught extends IEvent {
@@ -35,10 +37,20 @@ export interface ISettingsUpdate extends IEvent {
 }
 
 export interface IAuthorization extends IEvent {
-  event: 'settings_update';
+  event: 'authorization';
   token: string;
 }
 
 export interface IStartGame extends IEvent {
   event: 'start_game';
+}
+
+export interface IGamestateUpdate extends IEvent {
+  event: 'gamestate_update';
+  state: IGameState;
+}
+
+export interface IStatusUpdate extends IEvent {
+  event: 'status';
+  message: string;
 }

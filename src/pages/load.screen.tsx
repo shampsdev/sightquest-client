@@ -40,5 +40,5 @@ export const LoadScreen = () => {
         backgroundColor: colors.detail
       }} onToggle={handleToggle}/>
     </View>
-  )
-}
+  );
+};

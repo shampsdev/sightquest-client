@@ -1,6 +1,6 @@
 import { View, TouchableOpacity, Text, Image } from 'react-native';
 import Animated, { ZoomIn } from 'react-native-reanimated';
-import { useMapStore } from '../store/useMapStore';
+import { useMapStore } from '../../store/useMapStore';
 import { IQuestCompleted } from '@/interfaces/IEvent';
 
 interface IPopupProps {
@@ -8,8 +8,6 @@ interface IPopupProps {
 }
 
 export const EventPopup = ({ questCompleted }: IPopupProps) => {
-  const random = Math.round(Math.random());
-
   const [setUpdatePopup] = useMapStore((store) => [store.setUpdatePopup]);
 
   return (
@@ -17,11 +15,7 @@ export const EventPopup = ({ questCompleted }: IPopupProps) => {
       entering={ZoomIn.delay(200).duration(200).springify()}
       className='absolute w-full h-full flex justify-center'
     >
-      <View
-        className={`h-4/6 rounded-xl m-12 border-8 border-white bg-white ${
-          random ? 'rotate-1' : '-rotate-1'
-        }`}
-      >
+      <View className='h-4/6 rounded-xl m-12 border-8 border-white bg-white'>
         <Image
           className='h-full w-full overflow-hidden rounded-lg'
           source={{

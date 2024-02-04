@@ -1,38 +1,45 @@
+import { API_URL, WS_URL } from '@env';
 import { ICoords } from '@/interfaces/ICoords';
 import { useGameStore } from '../store/useGameStore';
-import { useSockets } from './useSockets';
-import { API_URL, WS_URL } from '@env';
 import { IGameState } from '@/interfaces/IGameState';
 import axios, { AxiosResponse } from 'axios';
-import { useMapStore } from '../store/useMapStore';
-import { ILocationUpdate, IQuestCompleted } from '@/interfaces/IEvent';
-import { useAuth } from '@/modules/auth/hooks/useAuth';
+import { ILocationUpdate, ITaskCompleted } from '@/interfaces/IEvent';
+import { measure } from '../lib/helper-functions';
+import { useSockets } from './useSockets';
+import { useLocation } from './useLocation';
+import { IUser } from '@/interfaces/IUser';
 
 export const useGame = () => {
-  const sockets = useSockets();
   const gameState = useGameStore((store) => store);
-  const mapState = useMapStore((store) => store);
-  const { user } = useAuth();
-  if (user == null) throw Error('Cannot use game, user is null.');
+  const sockets = useSockets();
+  const location = useLocation();
+
+  // const { user } = useAuth();
+  const user: IUser = {
+    id: 2,
+    username: 'mike',
+    avatar:
+      'https://media.licdn.com/dms/image/D4E03AQEZcX3i65uV9g/profile-displayphoto-shrink_800_800/0/1681386993606?e=2147483647&v=beta&t=6xXgX1YBGZNI17rfS5vadMzxfSAW4nnqp-kyZsIrjg4',
+  };
+  if (user == null) throw Error('No user found!');
 
   const createLobby = async () => {
     const res = await axios.post<
       IGameState,
       AxiosResponse<IGameState, IGameState>
-    >(`${API_URL}/games/`, {
-      players: [1],
-      tasks: [1],
-      settings: 1,
-      started_at: '2024-01-31T16:11:48.783Z',
-      ended_at: '2024-01-31T16:11:48.783Z',
-      state: 'LOBBY',
+    >(`${API_URL}/games/create`, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization:
+          'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzA3MDY4MzY3LCJpYXQiOjE3MDcwNjgwNjcsImp0aSI6IjBmNjUxNTgxOWQ1ZDQ2M2Q4NDRkYmZjYjk0NTEzYjZiIiwidXNlcl9pZCI6MiwidXNlcm5hbWUiOiJtaWtlIn0.KVkDEozPJDBnbli8s_tcuLv09wqwL-CQnwiS7HCgt4I',
+      },
     });
 
-    return res.data.id;
+    return res.data.code;
   };
 
-  const joinLobby = async (id: number) => {
-    await sockets.connect(`${WS_URL}/ws/game/${id}/`);
+  const joinLobby = async (code: string) => {
+    await sockets.connect(`${WS_URL}/ws/game/${code}/`);
     sockets.send(
       JSON.stringify({
         event: 'authorization',
@@ -42,18 +49,23 @@ export const useGame = () => {
   };
 
   const parseIncomingMessage = (event: WebSocketMessageEvent) => {
-    const updatedState = JSON.parse(event.data);
+    const message = JSON.parse(event.data);
 
-    switch (updatedState.event) {
+    switch (message.event) {
       case 'quest_completed':
-        mapState.setUpdatePopup(updatedState);
         break;
       case 'location_update':
-        gameState.updatePlayerPosition(
-          updatedState.user,
-          updatedState.location
-        );
         break;
+      case 'authorization':
+        break;
+      case 'status':
+        console.log(message);
+        break;
+      case 'gamestate_update':
+        gameState.updateGameState(message.state);
+        break;
+      default:
+        throw new Error('Unknown message received.');
     }
   };
 
@@ -62,23 +74,44 @@ export const useGame = () => {
   const updatePlayerPosition = (coordinates: ICoords) => {
     const locationUpdate: ILocationUpdate = {
       event: 'location_update',
-      user: user,
+      user_id: user.id,
       timestamp: new Date(),
-      location: coordinates,
+      coordinates,
     };
 
-    sockets.send(JSON.stringify(locationUpdate));
+    if (gameState.state == 'playing')
+      sockets.send(JSON.stringify(locationUpdate));
   };
 
+  location.setPositionUpdateCallback(updatePlayerPosition);
+
   const updateQuestCompleted = (photo: string) => {
-    const updateQuestCompleted: IQuestCompleted = {
-      event: 'quest_completed',
-      user: user,
+    const updateQuestCompleted: ITaskCompleted = {
+      event: 'task_completed',
+      user_id: user.id,
       timestamp: new Date(),
       photo: photo,
+      task_id: 0,
     };
 
     sockets.send(JSON.stringify(updateQuestCompleted));
+  };
+
+  const getPlayer = () => {
+    return gameState.players.find((x) => x.user.id == user.id);
+  };
+
+  const inRange = () => {
+    const runners = gameState.players.filter((x) => x.role == 'runner');
+
+    return runners.some((x) => {
+      return (
+        measure(
+          x.coordinates,
+          getPlayer()?.coordinates ?? { latitude: 0, longitude: 0 }
+        ) <= 100
+      );
+    });
   };
 
   return {
@@ -88,15 +121,11 @@ export const useGame = () => {
     },
     state: {
       updateQuestCompleted,
-      updatePlayerPosition,
-      markers: gameState.rules.quest_points,
+      markers: gameState.settings.quest_points,
       players: gameState.players,
+      updateGameStatus: gameState.updateGameStatus,
     },
-    ui: {
-      questPoint: mapState.slected_quest_point,
-      setQuestPoint: mapState.setSelectedQuestPoint,
-      updatePopup: mapState.update_popup,
-    },
-    player: gameState.players.find((x) => x.user.id == user.id),
+    player: getPlayer(),
+    inRange,
   };
 };

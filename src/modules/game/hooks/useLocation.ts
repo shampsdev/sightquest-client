@@ -2,14 +2,17 @@ import { useEffect } from 'react';
 import * as Location from 'expo-location';
 import * as TaskManager from 'expo-task-manager';
 import EventEmitter from 'eventemitter3';
-import { useGame } from './useGame';
 import { ICoords } from '@/interfaces/ICoords';
 
 export const event = new EventEmitter();
 export const LOCATION_TASK_NAME = 'background-location-task';
 
 export const useLocation = () => {
-  const { state } = useGame();
+  let callback: ((data: ICoords) => void) | null;
+
+  const setPositionUpdateCallback = (cb: (data: ICoords) => void) => {
+    callback = cb;
+  };
 
   useEffect(() => {
     const startLocationUpdates = async () => {
@@ -28,13 +31,15 @@ export const useLocation = () => {
 
     startLocationUpdates();
     event.on('location_update', (data: ICoords) => {
-      state.updatePlayerPosition(data);
+      if (callback != null) callback(data);
     });
 
     return () => {
       Location.stopLocationUpdatesAsync(LOCATION_TASK_NAME);
     };
   }, []);
+
+  return { setPositionUpdateCallback };
 };
 
 const requestPermissions = async () => {
@@ -50,9 +55,6 @@ const requestPermissions = async () => {
     }
   }
 };
-
-
-  
 
 type LocationTaskParams = {
   locations: Array<Location.LocationObject>;
