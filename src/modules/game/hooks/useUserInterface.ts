@@ -9,5 +9,9 @@ export const useUserInterface = () => {
     updatePopup: mapState.update_popup,
     setRotationPopup: mapState.setRotationPopup,
     rotationPopup: mapState.rotation_popup,
+    setTracking: mapState.setTracking,
+    tracking: mapState.tracking,
+    setPerkMenu: mapState.setPerkMenu,
+    perkMenu: mapState.perk_menu,
   };
 };

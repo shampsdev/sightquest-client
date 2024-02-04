@@ -1,3 +1,4 @@
+import { ICompletedTask } from './ICompletedTask';
 import { ICoords } from './ICoords';
 import { ISettings } from './ISettings';
 import { IUser } from './IUser';
@@ -7,7 +8,7 @@ interface IEvent {
   event:
     | 'authorization'
     | 'location_update'
-    | 'quest_completed'
+    | 'task_completed'
     | 'player_caught'
     | 'start_game'
     | 'settings_update';
@@ -19,9 +20,8 @@ export interface ILocationUpdate extends IEvent {
   location: ICoords;
 }
 
-export interface IQuestCompleted extends IEvent {
-  event: 'quest_completed';
-  photo: string;
+export interface ITaskCompleted extends IEvent, ICompletedTask {
+  event: 'task_completed';
 }
 
 export interface IPlayerCaught extends IEvent {
