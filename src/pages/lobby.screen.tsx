@@ -10,9 +10,13 @@ import { ScreenHeaderBack } from '@/components/screen-header-back';
 import { useNavigation } from '@react-navigation/core';
 import { RootStackParamList } from '@/modules/navigation/root-navigator';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { useGame } from '@/modules/game/hooks/useGame';
 
 export const LobbyScreen = () => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
+
+  const { lobby, state } = useGame();
+  lobby.joinLobby('1M5J7EQO');
 
   return (
     <View className='h-full'>
@@ -135,7 +139,8 @@ export const LobbyScreen = () => {
           position: 'absolute',
           bottom: 20,
         }}
-        onToggle={() => {
+        onToggle={async () => {
+          state.updateGameStatus('playing');
           navigation.navigate('GameScreen');
         }}
       />

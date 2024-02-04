@@ -6,6 +6,7 @@ import { create } from 'zustand';
 interface IGameStateActions {
   updateGameState: (state: IGameState) => void;
   updatePlayerPosition: (id: IUser, coordinates: ICoords) => void;
+  updateGameStatus: (status: 'lobby' | 'playing' | 'ended') => void;
 }
 
 export const useGameStore = create<IGameState & IGameStateActions>((set) => ({
@@ -42,9 +43,10 @@ export const useGameStore = create<IGameState & IGameStateActions>((set) => ({
         tasks: [],
       },
     ],
-    time: new Date(),
+    duration: new Date(),
+    mode: 'base',
   },
-  state: 'playing',
+  state: 'lobby',
   updateGameState: (state) => set(state),
   updatePlayerPosition: (user, coordinates) => {
     set((state) => {
@@ -61,6 +63,8 @@ export const useGameStore = create<IGameState & IGameStateActions>((set) => ({
               user: user,
               coordinates,
               role: 'runner',
+              completed: [],
+              secret: '',
             },
           ],
         };
@@ -77,4 +81,11 @@ export const useGameStore = create<IGameState & IGameStateActions>((set) => ({
       };
     });
   },
+  updateGameStatus: (status) =>
+    set((store) => {
+      return {
+        ...store,
+        state: status,
+      };
+    }),
 }));

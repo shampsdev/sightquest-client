@@ -27,11 +27,11 @@ export const RootNavigator = () => {
         gestureDirection: 'horizontal',
       }}
     >
-      <Stack.Screen name='GameScreen' component={GameScreen} />
       <Stack.Screen name='HomeScreen' component={BottomTabNavigator} />
       <Stack.Screen name='ProfileScreen' component={ProfileScreen} />
       <Stack.Screen name='LobbyScreen' component={LobbyScreen} />
       <Stack.Screen name='RoutesScreen' component={RoutesScreen} />
+      <Stack.Screen name='GameScreen' component={GameScreen} />
       <Stack.Screen name='Camera' component={CameraModule} />
     </Stack.Navigator>
   );
