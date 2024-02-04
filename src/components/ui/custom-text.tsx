@@ -4,15 +4,22 @@ import { RegisteredStyle, StyleSheet, Text, TextStyle } from 'react-native';
 type IText = {
   children?: string;
   size?: 'xs' | 'lg' | 'xl' | '2xl' | '3xl';
-  styles?: TextStyle | RegisteredStyle<TextStyle>;
+  styles?:
+    | TextStyle
+    | RegisteredStyle<TextStyle>
+    | (TextStyle | RegisteredStyle<TextStyle>)[];
 };
 
 export function CustomText({ children, size, styles }: IText) {
   const textSizeStyles = getSizeStyles(size);
 
   return (
-    <Text 
-      style={[textStyles.text, textSizeStyles, ...(Array.isArray(styles) ? styles : [styles])]}
+    <Text
+      style={[
+        textStyles.text,
+        textSizeStyles,
+        ...(Array.isArray(styles) ? styles : [styles]),
+      ]}
     >
       {children}
     </Text>

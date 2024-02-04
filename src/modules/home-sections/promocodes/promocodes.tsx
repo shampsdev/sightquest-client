@@ -1,6 +1,6 @@
 import React from 'react'
 import { FlatList } from 'react-native'
-import { Promocod, PromocodProps } from './components/promocod';
+import { Promocode, PromocodProps } from './components/promocode';
 
 const data: PromocodProps[] = [
   {
@@ -18,7 +18,7 @@ const data: PromocodProps[] = [
   }
 ];
 
-export const Promocods = () => {
+export const Promocodes = () => {
   return (
     <FlatList
       style={{
@@ -31,7 +31,7 @@ export const Promocods = () => {
       horizontal
       renderItem={({ item }) => {
         return (
-          <Promocod { ...item }/>
+          <Promocode { ...item }/>
         )
       }}    
     />
