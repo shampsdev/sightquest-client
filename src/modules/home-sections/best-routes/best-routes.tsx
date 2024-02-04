@@ -1,14 +1,17 @@
 import React from 'react'
-import { FlatList } from 'react-native-gesture-handler'
-import { CityCard, CityCardProps } from './components/city-card';
+import { BestRoute, BestRouteType } from './components/best-route'
+import { FlatList } from 'react-native';
 
-type CityCardsProps = {
-  data: CityCardProps[];
+type BestRoutesProps = {
+  data: BestRouteType[];
 }
 
-export const CityCards = ({ data }: CityCardsProps) => {
+export const BestRoutes = ({ data }: BestRoutesProps) => {
   return (
     <FlatList 
+      style={{
+        overflow: 'visible'
+      }}
       data={data}
       showsHorizontalScrollIndicator={false}
       showsVerticalScrollIndicator={false}
@@ -16,9 +19,9 @@ export const CityCards = ({ data }: CityCardsProps) => {
       horizontal
       renderItem={({ item }) => {
         return (
-          <CityCard cityTitle={item.cityTitle} amount={item.amount}/>
+          <BestRoute {...item}/>
         )
       }}    
     />
-    )
+  )
 }

@@ -1,5 +1,6 @@
+import { globalStyles } from '@/styles/global.style';
 import React from 'react'
-import { RegisteredStyle, StyleSheet, View, ViewStyle } from 'react-native'
+import { RegisteredStyle, View, ViewStyle } from 'react-native'
 
 type IBorder = {
   children?: React.ReactNode;
@@ -9,17 +10,9 @@ type IBorder = {
 export const Border = ({ children, styles} : IBorder) => {
   return (
     <View 
-      style={[borderStyles.border, ...(Array.isArray(styles) ? styles : [styles])]}
+      style={[globalStyles.border, ...(Array.isArray(styles) ? styles : [styles])]}
     >
       { children }
     </View>
   )
 };
-
-const borderStyles = StyleSheet.create({
-  border: {
-    borderRadius: 24,
-    padding: 12,
-    backgroundColor: '#AEADAD',
-  },
-})

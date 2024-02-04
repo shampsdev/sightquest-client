@@ -2,12 +2,13 @@ import { Section } from '@/components/section'
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React, { useState } from 'react'
-import { StyleSheet, TextInput, TouchableOpacity, View } from 'react-native'
+import { ImageBackground, StyleSheet, TextInput, TouchableOpacity, View } from 'react-native'
 import { RootStackParamList } from '../navigation/root-navigator';
 import { CustomText } from '@/components/ui/custom-text';
 import { toast, ToastPosition } from '@backpackapp-io/react-native-toast';
 import { Border } from '@/components/border';
 import PlusIcon from '@/assets/icons/plus.icon';
+import { borderRadius, colors } from '../../constants/colors';
 
 const sizeOfLobbyId = 6;
 
@@ -19,15 +20,18 @@ const toastStyle = StyleSheet.create({
   }
 })
 
+const dynamicText = `Играть 
+с друзьями`;
+
 export const CreateRoom = () => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
 
   const [lobbyId, setLobbyId] = useState<string>('');
 
-  const connectToLobby = () => {
+  const connectToLobby = (variant: 'solo' | 'multi') => {
     const lobbyForConnection = lobbyId.slice(1, lobbyId.length);
 
-    if (lobbyForConnection.length !== sizeOfLobbyId) {
+    if (lobbyForConnection.length !== sizeOfLobbyId && lobbyForConnection.length !== 0 && variant === 'multi') {
       toast('Введите id лобби (например: #PR1VET)', {
         duration: 4000,
         position: ToastPosition.TOP,
@@ -55,55 +59,84 @@ export const CreateRoom = () => {
   return (
     <Section text='Создать комнату'>
       <View className='flex-row justify-center gap-x-1'>
+        
         <TouchableOpacity 
           onPress={
-            () => connectToLobby()
+            () => connectToLobby('multi')
           }
-          className='bg-primary relative rounded-3xl p-3 w-[49%]'
+          style={{
+            // backgroundColor: colors.primary,
+            width: '49%',
+          }}
         >
-          <PlusIcon 
+          <ImageBackground
             style={{
-              position: 'absolute',
-              top: 16,
-              left: 16,
+              position: 'relative',
+              width: '100%',
+              height: 200,
             }}
-          />
-          <CustomText 
-            styles={{
-              position: 'absolute',
-              left: 16,
-              bottom: 16
-            }}
-            size='lg'
+            borderRadius={borderRadius}
+            source={require('@/assets/main-border-1.jpg')}
           >
-            Играть с друзьями
-          </CustomText>
+            <PlusIcon 
+              style={{
+                position: 'absolute',
+                top: 16,
+                left: 16,
+              }}
+            />
+            <CustomText 
+              styles={{
+                position: 'absolute',
+                left: 16,
+                bottom: 16,
+                color: colors.primary
+              }}
+              size='lg'
+            >
+              { dynamicText }
+            </CustomText>
+            </ImageBackground>
         </TouchableOpacity>
         <View style={{
           width: '49%'
         }}>
-          <Border styles={{
-            height: 140,
-            position: 'relative'
-          }}>
-            <CustomText size='lg' styles={{
-              position: 'absolute',
-              right: 16,
-              top: 16,
-            }}>Одному/</CustomText>
-            <CustomText size='lg' styles={{
-              position: 'absolute',
-              left: 16,
-              bottom: 16,
-            }}>/Одной</CustomText>
-            <PlusIcon
+          <TouchableOpacity
+            onPress={
+              () => connectToLobby('solo')
+            }
+          >
+            <ImageBackground
+              source={require('@/assets/border-main-2.jpg')}
               style={{
+                position: 'relative',
+                width: '100%',
+                height: 140,
+              }}
+              borderRadius={borderRadius}
+            >
+              <CustomText size='lg' styles={{
+                position: 'absolute',
+                right: 16,
+                top: 16,
+                color: colors.primary
+              }}>Одному/</CustomText>
+              <CustomText size='lg' styles={{
                 position: 'absolute',
                 left: 16,
-                top: 16
-              }}
-            />
-          </Border>
+                bottom: 16,
+                color: colors.primary
+              }}>/Одной</CustomText>
+              <PlusIcon
+                stroke={colors.primary}
+                style={{
+                  position: 'absolute',
+                  left: 16,
+                  top: 16
+                }}
+              />
+            </ImageBackground>
+          </TouchableOpacity>
           <Border
             styles={{
               marginTop: 4,

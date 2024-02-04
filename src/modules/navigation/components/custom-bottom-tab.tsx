@@ -6,6 +6,7 @@ import Animated, {
   useAnimatedStyle,
   withTiming,
 } from 'react-native-reanimated';
+import { colors } from '@/constants/colors';
 
 export const CustomBottomTab = ({
   state,
@@ -25,9 +26,7 @@ export const CustomBottomTab = ({
 
   return (
     <View
-      style={{ width: TAB_BAR_WIDTH, bottom: MARGIN }}
-      className='flex-1 flex-row h-20 absolute rounded-full self-center bg-primary items-center justify-around overflow-hidden'
-    >
+      style={[styles.container, { width: TAB_BAR_WIDTH, bottom: MARGIN }]}>
       <Animated.View
         className='items-center justify-center'
         style={[
@@ -36,7 +35,7 @@ export const CustomBottomTab = ({
           translateAnimation,
         ]}
       >
-        <View className='w-16 h-16 rounded-full bg-secondary' />
+        <View style={styles.circle}/>
       </Animated.View>
       {state.routes.map((route, index) => {
         const { options } = descriptors[route.key];
@@ -82,3 +81,24 @@ export const CustomBottomTab = ({
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: 'row',
+    flexGrow: 1,
+    height: 80,
+    position: 'absolute',
+    borderRadius: 100,
+    alignSelf: 'center',
+    backgroundColor: 'white',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    overflow: 'hidden'
+  },
+  circle: {
+    width: 64,
+    height: 64,
+    borderRadius: 100,
+    backgroundColor: colors.primary,
+  }
+})

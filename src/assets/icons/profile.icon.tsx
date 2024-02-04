@@ -1,5 +1,5 @@
 import * as React from "react"
-import Svg, { Circle, Path, SvgProps } from "react-native-svg"
+import Svg, { Path, SvgProps } from "react-native-svg"
 
 const ProfileIcon = (props: SvgProps) => (
   <Svg
