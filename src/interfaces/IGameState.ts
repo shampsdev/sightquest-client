@@ -2,7 +2,7 @@ import { ISettings } from './ISettings';
 import { IUserState } from './IUserState';
 
 export interface IGameState {
-  id: number;
+  code: string;
   players: IUserState[];
   time_left: Date;
   settings: ISettings;
