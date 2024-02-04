@@ -1,18 +1,17 @@
 import React from 'react';
 import HomeIcon from '@/assets/icons/home.icon';
-import SettingsIcon from '@/assets/icons/settings.icon';
 import { View } from 'react-native';
 import ProfileIcon from '@/assets/icons/profile.icon';
-import RoutesIcon from '@/assets/icons/routes.icon';
 import PlayIcon from '@/assets/icons/play.icon';
+import { StoreIcon } from '@/assets/icons/store.icon';
 
 type Props = {
   route: string;
   isFocused: boolean;
 };
 
-export const BottomTabIcon = ({ route, isFocused }: Props) => {
-  const renderIcon = (route: string, isFocused: boolean) => {
+export const BottomTabIcon = ({ route }: Props) => {
+  const renderIcon = (route: string) => {
     const height = 32;
     const width = 32;
 
@@ -31,9 +30,9 @@ export const BottomTabIcon = ({ route, isFocused }: Props) => {
             height={height}
           />
         );
-      case 'RoutesTab':
+      case 'StoreTab':
         return (
-          <RoutesIcon
+          <StoreIcon
             width={width}
             height={height}
           />
@@ -45,5 +44,5 @@ export const BottomTabIcon = ({ route, isFocused }: Props) => {
     }
   };
 
-  return <View>{renderIcon(route, isFocused)}</View>;
+  return <View>{renderIcon(route)}</View>;
 };

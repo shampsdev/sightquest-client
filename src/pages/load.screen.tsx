@@ -1,26 +1,44 @@
 import LogoIcon from '@/assets/icons/logo.icon';
-import SwipeButton from '@/components/ui/swipe-button';
-import React, { useState } from 'react';
-import { Text, View } from 'react-native';
+import { Layout } from '@/components/layout';
+import { CustomText } from '@/components/ui/custom-text';
+import SwipeButton from '@/components/ui/swipe-button'
+import { colors } from '@/constants/colors';
+import React from 'react'
+import { View, Image } from 'react-native';
 
 export const LoadScreen = () => {
-  const [toggleState, setToggleState] = useState(false);
-
-  const handleToggle = (value: boolean | ((prevState: boolean) => boolean)) =>
-    setToggleState(value);
+  const handleToggle = () => {
+    
+  }
 
   return (
-    <View className='h-[90%]'>
-      <View className='items-center h-full w-[90%] mx-auto mmy-autot-5'>
-        <LogoIcon />
-        <View className='bg-[#BABABA] w-full flex-grow rounded-[39px] flex-1 justify-end items-center'>
-          <Text className='text-center w-3/4 text-[#5E5E5E]'>
-            Игра, в которой бегун выполняет задания на точках активности, пока
-            за ним гонятся два ловца
-          </Text>
-        </View>
-        <SwipeButton onToggle={handleToggle} />
-      </View>
+    <View className='pt-[13%] h-full bg-background'>
+      <Layout styles={{
+        alignItems: 'center',
+      }}>
+        <LogoIcon
+          className='translate-y-20 '
+        />
+        <Image
+          className='scale-75'
+          source={require('@/assets/mascote_victor.png')}
+        />
+        <CustomText
+          styles={{
+            marginHorizontal: 'auto',
+            textAlign: 'center',
+            width: '80%'
+          }}
+        >
+          Игра, в которой бегун выполняет задания на точках активности, пока за ним гонятся два ловца
+        </CustomText>
+      </Layout>
+      <SwipeButton additionStyles={{
+        position: 'absolute',
+        bottom: 20,
+        alignSelf: 'center',
+        backgroundColor: colors.detail
+      }} onToggle={handleToggle}/>
     </View>
   );
 };

@@ -1,5 +1,5 @@
 import React from 'react';
-import {RegisteredStyle, StyleSheet, ViewStyle} from 'react-native';
+import {RegisteredStyle, StyleSheet, ViewStyle, useWindowDimensions} from 'react-native';
 
 import {PanGestureHandler} from 'react-native-gesture-handler';
 import Animated, {
@@ -15,14 +15,15 @@ import Animated, {
 import {useState} from 'react';
 import LeftArrow2 from '@/assets/icons/left-arrow-2.icon';
 import { View } from 'react-native-reanimated/lib/typescript/Animated';
+import { colors } from '@/constants/colors';
 
-const BUTTON_WIDTH = 350;
+
 const BUTTON_HEIGHT = 80;
 const BUTTON_PADDING = 10;
 const SWIPEABLE_DIMENSIONS = BUTTON_HEIGHT - 2 * BUTTON_PADDING;
 
 const H_WAVE_RANGE = SWIPEABLE_DIMENSIONS + 2 * BUTTON_PADDING;
-const H_SWIPE_RANGE = BUTTON_WIDTH - 2 * BUTTON_PADDING - SWIPEABLE_DIMENSIONS;
+const MARGIN = 20;
 
 type SwipeButtonProps = {
   additionStyles?: ViewStyle | RegisteredStyle<View>;
@@ -31,6 +32,10 @@ type SwipeButtonProps = {
 }
 
 const SwipeButton = ({additionStyles, onToggle} : SwipeButtonProps) => {
+  const { width } = useWindowDimensions();
+  const TAB_BAR_WIDTH = width - 2 * MARGIN;
+  const H_SWIPE_RANGE = TAB_BAR_WIDTH - 2 * BUTTON_PADDING - SWIPEABLE_DIMENSIONS;
+
   const X = useSharedValue(0);
   const [toggled, setToggled] = useState(false);
 
@@ -58,7 +63,7 @@ const SwipeButton = ({additionStyles, onToggle} : SwipeButtonProps) => {
       }
     },
     onEnd: () => {
-      if (X.value < BUTTON_WIDTH / 2 - SWIPEABLE_DIMENSIONS / 2) {
+      if (X.value < width / 2 - SWIPEABLE_DIMENSIONS / 2) {
         X.value = withTiming(0);
         runOnJS(handleComplete)(false);
       } else {
@@ -84,8 +89,8 @@ const SwipeButton = ({additionStyles, onToggle} : SwipeButtonProps) => {
       return {
         backgroundColor: interpolateColor(
           X.value,
-          [0, BUTTON_WIDTH - SWIPEABLE_DIMENSIONS - BUTTON_PADDING],
-          ['#D3D3D3', '#EBEBEB'],
+          [0, width - SWIPEABLE_DIMENSIONS - BUTTON_PADDING],
+          [colors.primary, colors.primary],
         ),
         transform: [{translateX: X.value}],
       };
@@ -103,7 +108,7 @@ const SwipeButton = ({additionStyles, onToggle} : SwipeButtonProps) => {
             translateX: interpolate(
               X.value,
               InterpolateXInput,
-              [0, BUTTON_WIDTH / 2 - SWIPEABLE_DIMENSIONS],
+              [0, width / 2 - SWIPEABLE_DIMENSIONS],
               Extrapolate.CLAMP,
             ),
           },
@@ -114,7 +119,7 @@ const SwipeButton = ({additionStyles, onToggle} : SwipeButtonProps) => {
 
   return (
     <Animated.View
-      style={[styles.swipeCont, AnimatedStyles.swipeCont, additionStyles]}
+      style={[styles.swipeCont, AnimatedStyles.swipeCont, {width: TAB_BAR_WIDTH}, additionStyles]}
     >
       <PanGestureHandler onGestureEvent={animatedGestureHandler}>
         <Animated.View style={[styles.swipeable, AnimatedStyles.swipeable]}>
@@ -134,12 +139,12 @@ const SwipeButton = ({additionStyles, onToggle} : SwipeButtonProps) => {
 
 const styles = StyleSheet.create({
   swipeCont: {
+    marginHorizontal: 'auto',
     height: BUTTON_HEIGHT,
-    width: BUTTON_WIDTH,
     borderRadius: BUTTON_HEIGHT,
     padding: BUTTON_PADDING,
     display: 'flex',
-    backgroundColor: '#EBEBEB',
+    backgroundColor: colors.detail,
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
@@ -152,7 +157,7 @@ const styles = StyleSheet.create({
   },
   swipeable: {
     position: 'absolute',
-    backgroundColor: '#D3D3D3',
+    backgroundColor: colors.primary,
     justifyContent: 'center',
     left: BUTTON_PADDING,
     height: SWIPEABLE_DIMENSIONS,
@@ -168,7 +173,7 @@ const styles = StyleSheet.create({
     zIndex: 4,
   },
   swipeText: {
-    color: '#767676',
+    color: 'black',
     alignSelf: 'center',
     fontFamily: 'Inter-Black',
     fontSize: 16,

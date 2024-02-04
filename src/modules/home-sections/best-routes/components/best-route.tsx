@@ -1,27 +1,21 @@
 import { Border } from '@/components/border'
+import { Card } from '@/components/ui/card'
 import { CustomText } from '@/components/ui/custom-text'
 import React from 'react'
-import { View } from 'react-native'
+import { ImageProps } from 'react-native'
 
 export type BestRouteType = {
   title: string;
   amount: string;
+  image: ImageProps;
 }
 
-export const BestRoute = ({ title, amount }: BestRouteType) => {
+export const BestRoute = (props: BestRouteType) => {
   return (
-    <Border 
-      styles={{
-        height: 140,
-        width: 200,
-        marginRight: 8,
-        position: 'relative'
-      }}
-    >
+    <Card image={props.image}>
       <Border
         styles={{
           position: 'absolute',
-          backgroundColor: 'white',
           paddingBottom: 4, 
           paddingTop: 4, 
           paddingLeft: 12, 
@@ -31,19 +25,10 @@ export const BestRoute = ({ title, amount }: BestRouteType) => {
         }}
       >
         <CustomText>
-          { title }
+          { props.title }
         </CustomText>
       </Border>
 
-      <View
-        className='absolute bottom-4 left-4 flex-row '
-      >
-        {
-        ([1, 2, 3, 4,].map((value, indx) => (
-          <View key={indx} className='bg-secondary border-2 border-black rounded-full w-6 h-6'/>
-        )))
-        }
-      </View>
       <CustomText
         styles={{
           position: 'absolute',
@@ -51,8 +36,8 @@ export const BestRoute = ({ title, amount }: BestRouteType) => {
           bottom: 20,
         }}
       >
-        { amount }
+        { props.amount }
       </CustomText>
-    </Border>
+    </Card>
   )
 }

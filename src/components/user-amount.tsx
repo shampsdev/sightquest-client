@@ -5,15 +5,14 @@ import { CustomText } from './ui/custom-text'
 import { RegisteredStyle, View, ViewStyle } from 'react-native'
 
 type UserAmountProps = {
-  amount: number;
+  amount?: number;
   styles?: ViewStyle | RegisteredStyle<View>;
 }
 
 export const UserAmount = ({ amount, styles }: UserAmountProps) => {
-  return (
+  return amount ? (
     <Border
       styles={[{
-        backgroundColor: 'white',
         gap: 10,
         flexDirection: 'row',
         alignItems: 'center',
@@ -22,5 +21,8 @@ export const UserAmount = ({ amount, styles }: UserAmountProps) => {
       <GroupIcon/>
       <CustomText>{ `+${amount}` }</CustomText>
     </Border>
+  ) :
+  (
+    null
   )
 }

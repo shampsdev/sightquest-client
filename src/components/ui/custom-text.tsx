@@ -11,7 +11,11 @@ export function CustomText({ children, size, styles }: IText) {
   const textSizeStyles = getSizeStyles(size);
 
   return (
-    <Text style={[textStyles.text, textSizeStyles, styles]}>{children}</Text>
+    <Text 
+      style={[textStyles.text, textSizeStyles, ...(Array.isArray(styles) ? styles : [styles])]}
+    >
+      {children}
+    </Text>
   );
 }
 

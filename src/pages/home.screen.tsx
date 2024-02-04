@@ -5,12 +5,13 @@ import { Layout } from '@/components/layout';
 import { CustomText } from '@/components/ui/custom-text';
 import { Border } from '@/components/border';
 import { Section } from '@/components/section';
-import { UserCard } from '@/modules/user-card/user-card';
+import { UserCard } from '@/modules/home-sections/user-card/user-card';
 import InstaStory from 'react-native-insta-story';
-import { CityCards } from '@/modules/city-cards/city-cards';
-import { BestRoutes } from '@/modules/best-routes/best-routes';
+import { CityCards } from '@/modules/home-sections/city-cards/city-cards';
+import { BestRoutes } from '@/modules/home-sections/best-routes/best-routes';
 import { CreateRoom } from '@/modules/home-sections/create-room';
 import { Toasts } from '@backpackapp-io/react-native-toast';
+import { Promocods } from '@/modules/home-sections/promocods/promocods';
 
 const data = [
   {
@@ -59,7 +60,7 @@ const data = [
 
 export const HomeScreen = () => {
   return (
-    <ScrollView className='pt-10'>
+    <ScrollView className='pt-[13%] bg-background'>
       <Layout styles={{
         gap: 16,
       }}>
@@ -81,35 +82,55 @@ export const HomeScreen = () => {
 
         <CreateRoom/>
 
-        <Section text='Узнать больше'>
-          <CityCards data={[{
-            'cityTitle': 'Санкт-Петербург',
-            'amount': 132,
-          },
-          {
-            'cityTitle': 'Москва',
-            'amount': 182,
-          }
-          ]}/>
+        <Section 
+          text='Узнать больше'
+        >
+          <CityCards
+            data={[{
+              'cityTitle': 'Санкт-Петербург',
+              'amount': 132,
+              'image': require('@/assets/Saint_Petes.jpg'),
+            },
+            {
+              'cityTitle': 'Москва',
+              'amount': 182,
+              'image': require('@/assets/Moscow.jpg'),
+            },
+            {
+              'cityTitle': 'Калининград',
+              'amount': 182,
+              'image': require('@/assets/Kalinengrad.jpg'),
+            }
+            ]}
+          />
         </Section>
-        <Section text='Топ маршрутов'>
+        <Section openAll={true} to='RoutesScreen'  text='Топ маршрутов'>
           <BestRoutes 
             data={[
               {
-                title: 'XXI',
-                amount: '133/217'
+                title: 'Стрелка В.O.',
+                amount: '133/217',
+                image: require('@/assets/vo_route.jpg')
               },
               {
-                title: 'XX',
-                amount: '52/52'
+                title: 'Петроградский',
+                amount: '52/52',
+                image: require('@/assets/vo_route.jpg')
+              },
+              {
+                title: 'Центральный',
+                amount: '52/52',
+                image: require('@/assets/vo_route.jpg')
               },
             ]}
           />
         </Section>
-        <Section text='Промокоды'>
-          <View/>
+
+        <Section openAll={true} to='PromocodsScreen' text='Промокоды'>
+          <Promocods/>
         </Section>
-        <Section text='Лучшие за месяц'>
+
+        <Section openAll={true} to='RoutesScreen' text='Лучшие за месяц'>
           <UserCard/>
         </Section>
         <View className='h-36'/>

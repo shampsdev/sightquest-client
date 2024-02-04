@@ -12,7 +12,7 @@ export const ScreenHeaderBack = () => {
     <View className='w-full h-12'>
       <TouchableOpacity
         className='absolute left-8'
-        onPress={() => navigation.navigate('HomeScreen')}
+        onPress={() => navigation.goBack()}
         >
         <ArrowIcon/>
       </TouchableOpacity>
