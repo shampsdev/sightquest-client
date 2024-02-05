@@ -12,6 +12,7 @@ import { BestRoutes } from '@/modules/home-sections/best-routes/best-routes';
 import { CreateRoom } from '@/modules/home-sections/create-room';
 import { Toasts } from '@backpackapp-io/react-native-toast';
 import { Promocodes } from '@/modules/home-sections/promocodes/promocodes';
+import { useAuth } from '@/modules/auth/hooks/useAuth';
 
 const data = [
   {
@@ -59,6 +60,8 @@ const data = [
 ];
 
 export const HomeScreen = () => {
+  const { user } = useAuth();
+
   return (
     <ScrollView className='pt-[13%] bg-background'>
       <Layout
@@ -69,7 +72,7 @@ export const HomeScreen = () => {
         <ScreenHeader />
 
         <Border>
-          <CustomText size='2xl'>Привет, Виктор!</CustomText>
+          <CustomText size='2xl'>{`Привет, ${user?.username}!`}</CustomText>
           <CustomText size='lg'>Готов играть в догонялки?</CustomText>
         </Border>
 

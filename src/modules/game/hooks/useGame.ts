@@ -7,20 +7,14 @@ import { ILocationUpdate, ITaskCompleted } from '@/interfaces/IEvent';
 import { measure } from '../lib/helper-functions';
 import { useSockets } from './useSockets';
 import { useLocation } from './useLocation';
-import { IUser } from '@/interfaces/IUser';
+import { useAuth } from '@/modules/auth/hooks/useAuth';
 
 export const useGame = () => {
   const gameState = useGameStore((store) => store);
   const sockets = useSockets();
   const location = useLocation();
 
-  // const { user } = useAuth();
-  const user: IUser = {
-    id: 2,
-    username: 'mike',
-    avatar:
-      'https://media.licdn.com/dms/image/D4E03AQEZcX3i65uV9g/profile-displayphoto-shrink_800_800/0/1681386993606?e=2147483647&v=beta&t=6xXgX1YBGZNI17rfS5vadMzxfSAW4nnqp-kyZsIrjg4',
-  };
+  const { user, token } = useAuth();
   if (user == null) throw Error('No user found!');
 
   const createLobby = async () => {
@@ -30,8 +24,7 @@ export const useGame = () => {
     >(`${API_URL}/games/create`, {
       headers: {
         'Content-Type': 'application/json',
-        Authorization:
-          'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzA3MDY4MzY3LCJpYXQiOjE3MDcwNjgwNjcsImp0aSI6IjBmNjUxNTgxOWQ1ZDQ2M2Q4NDRkYmZjYjk0NTEzYjZiIiwidXNlcl9pZCI6MiwidXNlcm5hbWUiOiJtaWtlIn0.KVkDEozPJDBnbli8s_tcuLv09wqwL-CQnwiS7HCgt4I',
+        Authorization: `Bearer ${token}`,
       },
     });
 
@@ -48,6 +41,10 @@ export const useGame = () => {
     );
   };
 
+  const leaveLobby = async () => {
+    sockets.disconnect();
+  };
+
   const parseIncomingMessage = (event: WebSocketMessageEvent) => {
     const message = JSON.parse(event.data);
 
@@ -55,6 +52,7 @@ export const useGame = () => {
       case 'quest_completed':
         break;
       case 'location_update':
+        gameState.updatePlayerPosition(message.user, message.coordinates);
         break;
       case 'authorization':
         break;
@@ -75,7 +73,7 @@ export const useGame = () => {
     const locationUpdate: ILocationUpdate = {
       event: 'location_update',
       user: user,
-      timestamp: new Date(),
+      timestamp: new Date().toDateString(),
       coordinates,
     };
 
@@ -89,7 +87,7 @@ export const useGame = () => {
     const updateQuestCompleted: ITaskCompleted = {
       event: 'task_completed',
       user: user,
-      timestamp: new Date(),
+      timestamp: new Date().toDateString(),
       photo: photo,
       task_id: 0,
     };
@@ -118,12 +116,15 @@ export const useGame = () => {
     lobby: {
       createLobby,
       joinLobby,
+      leaveLobby,
     },
     state: {
       updateQuestCompleted,
       markers: gameState.settings.quest_points,
       players: gameState.players,
       updateGameStatus: gameState.updateGameStatus,
+      lobby: gameState.code,
+      settings: gameState.settings,
     },
     player: getPlayer(),
     inRange,

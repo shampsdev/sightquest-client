@@ -16,10 +16,11 @@ import { StackNavigationProp } from '@react-navigation/stack';
 
 export const LobbyScreen = () => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
-  const { state, lobby } = useGame();
+  const { state } = useGame();
+
+  console.log(state);
 
   const swipeButtonHandle = () => {
-    lobby.joinLobby('1M5J7EQO');
     state.updateGameStatus('playing');
     navigation.navigate('GameScreen');
   };
@@ -34,8 +35,8 @@ export const LobbyScreen = () => {
             position: 'relative',
           }}
         >
-          <TeamPicker />
-          <GameSettings />
+          <TeamPicker players={state.players} />
+          <GameSettings settings={state.settings} code={''} />
           <RouteSettings />
           <QuestsSettings />
         </Layout>

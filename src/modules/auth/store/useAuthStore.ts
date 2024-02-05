@@ -15,5 +15,7 @@ export const useAuthStore = create<IAuthStore & IAuthStoreActions>((set) => ({
   user: null,
   token: null,
   refresh: null,
-  updateUser: (state) => set(state),
+  updateUser: (state) => {
+    return set(state);
+  },
 }));

@@ -2,32 +2,40 @@ import { API_URL } from '@env';
 import { useAuthStore, IAuthStore } from '../store/useAuthStore';
 import { useLocalStorage } from '@/modules/storage/hooks/useLocalStorage';
 import axios from 'axios';
+import { useEffect } from 'react';
 
 export const useAuth = () => {
   const localStorage = useLocalStorage();
-  const { user, token, updateUser } = useAuthStore((store) => store);
+  const { user, token, refresh, updateUser } = useAuthStore((store) => store);
 
-  // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
+  useEffect(() => {
+    const loadUser = async () => {
+      const localStore = await localStorage.getData<IAuthStore>('user');
+      if (localStore) {
+        updateUser(localStore);
+      }
+    };
+
+    loadUser();
+  }, []);
+
+  const clear = async () => {
+    await localStorage.clear();
+    updateUser({
+      user: null,
+      token: null,
+      refresh: null,
+    });
+  };
+
   const login = async (username: string) => {
-    console.log('Login initiated.');
-    if (user != null) return;
-
-    console.log('Looking for user on device.');
-    const local_store = await localStorage.getData<IAuthStore>('user');
-    if (local_store != null && local_store != undefined) {
-      console.log('Found user on device. Logging in.');
-      updateUser(local_store);
-      return;
-    }
-
-    console.log('Getting user.');
-
     // Some code to get the user
-    const user_data = (await axios.get(`${API_URL}/api/users/${1}`)).data;
+    const user_data = (await axios.get(`${API_URL}/api/users/${username}`))
+      .data;
 
     const { token, refresh } = (
-      await axios.post(`${API_URL}/api/users/token/`, {
-        username: 'mike',
+      await axios.post(`${API_URL}/api/token/`, {
+        username: username,
         password: 'penis',
       })
     ).data;
@@ -38,14 +46,20 @@ export const useAuth = () => {
       refresh,
     };
 
-    console.log(authStore);
-
     localStorage.storeData<IAuthStore>('user', authStore);
     updateUser(authStore);
   };
 
-  const clear = async () => {
-    await localStorage.clear();
+  const setProfilePhoto = (photo: string) => {
+    if (user == null) throw Error('Cannot update profile picture of user null');
+    updateUser({
+      user: {
+        ...user,
+        avatar: photo,
+      },
+      token,
+      refresh,
+    });
   };
 
   return {
@@ -54,6 +68,7 @@ export const useAuth = () => {
     manage: {
       login,
       clear,
+      setProfilePhoto,
     },
   };
 };

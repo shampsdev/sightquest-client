@@ -15,8 +15,9 @@ import { toast, ToastPosition } from '@backpackapp-io/react-native-toast';
 import { Border } from '@/components/border';
 import PlusIcon from '@/assets/icons/plus.icon';
 import { borderRadius, colors } from '../../constants/colors';
+import { useGame } from '../game/hooks/useGame';
 
-const sizeOfLobbyId = 6;
+const sizeOfLobbyId = 7;
 
 const toastStyle = StyleSheet.create({
   container: {
@@ -32,35 +33,43 @@ const dynamicText = `Играть
 export const CreateRoom = () => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
 
-  const [lobbyId, setLobbyId] = useState<string>('');
+  const { lobby } = useGame();
+  const [lobbyId, setLobbyId] = useState('');
 
-  const connectToLobby = (variant: 'solo' | 'multi') => {
-    const lobbyForConnection = lobbyId.slice(1, lobbyId.length);
+  // const connectToLobby = (variant: 'solo' | 'multi') => {
+  //   const lobbyForConnection = lobbyId.slice(1, lobbyId.length);
 
-    if (
-      lobbyForConnection.length !== sizeOfLobbyId &&
-      lobbyForConnection.length !== 0 &&
-      variant === 'multi'
-    ) {
-      toast('Введите id лобби (например: #PR1VET)', {
-        duration: 4000,
-        position: ToastPosition.TOP,
-        icon: '⚠️',
-        styles: {
-          view: toastStyle.container,
-        },
-      });
+  //   if (
+  //     lobbyForConnection.length !== sizeOfLobbyId &&
+  //     lobbyForConnection.length !== 0 &&
+  //     variant === 'multi'
+  //   ) {
+  //     toast('Введите id лобби (например: #PR1VET)', {
+  //       duration: 4000,
+  //       position: ToastPosition.TOP,
+  //       icon: '⚠️',
+  //       styles: {
+  //         view: toastStyle.container,
+  //       },
+  //     });
 
+  //     return;
+  //   }
+
+  //   lobby.joinLobby(lobbyId);
+  //   navigation.navigate('LobbyScreen');
+  // };
+
+  const lobbyIdHandle = async (input: string) => {
+    if (lobbyId?.length === 0 && input[0] !== '#') {
+      setLobbyId('#' + input);
       return;
     }
 
-    navigation.navigate('LobbyScreen');
-  };
-
-  const lobbyIdHandle = (input: string) => {
-    if (lobbyId?.length === 0 && input !== '#') {
-      setLobbyId('#' + input);
-      return;
+    if (lobbyId?.length === 8) {
+      console.log(lobbyId);
+      await lobby.joinLobby(lobbyId);
+      navigation.navigate('LobbyScreen');
     }
 
     setLobbyId(input);
@@ -70,9 +79,12 @@ export const CreateRoom = () => {
     <Section text='Создать комнату'>
       <View className='flex-row justify-center gap-x-1'>
         <TouchableOpacity
-          onPress={() => connectToLobby('multi')}
+          onPress={async () => {
+            // const id = await lobby.createLobby();
+            await lobby.joinLobby('1M5J7EQO');
+            navigation.navigate('LobbyScreen');
+          }}
           style={{
-            // backgroundColor: colors.primary,
             width: '49%',
           }}
         >
@@ -111,7 +123,13 @@ export const CreateRoom = () => {
             justifyContent: 'space-between',
           }}
         >
-          <TouchableOpacity onPress={() => connectToLobby('solo')}>
+          <TouchableOpacity
+            onPress={async () => {
+              const id = await lobby.createLobby();
+              await lobby.joinLobby(id);
+              navigation.navigate('LobbyScreen');
+            }}
+          >
             <ImageBackground
               source={require('@/assets/border-main-2.jpg')}
               style={{
