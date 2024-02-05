@@ -1,4 +1,5 @@
-let socket: null | WebSocket = null;
+import ReconnectingWebSocket from 'reconnecting-websocket';
+let socket: null | ReconnectingWebSocket = null;
 
 export const useSockets = () => {
   const send = async (data: string) => {
@@ -9,14 +10,15 @@ export const useSockets = () => {
     }
   };
 
-  const connect = async (uri: string) => {
+  const connect = async (uri: string, onconnect: () => void) => {
     if (socket != null) throw Error('Socket already connected!');
-    socket = new WebSocket(uri);
+    socket = new ReconnectingWebSocket(uri);
 
     // Wait until socket is available beofre resolving.
     return new Promise<void>((resolve, reject) => {
       if (socket != null) {
-        socket.onopen = () => {
+        socket.onopen = async () => {
+          onconnect();
           return resolve();
         };
         socket.onerror = (error) => {
