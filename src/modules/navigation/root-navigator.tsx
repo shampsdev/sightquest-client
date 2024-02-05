@@ -7,14 +7,15 @@ import { LobbyScreen } from '@/pages/lobby.screen';
 import { RoutesScreen } from '@/pages/routes.screen';
 import { ProfileScreen } from '@/pages/profile.screen';
 import { StoreScreen } from '@/pages/store.screen';
-import { PromocodeProps, PromocodesScreen } from '@/pages/promocodes.screen';
+import { PromocodesScreen } from '@/pages/promocodes.screen';
 import { PromocodeScreen } from '@/pages/promocode.screen';
+import { IPromocode } from '@/interfaces/IPromocode';
 
 export type RootStackParamList = {
   HomeScreen: undefined;
   ProfileScreen: undefined;
   PromocodesScreen: undefined;
-  PromocodeScreen: PromocodeProps;
+  PromocodeScreen: IPromocode[];
   LobbyScreen: undefined;
   LoadScreen: undefined;
   RoutesScreen: undefined;

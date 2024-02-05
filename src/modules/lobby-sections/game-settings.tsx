@@ -6,7 +6,7 @@ import { globalStyles } from '@/styles/global.style';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React from 'react';
-import { ImageBackground, TouchableOpacity, View } from 'react-native';
+import { Alert, ImageBackground, Share, TouchableOpacity, View } from 'react-native';
 import { RootStackParamList } from '../navigation/root-navigator';
 import useGameSettings from '@/stores/game-settings.store';
 import { ISettings } from '@/interfaces/ISettings';
@@ -19,6 +19,29 @@ interface IGameSettingsProps {
 export const GameSettings = ({ code }: IGameSettingsProps) => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
   const selectedRoute = useGameSettings((state) => state.route);
+
+  const onShare = async () => {
+    try {
+      const result = await Share.share({
+        title: 'Код для лобби',
+        message: code,
+        url: 'https://google.com',
+      });
+      if (result.action === Share.sharedAction) {
+        if (result.activityType) {
+          // shared with activity type of result.activityType
+        } else {
+          // shared
+        }
+      } else if (result.action === Share.dismissedAction) {
+        // dismissed
+      }
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      Alert.alert(error.message);
+    }
+  };
+
 
   return (
     <Border
@@ -112,14 +135,24 @@ export const GameSettings = ({ code }: IGameSettingsProps) => {
           </CustomText>
         </Border>
       </View>
-      <CustomText
-        styles={{
-          marginLeft: 4,
-        }}
-        size='lg'
-      >
-        {`#${code}`}
-      </CustomText>
+      <View style={{
+        gap: 12,
+        flexDirection: 'row',
+        alignContent: 'center'
+      }}>
+        <TouchableOpacity
+          onPress={onShare}
+        >
+          <CustomText
+            styles={{
+              marginLeft: 4,
+            }}
+            size='lg'
+          >
+            {`#${code}`}
+          </CustomText>
+        </TouchableOpacity>
+      </View>
     </Border>
   );
 };

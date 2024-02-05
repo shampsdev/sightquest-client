@@ -22,6 +22,8 @@
     "eventemitter3": "^5.0.1",
     "expo": "~50.0.5",
     "expo-camera": "^14.0.3",
+    "expo-checkbox": "~2.7.0",
+    "expo-clipboard": "~5.0.1",
     "expo-constants": "^15.4.5",
     "expo-font": "~11.10.2",
     "expo-image-picker": "~14.7.1",

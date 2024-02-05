@@ -11,7 +11,6 @@ import { RoutesScreen } from '@/pages/routes.screen';
 
 export type BottomTabParamList = {
   HomeTab: undefined;
-  FriendsTab: undefined;
   RoutesTab: undefined;
   StoreTab: undefined;
   ProfileTab: undefined;

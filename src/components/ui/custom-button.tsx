@@ -1,18 +1,21 @@
+import { borderRadius, colors } from '@/constants/colors';
 import React from 'react';
-import { Pressable, Text } from 'react-native';
+import { Pressable, RegisteredStyle, StyleProp, StyleSheet, TextStyle, ViewStyle } from 'react-native';
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
-import { twJoin } from 'tailwind-merge';
+import { CustomText } from './custom-text';
 
 type ButtonProps = {
   children: string;
-  className?: string;
   onPress?: () => void;
   type?: 'primary' | 'secondary';
+  containerStyles?: StyleProp<ViewStyle>;
+  textStyles?: TextStyle | RegisteredStyle<TextStyle>;
 };
 
 export const CustomButton = ({ 
   children, 
-  className, 
+  containerStyles,
+  textStyles, 
   type = 'primary',
   onPress,
 }: ButtonProps) => {
@@ -32,18 +35,6 @@ export const CustomButton = ({
     scale.value = withTiming(1, { duration: 100 });
   }
 
-  const buttonStyles = twJoin(
-    `p-4 mx-2 w-32 rounded-2xl`,
-    type === 'primary' ? 'bg-primary' : 'bg-secondary',
-    className
-  );
-
-  const textStyles = twJoin(
-    `text-center text-xl`,
-    type === 'primary' ? 'text-secondary' : 'text-primary',
-    className
-  )
-
   return (
     <Animated.View
       style={[animatedStyle]}
@@ -52,10 +43,37 @@ export const CustomButton = ({
         onPress={onPress}
         onPressIn={handlePressIn}
         onPressOut={handlePressOut}
-        className={buttonStyles}
+        style={[buttonStyles.container, {
+          backgroundColor: 
+            type === 'primary' 
+            ? colors.primary
+            : colors.secondary,
+        }  , containerStyles]}
       >
-        <Text className={textStyles}>{children}</Text>
+        <CustomText  
+          styles={[buttonStyles.text, {
+            color: 
+            type === 'primary' 
+            ? colors.secondary
+            : colors.primary,
+          }, textStyles]}
+        >
+          {children}
+        </CustomText>
       </Pressable>
     </Animated.View>
   );
 };
+
+
+// p-4 mx-2 w-32 rounded-2xl
+const buttonStyles = StyleSheet.create({
+  container: {
+    padding: 8,
+    width: 100,
+    borderRadius: borderRadius,
+  },
+  text: {
+    textAlign: 'center',
+  }
+})
