@@ -4,7 +4,6 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import React, { useState } from 'react';
 import {
   ImageBackground,
-  StyleSheet,
   TextInput,
   TouchableOpacity,
   View,
@@ -17,14 +16,6 @@ import { borderRadius, colors } from '../../constants/colors';
 import { useGame } from '../game/hooks/useGame';
 
 const sizeOfLobbyId = 8;
-
-const toastStyle = StyleSheet.create({
-  container: {
-    borderRadius: 8,
-    backgroundColor: '#AEADAD',
-    fontFamily: 'Inter-Black',
-  },
-});
 
 const dynamicText = `Играть 
 с друзьями`;
@@ -59,10 +50,20 @@ export const CreateRoom = () => {
   //   navigation.navigate('LobbyScreen');
   // };
 
+  const connectToLobby = async () => {
+    const id = await lobby.createLobby();
+    await lobby.joinLobby(id);
+    navigation.navigate('LobbyScreen');
+  } 
+
   const lobbyIdHandle = async (input: string) => {
     if (lobbyId?.length === 0 && input[0] !== '#') {
       setLobbyId('#' + input);
       return;
+    }
+
+    if (lobbyId?.length === sizeOfLobbyId) {
+      setTimeout(async () => await connectToLobby(), 100)
     }
 
     if (lobbyId?.length <= 10) {
@@ -74,13 +75,9 @@ export const CreateRoom = () => {
   return (
     <Section text='Создать комнату'>
       <View className='flex-row justify-center gap-x-1'>
+        {/* multiplayer */}
         <TouchableOpacity
-          onPress={async () => {
-            const id = await lobby.createLobby();
-            console.log(id);
-            await lobby.joinLobby(id);
-            navigation.navigate('LobbyScreen');
-          }}
+          onPress={async () => await connectToLobby()}
           style={{
             width: '49%',
           }}
@@ -120,12 +117,9 @@ export const CreateRoom = () => {
             justifyContent: 'space-between',
           }}
         >
+          {/* solo game */}
           <TouchableOpacity
-            onPress={async () => {
-              const id = await lobby.createLobby();
-              await lobby.joinLobby(id);
-              navigation.navigate('LobbyScreen');
-            }}
+            onPress={async () => await connectToLobby()}
           >
             <ImageBackground
               source={require('@/assets/border-main-2.jpg')}
