@@ -1,20 +1,20 @@
-import { Border } from '@/components/border'
-import { CustomText } from '@/components/ui/custom-text'
-import { UserAmount } from '@/components/user-amount'
-import { borderRadius } from '@/constants/colors'
-import React from 'react'
-import { ImageBackground, ImageSourcePropType } from 'react-native'
+import { Border } from '@/components/border';
+import { CustomText } from '@/components/ui/custom-text';
+import { UserAmount } from '@/components/user-amount';
+import { borderRadius } from '@/constants/colors';
+import React from 'react';
+import { ImageBackground, ImageSourcePropType } from 'react-native';
 
 export type CityCardProps = {
   cityTitle: string;
   amount: number;
   image: ImageSourcePropType;
-}
+};
 
 export const CityCard = (props: CityCardProps) => {
   return (
     <ImageBackground
-      source={props.image} 
+      source={props.image}
       style={{
         height: 288,
         width: 288,
@@ -23,30 +23,30 @@ export const CityCard = (props: CityCardProps) => {
       }}
       borderRadius={borderRadius}
     >
-      {/* <ImageBackground source={} resizeMode="cover"> */}
-        
-        <Border
+      <Border
+        styles={{
+          position: 'absolute',
+          top: 8,
+          left: 8,
+        }}
+      >
+        <CustomText
           styles={{
-            position: 'absolute',
-            top: 8,
-            left: 8,
+            flexDirection: 'row',
           }}
         >
-          <CustomText
-            styles={{
-              flexDirection: 'row'
-            }}
-          >{ props.cityTitle }</CustomText>
-        </Border>
-        <UserAmount
-          styles={{
-            position: 'absolute',
-            bottom: 8, 
-            left: 8,
-          }}
-          amount={props.amount}
-        />
+          {props.cityTitle}
+        </CustomText>
+      </Border>
+      <UserAmount
+        styles={{
+          position: 'absolute',
+          bottom: 8,
+          left: 8,
+        }}
+        amount={props.amount}
+      />
       {/* </ImageBackground> */}
     </ImageBackground>
-  )
-}
+  );
+};

@@ -6,120 +6,120 @@ import { CustomText } from '@/components/ui/custom-text';
 import { Border } from '@/components/border';
 import { Section } from '@/components/section';
 import { UserCard } from '@/modules/home-sections/user-card/user-card';
-import InstaStory from 'react-native-insta-story';
 import { CityCards } from '@/modules/home-sections/city-cards/city-cards';
 import { BestRoutes } from '@/modules/home-sections/best-routes/best-routes';
 import { CreateRoom } from '@/modules/home-sections/create-room';
 import { Toasts } from '@backpackapp-io/react-native-toast';
-import { Promocodes } from '@/modules/home-sections/promocodes/promocodes';
-import { borderRadius, colors } from '@/constants/colors';
-import { promocodes } from './promocodes.screen';
+import { colors } from '@/constants/colors';
 import { useAuth } from '@/modules/auth/hooks/useAuth';
 
-const data = [
-  {
-    user_id: 1,
-    user_image:
-      'https://images.unsplash.com/photo-1511367461989-f85a21fda167?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cHJvZmlsZXxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&w=1000&q=80',
-    user_name: 'Правила',
-    stories: [
-      {
-        story_id: 1,
-        story_image:
-          'https://image.freepik.com/free-vector/universe-mobile-wallpaper-with-planets_79603-600.jpg',
-        swipeText: 'Custom swipe text for this story',
-      },
-      {
-        story_id: 2,
-        story_image:
-          'https://image.freepik.com/free-vector/mobile-wallpaper-with-fluid-shapes_79603-601.jpg',
-      },
-    ],
-  },
-  {
-    user_id: 2,
-    user_image:
-      'https://images.unsplash.com/photo-1511367461989-f85a21fda167?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cHJvZmlsZXxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&w=1000&q=80',
-    user_name: 'Монеты',
-    stories: [
-      {
-        story_id: 1,
-        story_image:
-          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjORKvjcbMRGYPR3QIs3MofoWkD4wHzRd_eg&usqp=CAU',
-        swipeText: 'Custom swipe text for this story',
-        onPress: () => console.log('story 1 swiped'),
-      },
-      {
-        story_id: 2,
-        story_image:
-          'https://files.oyebesmartest.com/uploads/preview/vivo-u20-mobile-wallpaper-full-hd-(1)qm6qyz9v60.jpg',
-        swipeText: 'Custom swipe text for this story',
-        onPress: () => console.log('story 2 swiped'),
-      },
-    ],
-  },
-  {
-    user_id: 3,
-    user_image:
-      'https://images.unsplash.com/photo-1511367461989-f85a21fda167?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cHJvZmlsZXxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&w=1000&q=80',
-    user_name: 'Промокоды',
-    stories: [
-      {
-        story_id: 1,
-        story_image:
-          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjORKvjcbMRGYPR3QIs3MofoWkD4wHzRd_eg&usqp=CAU',
-        swipeText: 'Custom swipe text for this story',
-        onPress: () => console.log('story 1 swiped'),
-      },
-      {
-        story_id: 2,
-        story_image:
-          'https://files.oyebesmartest.com/uploads/preview/vivo-u20-mobile-wallpaper-full-hd-(1)qm6qyz9v60.jpg',
-        swipeText: 'Custom swipe text for this story',
-        onPress: () => console.log('story 2 swiped'),
-      },
-    ],
-  },
-  {
-    user_id: 3,
-    user_image:
-      'https://images.unsplash.com/photo-1511367461989-f85a21fda167?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cHJvZmlsZXxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&w=1000&q=80',
-    user_name: 'Развитие',
-    stories: [
-      {
-        story_id: 1,
-        story_image:
-          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjORKvjcbMRGYPR3QIs3MofoWkD4wHzRd_eg&usqp=CAU',
-        swipeText: 'Custom swipe text for this story',
-        onPress: () => console.log('story 1 swiped'),
-      },
-      {
-        story_id: 2,
-        story_image:
-          'https://files.oyebesmartest.com/uploads/preview/vivo-u20-mobile-wallpaper-full-hd-(1)qm6qyz9v60.jpg',
-        swipeText: 'Custom swipe text for this story',
-        onPress: () => console.log('story 2 swiped'),
-      },
-    ],
-  },
-];
+// const data = [
+//   {
+//     user_id: 1,
+//     user_image:
+//       'https://images.unsplash.com/photo-1511367461989-f85a21fda167?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cHJvZmlsZXxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&w=1000&q=80',
+//     user_name: 'Правила',
+//     stories: [
+//       {
+//         story_id: 1,
+//         story_image:
+//           'https://image.freepik.com/free-vector/universe-mobile-wallpaper-with-planets_79603-600.jpg',
+//         swipeText: 'Custom swipe text for this story',
+//       },
+//       {
+//         story_id: 2,
+//         story_image:
+//           'https://image.freepik.com/free-vector/mobile-wallpaper-with-fluid-shapes_79603-601.jpg',
+//       },
+//     ],
+//   },
+//   {
+//     user_id: 2,
+//     user_image:
+//       'https://images.unsplash.com/photo-1511367461989-f85a21fda167?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cHJvZmlsZXxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&w=1000&q=80',
+//     user_name: 'Монеты',
+//     stories: [
+//       {
+//         story_id: 1,
+//         story_image:
+//           'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjORKvjcbMRGYPR3QIs3MofoWkD4wHzRd_eg&usqp=CAU',
+//         swipeText: 'Custom swipe text for this story',
+//         onPress: () => console.log('story 1 swiped'),
+//       },
+//       {
+//         story_id: 2,
+//         story_image:
+//           'https://files.oyebesmartest.com/uploads/preview/vivo-u20-mobile-wallpaper-full-hd-(1)qm6qyz9v60.jpg',
+//         swipeText: 'Custom swipe text for this story',
+//         onPress: () => console.log('story 2 swiped'),
+//       },
+//     ],
+//   },
+//   {
+//     user_id: 3,
+//     user_image:
+//       'https://images.unsplash.com/photo-1511367461989-f85a21fda167?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cHJvZmlsZXxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&w=1000&q=80',
+//     user_name: 'Промокоды',
+//     stories: [
+//       {
+//         story_id: 1,
+//         story_image:
+//           'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjORKvjcbMRGYPR3QIs3MofoWkD4wHzRd_eg&usqp=CAU',
+//         swipeText: 'Custom swipe text for this story',
+//         onPress: () => console.log('story 1 swiped'),
+//       },
+//       {
+//         story_id: 2,
+//         story_image:
+//           'https://files.oyebesmartest.com/uploads/preview/vivo-u20-mobile-wallpaper-full-hd-(1)qm6qyz9v60.jpg',
+//         swipeText: 'Custom swipe text for this story',
+//         onPress: () => console.log('story 2 swiped'),
+//       },
+//     ],
+//   },
+//   {
+//     user_id: 3,
+//     user_image:
+//       'https://images.unsplash.com/photo-1511367461989-f85a21fda167?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cHJvZmlsZXxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&w=1000&q=80',
+//     user_name: 'Развитие',
+//     stories: [
+//       {
+//         story_id: 1,
+//         story_image:
+//           'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjORKvjcbMRGYPR3QIs3MofoWkD4wHzRd_eg&usqp=CAU',
+//         swipeText: 'Custom swipe text for this story',
+//         onPress: () => console.log('story 1 swiped'),
+//       },
+//       {
+//         story_id: 2,
+//         story_image:
+//           'https://files.oyebesmartest.com/uploads/preview/vivo-u20-mobile-wallpaper-full-hd-(1)qm6qyz9v60.jpg',
+//         swipeText: 'Custom swipe text for this story',
+//         onPress: () => console.log('story 2 swiped'),
+//       },
+//     ],
+//   },
+// ];
 
 export const HomeScreen = () => {
   const { user } = useAuth();
 
   return (
-    <ScrollView style={{
-      gap: 16,
-      paddingTop: '13%',
-      backgroundColor: colors.background
-    }}>
-      <ScreenHeader 
+    <ScrollView
+      style={{
+        gap: 16,
+        paddingTop: '13%',
+        backgroundColor: colors.background,
+      }}
+    >
+      <ScreenHeader
         styles={{
           width: '90%',
-          alignSelf: 'center'
+          alignSelf: 'center',
         }}
       />
-      <InstaStory
+
+      {/* <InstaStory
         data={data}
         unPressedBorderColor={colors.primary}
         pressedBorderColor={colors.secondary}
@@ -150,7 +150,7 @@ export const HomeScreen = () => {
           borderBottomLeftRadius: borderRadius,
         }}
         duration={5} 
-      />
+      /> */}
 
       <Layout
         styles={{
@@ -207,9 +207,9 @@ export const HomeScreen = () => {
           />
         </Section>
 
-        <Section openAll={true} to='PromocodesScreen' text='Промокоды'>
-          <Promocodes data={promocodes}/>
-        </Section>
+        {/* <Section openAll={true} to='PromocodesScreen' text='Промокоды'>
+          <Promocodes data={promocodes} />
+        </Section> */}
 
         <Section openAll={true} to='RoutesScreen' text='Лучшие за месяц'>
           <UserCard />

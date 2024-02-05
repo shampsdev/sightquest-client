@@ -5,7 +5,7 @@ import { IUser } from './IUser';
 export interface IUserState {
   user: IUser;
   coordinates: ICoords;
-  role: 'runner' | 'catcher';
+  role: 'RUNNER' | 'CATCHER';
   completed: ICompletedTask[];
   secret: string;
 }

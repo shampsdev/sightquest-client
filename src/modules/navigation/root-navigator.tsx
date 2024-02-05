@@ -16,6 +16,7 @@ export type RootStackParamList = {
   PromocodesScreen: undefined;
   PromocodeScreen: PromocodeProps;
   LobbyScreen: undefined;
+  LoadScreen: undefined;
   RoutesScreen: undefined;
   StoreScreen: undefined;
   Camera: undefined;
@@ -33,6 +34,7 @@ export const RootNavigator = () => {
         gestureDirection: 'horizontal',
       }}
     >
+      {/* <Stack.Screen name='LoadScreen' component={LoadScreen} /> */}
       <Stack.Screen name='HomeScreen' component={BottomTabNavigator} />
       <Stack.Screen name='RoutesScreen' component={RoutesScreen} />
       <Stack.Screen name='StoreScreen' component={StoreScreen} />

@@ -33,7 +33,7 @@ export const UserInterface = ({ mapRef }: { mapRef: RefObject<MapView> }) => {
         <View className='h-12 flex-row'>
           <View className='absolute h-12 w-24 bg-[#afafaf] rounded-2xl left-16 flex justify-center items-center flex-row'>
             <CoinsIcon className='mr-2' />
-            <CustomText>20</CustomText>
+            <CustomText>0</CustomText>
           </View>
           <View className='absolute h-12 w-20 bg-[#E5E5E5] rounded-2xl flex justify-center items-center flex-row'>
             <VelocityIcon className='mr-2' />
@@ -66,10 +66,10 @@ export const UserInterface = ({ mapRef }: { mapRef: RefObject<MapView> }) => {
       {questPoint && <QuestPopup questPoint={questPoint} />}
       {updatePopup && <EventPopup questCompleted={updatePopup} />}
       {rotationPopup && <RotationPopup />}
-      {player?.role == 'runner' && (
+      {player?.role == 'RUNNER' && (
         <GameBottomDrawer mapRef={mapRef} questPoints={state.markers} />
       )}
-      {player?.role == 'catcher' && (
+      {player?.role == 'CATCHER' && (
         <View className='rounded-3xl absolute z-10 bottom-8 bg-white left-2 right-2  h-20 flex justify-center items-center'>
           <TouchableOpacity
             onPress={() => {

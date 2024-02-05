@@ -4,6 +4,7 @@ import BottomSheet, { BottomSheetFlatList } from '@gorhom/bottom-sheet';
 import MapView from 'react-native-maps';
 import { IQuestPoint } from '@/interfaces/IQuestPoint';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import { colors } from '@/constants/colors';
 
 interface IGameBottomDrawer {
   mapRef: RefObject<MapView>;
@@ -72,7 +73,7 @@ export const GameBottomDrawer = ({
       index={0}
       snapPoints={snapPoints}
       backgroundStyle={{
-        backgroundColor: '#E5E5E5',
+        backgroundColor: colors.background,
       }}
     >
       <BottomSheetFlatList data={questPoints} renderItem={renderItem} />

@@ -1,5 +1,6 @@
 import { ICoords } from '@/interfaces/ICoords';
 import { IGameState } from '@/interfaces/IGameState';
+import { IQuestPoint } from '@/interfaces/IQuestPoint';
 import { IUser } from '@/interfaces/IUser';
 import { create } from 'zustand';
 
@@ -7,42 +8,15 @@ interface IGameStateActions {
   updateGameState: (state: IGameState) => void;
   updatePlayerPosition: (id: IUser, coordinates: ICoords) => void;
   updateGameStatus: (status: 'lobby' | 'playing' | 'ended') => void;
+  updateQuestPoints: (points: IQuestPoint[]) => void;
 }
 
 export const useGameStore = create<IGameState & IGameStateActions>((set) => ({
-  code: '1345',
+  code: '',
   players: [],
   time_left: new Date(),
   settings: {
-    quest_points: [
-      {
-        title: 'Спас на Крови',
-        description:
-          'Ммммммм, унюхал? Тут неподалёку продаются пышки. Эта пышечная существует с 1958 года! Иди туда, и насладись лакомством. Сфотографируй, чтобы остальные обзавидовались!',
-        location: { latitude: 59.940148, longitude: 30.328847 },
-        photo:
-          'https://lh3.googleusercontent.com/p/AF1QipMM3V5X_dNT9Fv6Jp8atoWyjs6UYBBDtxDtzwdp=s1360-w1360-h1020',
-        tasks: [],
-      },
-      {
-        title: 'Исаакиевский Собор',
-        description:
-          'Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum labore iure dolorem dolorum doloribus obcaecati eum necessitatibus, exercitationem aperiam commodi.',
-        location: { latitude: 59.934095, longitude: 30.306118 },
-        photo:
-          'https://lh3.googleusercontent.com/p/AF1QipOn-baVgB54Mp1S2evwchGUwDT1P3nErl_IJcKE=s1360-w1360-h1020',
-        tasks: [],
-      },
-      {
-        title: 'Петропавловская Крепость',
-        description:
-          'Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum labore iure dolorem dolorum doloribus obcaecati eum necessitatibus, exercitationem aperiam commodi.',
-        location: { latitude: 59.949874, longitude: 30.315384 },
-        photo:
-          'https://avatars.mds.yandex.net/get-altay/1881820/2a0000016ae309b684b391e345b4b2ca894a/XXXL',
-        tasks: [],
-      },
-    ],
+    quest_points: [],
     duration: new Date(),
     mode: 'base',
   },
@@ -62,7 +36,7 @@ export const useGameStore = create<IGameState & IGameStateActions>((set) => ({
             {
               user: user,
               coordinates,
-              role: 'runner',
+              role: 'RUNNER',
               completed: [],
               secret: '',
             },
@@ -86,6 +60,16 @@ export const useGameStore = create<IGameState & IGameStateActions>((set) => ({
       return {
         ...store,
         state: status,
+      };
+    }),
+  updateQuestPoints: (points) =>
+    set((store) => {
+      return {
+        ...store,
+        settings: {
+          ...store.settings,
+          quest_points: points,
+        },
       };
     }),
 }));

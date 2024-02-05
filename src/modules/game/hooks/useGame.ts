@@ -3,11 +3,17 @@ import { ICoords } from '@/interfaces/ICoords';
 import { useGameStore } from '../store/useGameStore';
 import { IGameState } from '@/interfaces/IGameState';
 import axios, { AxiosResponse } from 'axios';
-import { ILocationUpdate, ITaskCompleted } from '@/interfaces/IEvent';
+import {
+  ILocationUpdate,
+  ISettingsUpdate,
+  ITaskCompleted,
+} from '@/interfaces/IEvent';
 import { measure } from '../lib/helper-functions';
 import { useSockets } from './useSockets';
 import { useLocation } from './useLocation';
 import { useAuth } from '@/modules/auth/hooks/useAuth';
+import { ISettings } from '@/interfaces/ISettings';
+import { IQuestPoint } from '@/interfaces/IQuestPoint';
 
 export const useGame = () => {
   const gameState = useGameStore((store) => store);
@@ -39,6 +45,11 @@ export const useGame = () => {
         token: user.id,
       })
     );
+    sockets.send(
+      JSON.stringify({
+        event: 'get_game_state',
+      })
+    );
   };
 
   const leaveLobby = async () => {
@@ -56,13 +67,23 @@ export const useGame = () => {
         break;
       case 'authorization':
         break;
+      case 'settings_update':
+        console.log('parsed!');
+        gameState.updateQuestPoints(message.settings.quest_points);
+        break;
       case 'status':
         console.log(message);
         break;
       case 'gamestate_update':
+        console.log(message.state.settings);
         gameState.updateGameState(message.state);
         break;
       default:
+        sockets.send(
+          JSON.stringify({
+            event: 'get_game_state',
+          })
+        );
         throw new Error('Unknown message received.');
     }
   };
@@ -95,12 +116,30 @@ export const useGame = () => {
     sockets.send(JSON.stringify(updateQuestCompleted));
   };
 
+  const updateGameSettings = (settings: ISettings) => {
+    const updateGameSettings: ISettingsUpdate = {
+      event: 'settings_update',
+      user: user,
+      timestamp: new Date().toDateString(),
+      settings: settings,
+    };
+
+    sockets.send(JSON.stringify(updateGameSettings));
+  };
+
+  const updateQuestPoints = (points: IQuestPoint[]) => {
+    updateGameSettings({
+      ...gameState.settings,
+      quest_points: points,
+    });
+  };
+
   const getPlayer = () => {
     return gameState.players.find((x) => x.user.id == user.id);
   };
 
   const inRange = () => {
-    const runners = gameState.players.filter((x) => x.role == 'runner');
+    const runners = gameState.players.filter((x) => x.role == 'RUNNER');
 
     return runners.some((x) => {
       return (
@@ -117,6 +156,7 @@ export const useGame = () => {
       createLobby,
       joinLobby,
       leaveLobby,
+      code: gameState.code,
     },
     state: {
       updateQuestCompleted,
@@ -125,6 +165,10 @@ export const useGame = () => {
       updateGameStatus: gameState.updateGameStatus,
       lobby: gameState.code,
       settings: gameState.settings,
+    },
+    settings: {
+      updateQuestPoints,
+      updateGameSettings,
     },
     player: getPlayer(),
     inRange,

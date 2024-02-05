@@ -1,43 +1,55 @@
-import { Border } from '@/components/border'
-import { Section } from '@/components/section'
-import { CustomText } from '@/components/ui/custom-text'
-import { colors } from '@/constants/colors'
-import { globalStyles } from '@/styles/global.style'
-import React from 'react'
-import { View } from 'react-native'
+import { Border } from '@/components/border';
+import { Section } from '@/components/section';
+import { CustomText } from '@/components/ui/custom-text';
+import { colors } from '@/constants/colors';
+import { IQuestPoint } from '@/interfaces/IQuestPoint';
+import { globalStyles } from '@/styles/global.style';
+import React from 'react';
+import { View } from 'react-native';
 
-export const QuestsSettings = () => {
+interface IQuestSettingsProps {
+  quest_points: IQuestPoint[];
+}
+
+export const QuestsSettings = ({ quest_points }: IQuestSettingsProps) => {
   return (
-    <Section styles={{
+    <Section
+      styles={{
         gap: 12,
-      }} text='Точки активности'>
-      { [1, 2, 3].map((_, indx) => 
-          <View
-            key={indx}
-            style={[
-              globalStyles.border, 
-              {
-                flexDirection: indx % 2 ? 'row' : 'row-reverse',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                paddingHorizontal: 20,
-                backgroundColor: colors.whiteDark
-              }
-            ]}
-          >
-            <Border styles={{
+      }}
+      text='Точки активности'
+    >
+      {quest_points.map((point, indx) => (
+        <View
+          key={indx}
+          style={[
+            globalStyles.border,
+            {
+              flexDirection: indx % 2 ? 'row' : 'row-reverse',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              paddingHorizontal: 20,
+              backgroundColor: colors.whiteDark,
+            },
+          ]}
+        >
+          <Border
+            styles={{
               borderRadius: 12,
               paddingHorizontal: 20,
               backgroundColor: colors.secondary,
-            }}>
-              <CustomText styles={{
-                color: colors.primary
-              }} size='lg'>{`${indx + 1}`}</CustomText>
-            </Border>
-            <CustomText size='lg'>
-              Спас на крови
-            </CustomText>
-          </View>) }
-      </Section>
-  )
-}
+            }}
+          >
+            <CustomText
+              styles={{
+                color: colors.primary,
+              }}
+              size='lg'
+            >{`${indx + 1}`}</CustomText>
+          </Border>
+          <CustomText size='lg'>{point.title}</CustomText>
+        </View>
+      ))}
+    </Section>
+  );
+};

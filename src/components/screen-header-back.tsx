@@ -1,13 +1,15 @@
 import { ArrowIcon } from '@/assets/icons/arrow.icon';
-import { useGame } from '@/modules/game/hooks/useGame';
 import { RootStackParamList } from '@/modules/navigation/root-navigator';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React from 'react';
 import { TouchableOpacity, View } from 'react-native';
 
-export const ScreenHeaderBack = () => {
-  const { lobby } = useGame();
+interface IScrenHeaderBackProps {
+  onPress?: () => void;
+}
+
+export const ScreenHeaderBack = ({ onPress }: IScrenHeaderBackProps) => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
 
   return (
@@ -15,7 +17,7 @@ export const ScreenHeaderBack = () => {
       <TouchableOpacity
         className='absolute left-8'
         onPress={async () => {
-          await lobby.leaveLobby();
+          if (onPress) onPress();
           navigation.goBack();
         }}
       >

@@ -22,7 +22,9 @@ export const PlayerMarker = ({
           // это плохо, но это тут так как nativewind кидает ошибку если сделать border-white
           style={{ borderColor: 'white' }}
           source={
-            { uri: user.avatar } ?? require('@/assets/default-avatar.jpg')
+            user.avatar != null
+              ? { uri: user.avatar }
+              : require('@/assets/default-avatar.jpg')
           }
         />
         {extended && (

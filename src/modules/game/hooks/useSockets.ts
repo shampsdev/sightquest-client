@@ -27,7 +27,7 @@ export const useSockets = () => {
   };
 
   const disconnect = () => {
-    if (socket == null) throw Error('No socket connected!');
+    if (socket == null) return;
     socket.close();
     socket = null;
   };

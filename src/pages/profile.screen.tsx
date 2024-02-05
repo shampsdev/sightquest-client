@@ -29,7 +29,7 @@ export const ProfileScreen = () => {
   // const [image, setImage] = useState<string>();
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
 
-  const { user } = useAuth();
+  const { user, manage } = useAuth();
 
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
@@ -315,6 +315,26 @@ export const ProfileScreen = () => {
               total={10}
               icon={<CoinsIcon />}
             />
+          </View>
+
+          <View className='w-full flex items-center h-14'>
+            <TouchableOpacity
+              onPress={() => {
+                manage.clear();
+              }}
+              style={[
+                globalStyles.border,
+                {
+                  borderRadius: 24,
+                  width: 140,
+                  alignItems: 'center',
+                },
+              ]}
+            >
+              <CustomText styles={{ textAlign: 'center' }} size='lg'>
+                Выйти
+              </CustomText>
+            </TouchableOpacity>
           </View>
 
           <View className='h-40' />
