@@ -16,7 +16,7 @@ import { borderRadius, colors } from '@/constants/colors';
 import { CharacteristicBar } from '@/components/ui/characteristic-bar';
 import SpeedIcon from '@/assets/icons/speed.icon';
 import TimeIcon from '@/assets/icons/time.icon';
-import { CircleImage } from '@/components/ui/CircleImage';
+import { CircleImage } from '@/components/ui/circle-image';
 
 const purchases = [4, 6]
 const values = [1, 2, 3]

@@ -1,6 +1,7 @@
 import { Border } from '@/components/border'
 import { Card } from '@/components/ui/card'
 import { CustomText } from '@/components/ui/custom-text'
+import { colors } from '@/constants/colors'
 import React from 'react'
 import { ImageProps } from 'react-native'
 
@@ -34,6 +35,7 @@ export const BestRoute = (props: BestRouteType) => {
           position: 'absolute',
           right: 20,
           bottom: 20,
+          color: colors.primary
         }}
       >
         { props.amount }

@@ -88,7 +88,7 @@ export function RoutesScreen() {
                   mainBarColor={colors.darkPrimary}
                   secondBarColor={colors.primary}
                   textColor={colors.secondary}
-                  amount={7}
+                  amount={value.complexity}
                   total={10}
                 />
               </TouchableOpacity>

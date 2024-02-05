@@ -1,30 +1,36 @@
 import { Card } from '@/components/ui/card';
 import { CustomText } from '@/components/ui/custom-text';
+import { IPromocode } from '@/interfaces/IPromocode';
+import { RootStackParamList } from '@/modules/navigation/root-navigator';
 import { globalStyles } from '@/styles/global.style';
+import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
 import React from 'react';
-import { ImageSourcePropType, View } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
-export type PromocodProps = {
-  title: string;
-  image: ImageSourcePropType;
-};
+export const Promocode = (props: IPromocode) => {
+  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
 
-export const Promocode = (props: PromocodProps) => {
+  const promoClickHandle = (promo: IPromocode) => {
+    navigation.navigate('PromocodeScreen', {...promo});
+  }
+
   return (
-    <Card image={props.image}>
-      <View
-        style={[
-          globalStyles.border,
-          {
-            position: 'absolute',
-            paddingVertical: 6,
-            bottom: 8,
-            left: 8,
-          },
-        ]}
-      >
-        <CustomText>{props.title}</CustomText>
-      </View>
-    </Card>
+    <TouchableOpacity
+      onPress={() => promoClickHandle(props)}
+    >
+      <Card image={props.grayImage}>
+        <CustomText
+          styles={[
+            globalStyles.border,
+            {
+              position: 'absolute',
+              paddingVertical: 6,
+              bottom: 8,
+              left: 8,
+            }]}
+        >{props.title}</CustomText>
+      </Card>
+    </TouchableOpacity>
   );
 };

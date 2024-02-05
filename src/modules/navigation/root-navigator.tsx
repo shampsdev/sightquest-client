@@ -7,12 +7,14 @@ import { LobbyScreen } from '@/pages/lobby.screen';
 import { RoutesScreen } from '@/pages/routes.screen';
 import { ProfileScreen } from '@/pages/profile.screen';
 import { StoreScreen } from '@/pages/store.screen';
-import { PromocodsScreen } from '@/pages/promocods.screen';
+import { PromocodeProps, PromocodesScreen } from '@/pages/promocodes.screen';
+import { PromocodeScreen } from '@/pages/promocode.screen';
 
 export type RootStackParamList = {
   HomeScreen: undefined;
   ProfileScreen: undefined;
-  PromocodsScreen: undefined;
+  PromocodesScreen: undefined;
+  PromocodeScreen: PromocodeProps;
   LobbyScreen: undefined;
   RoutesScreen: undefined;
   StoreScreen: undefined;
@@ -37,7 +39,8 @@ export const RootNavigator = () => {
       <Stack.Screen name='ProfileScreen' component={ProfileScreen} />
       <Stack.Screen name='LobbyScreen' component={LobbyScreen} />
       <Stack.Screen name='GameScreen' component={GameScreen} />
-      <Stack.Screen name='PromocodsScreen' component={PromocodsScreen} />
+      <Stack.Screen name='PromocodesScreen' component={PromocodesScreen} />
+      <Stack.Screen name='PromocodeScreen' component={PromocodeScreen} />
       <Stack.Screen name='Camera' component={CameraModule} />
     </Stack.Navigator>
   );

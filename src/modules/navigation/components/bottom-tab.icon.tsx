@@ -2,8 +2,8 @@ import React from 'react';
 import HomeIcon from '@/assets/icons/home.icon';
 import { View } from 'react-native';
 import ProfileIcon from '@/assets/icons/profile.icon';
-import PlayIcon from '@/assets/icons/play.icon';
 import { StoreIcon } from '@/assets/icons/store.icon';
+import RoutesIcon from '@/assets/icons/routes.icon';
 
 type Props = {
   route: string;
@@ -37,8 +37,8 @@ export const BottomTabIcon = ({ route }: Props) => {
             height={height}
           />
         );
-      case 'FriendsTab':
-        return <PlayIcon width={width} height={height} />;
+      case 'RoutesTab':
+        return <RoutesIcon width={width} height={height} />;
       default:
         return <HomeIcon width={width} height={height} />;
     }
