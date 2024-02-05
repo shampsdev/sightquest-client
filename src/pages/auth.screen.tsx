@@ -4,10 +4,14 @@ import { useState } from 'react';
 import { TextInput, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { colors } from '@/constants/colors';
+import { RootStackParamList } from '@/modules/navigation/root-navigator';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { useNavigation } from '@react-navigation/native';
 
 export const AuthScreen = () => {
   const { manage } = useAuth();
   const [username, setUsername] = useState('');
+  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
 
   return (
     <View
@@ -39,8 +43,9 @@ export const AuthScreen = () => {
           placeholder='nickname..'
         />
         <TouchableOpacity
-          onPress={() => {
-            manage.login(username);
+          onPress={async () => {
+            await manage.login(username);
+            navigation.navigate('HomeScreen');
           }}
           style={{
             padding: 10,

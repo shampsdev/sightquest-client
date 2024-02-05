@@ -26,6 +26,8 @@ export interface ILocationUpdate extends IEvent {
 
 export interface ITaskCompleted extends IEvent, ICompletedTask {
   event: 'task_completed';
+  photo: string;
+  photo_id: number;
 }
 
 export interface IPlayerCaught extends IEvent {

@@ -4,9 +4,26 @@ import SwipeButton from '@/components/ui/swipe-button';
 import { colors } from '@/constants/colors';
 import React from 'react';
 import { View, Image } from 'react-native';
+import { useAuth } from '@/modules/auth/hooks/useAuth';
+import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RootStackParamList } from '@/modules/navigation/root-navigator';
+import { AuthStackParamList } from '@/modules/navigation/auth-navigator';
 
 export const LoadScreen = () => {
-  const handleToggle = () => {};
+  const { user } = useAuth();
+  const navigation =
+    useNavigation<
+      StackNavigationProp<RootStackParamList & AuthStackParamList>
+    >();
+
+  const handleToggle = () => {
+    if (user != null) {
+      navigation.navigate('HomeScreen');
+    } else {
+      navigation.navigate('AuthScreen');
+    }
+  };
 
   return (
     <View className='pt-[45%] h-full bg-background'>
@@ -14,7 +31,7 @@ export const LoadScreen = () => {
         styles={{
           alignItems: 'center',
           justifyContent: 'space-between',
-          height: '80%'
+          height: '80%',
         }}
       >
         <Image source={require('@/assets/victor-mascot.png')} />
