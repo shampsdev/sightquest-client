@@ -12,7 +12,6 @@ export const useAuth = () => {
     const loadUser = async () => {
       const localStore = await localStorage.getData<IAuthStore>('user');
       if (localStore) {
-        console.log('Found user on device. Logging in.');
         updateUser(localStore);
       }
     };

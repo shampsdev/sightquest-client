@@ -14,7 +14,7 @@ export const useGame = () => {
   const sockets = useSockets();
   const location = useLocation();
 
-  const { user } = useAuth();
+  const { user, token } = useAuth();
   if (user == null) throw Error('No user found!');
 
   const createLobby = async () => {
@@ -24,8 +24,7 @@ export const useGame = () => {
     >(`${API_URL}/games/create`, {
       headers: {
         'Content-Type': 'application/json',
-        Authorization:
-          'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzA3MDY4MzY3LCJpYXQiOjE3MDcwNjgwNjcsImp0aSI6IjBmNjUxNTgxOWQ1ZDQ2M2Q4NDRkYmZjYjk0NTEzYjZiIiwidXNlcl9pZCI6MiwidXNlcm5hbWUiOiJtaWtlIn0.KVkDEozPJDBnbli8s_tcuLv09wqwL-CQnwiS7HCgt4I',
+        Authorization: `Bearer ${token}`,
       },
     });
 
@@ -40,6 +39,10 @@ export const useGame = () => {
         token: user.id,
       })
     );
+  };
+
+  const leaveLobby = async () => {
+    sockets.disconnect();
   };
 
   const parseIncomingMessage = (event: WebSocketMessageEvent) => {
@@ -113,12 +116,15 @@ export const useGame = () => {
     lobby: {
       createLobby,
       joinLobby,
+      leaveLobby,
     },
     state: {
       updateQuestCompleted,
       markers: gameState.settings.quest_points,
       players: gameState.players,
       updateGameStatus: gameState.updateGameStatus,
+      lobby: gameState.code,
+      settings: gameState.settings,
     },
     player: getPlayer(),
     inRange,
