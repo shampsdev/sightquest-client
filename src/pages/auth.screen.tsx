@@ -3,6 +3,8 @@ import { useAuth } from '@/modules/auth/hooks/useAuth';
 import React, { useState } from 'react';
 import { TextInput, View } from 'react-native';
 import { colors } from '@/constants/colors';
+import { RootStackParamList } from '@/modules/navigation/root-navigator';
+import { useNavigation } from '@react-navigation/native';
 import { Border } from '@/components/border';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useNavigation } from '@react-navigation/native';
@@ -12,8 +14,8 @@ import CheckBox from 'expo-checkbox'
 
 export const AuthScreen = () => {
   const navigation = useNavigation<StackNavigationProp<AuthStackParamList>>();
-
   const { manage } = useAuth();
+    
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [isChecked, setChecked] = useState(false);
@@ -64,7 +66,6 @@ export const AuthScreen = () => {
           }}
           placeholder='nickname..'
         />
-
         <TextInput
           autoCapitalize='none'
           style={{

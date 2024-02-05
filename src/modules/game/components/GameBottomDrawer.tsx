@@ -5,6 +5,7 @@ import MapView from 'react-native-maps';
 import { IQuestPoint } from '@/interfaces/IQuestPoint';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { colors } from '@/constants/colors';
+import { useUserInterface } from '../hooks/useUserInterface';
 
 interface IGameBottomDrawer {
   mapRef: RefObject<MapView>;
@@ -15,6 +16,8 @@ export const GameBottomDrawer = ({
   mapRef,
   questPoints,
 }: IGameBottomDrawer) => {
+  const { setTracking } = useUserInterface();
+
   // ref
   const bottomSheetRef = useRef<BottomSheet>(null);
 
@@ -29,6 +32,7 @@ export const GameBottomDrawer = ({
           key={index}
           className='bg-white h-24 rounded-3xl flex flex-row items-center px-2 justify-between my-1 mx-4'
           onPress={() => {
+            setTracking(false);
             mapRef.current?.animateToRegion({
               ...item.location,
               latitudeDelta: 0.01,

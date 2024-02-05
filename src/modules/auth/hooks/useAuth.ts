@@ -47,7 +47,6 @@ export const useAuth = () => {
     };
 
     localStorage.storeData<IAuthStore>('user', authStore);
-    console.log(authStore);
     updateUser(authStore);
   };
 

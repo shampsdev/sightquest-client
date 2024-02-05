@@ -42,18 +42,19 @@ export const useGame = () => {
   };
 
   const joinLobby = async (code: string) => {
-    await sockets.connect(`${WS_URL}/ws/game/${code}/`);
-    sockets.send(
-      JSON.stringify({
-        event: 'authorization',
-        token: user.id,
-      })
-    );
-    sockets.send(
-      JSON.stringify({
-        event: 'get_game_state',
-      })
-    );
+    await sockets.connect(`${WS_URL}/ws/game/${code}/`, () => {
+      sockets.send(
+        JSON.stringify({
+          event: 'authorization',
+          token: user.id,
+        })
+      );
+      sockets.send(
+        JSON.stringify({
+          event: 'get_game_state',
+        })
+      );
+    });
   };
 
   const leaveLobby = async () => {
@@ -62,6 +63,7 @@ export const useGame = () => {
 
   const parseIncomingMessage = (event: WebSocketMessageEvent) => {
     const message = JSON.parse(event.data);
+    console.log(message);
 
     switch (message.event) {
       case 'quest_completed':
@@ -72,14 +74,11 @@ export const useGame = () => {
       case 'authorization':
         break;
       case 'settings_update':
-        console.log('parsed!');
         gameState.updateQuestPoints(message.settings.quest_points);
         break;
       case 'status':
-        console.log(message);
         break;
       case 'gamestate_update':
-        console.log(message.state.settings);
         gameState.updateGameState(message.state);
         break;
       default:
@@ -114,6 +113,7 @@ export const useGame = () => {
       user: user,
       timestamp: new Date().toDateString(),
       photo: photo,
+      photo_id: 0,
       task_id: 0,
     };
 

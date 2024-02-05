@@ -9,6 +9,7 @@ import { ProfileScreen } from '@/pages/profile.screen';
 import { StoreScreen } from '@/pages/store.screen';
 import { PromocodesScreen } from '@/pages/promocodes.screen';
 import { PromocodeScreen } from '@/pages/promocode.screen';
+import { LoadScreen } from '@/pages/load.screen';
 import { IPromocode } from '@/interfaces/IPromocode';
 
 export type RootStackParamList = {
@@ -35,7 +36,7 @@ export const RootNavigator = () => {
         gestureDirection: 'horizontal',
       }}
     >
-      {/* <Stack.Screen name='LoadScreen' component={LoadScreen} /> */}
+      <Stack.Screen name='LoadScreen' component={LoadScreen} />
       <Stack.Screen name='HomeScreen' component={BottomTabNavigator} />
       <Stack.Screen name='RoutesScreen' component={RoutesScreen} />
       <Stack.Screen name='StoreScreen' component={StoreScreen} />
