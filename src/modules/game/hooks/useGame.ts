@@ -27,12 +27,16 @@ export const useGame = () => {
     const res = await axios.post<
       IGameState,
       AxiosResponse<IGameState, IGameState>
-    >(`${API_URL}/games/create`, {
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    >(
+      `${API_URL}/api/games/create/`,
+      {},
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
 
     return res.data.code;
   };
@@ -98,7 +102,7 @@ export const useGame = () => {
       coordinates,
     };
 
-    if (gameState.state == 'playing')
+    if (gameState.state == 'PLAYING')
       sockets.send(JSON.stringify(locationUpdate));
   };
 

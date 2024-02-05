@@ -6,5 +6,5 @@ export interface IGameState {
   players: IUserState[];
   time_left: Date;
   settings: ISettings;
-  state: 'lobby' | 'playing' | 'ended';
+  state: 'LOBBY' | 'PLAYING' | 'ENDED';
 }

@@ -7,7 +7,7 @@ import { create } from 'zustand';
 interface IGameStateActions {
   updateGameState: (state: IGameState) => void;
   updatePlayerPosition: (id: IUser, coordinates: ICoords) => void;
-  updateGameStatus: (status: 'lobby' | 'playing' | 'ended') => void;
+  updateGameStatus: (status: 'LOBBY' | 'PLAYING' | 'ENDED') => void;
   updateQuestPoints: (points: IQuestPoint[]) => void;
 }
 
@@ -18,9 +18,9 @@ export const useGameStore = create<IGameState & IGameStateActions>((set) => ({
   settings: {
     quest_points: [],
     duration: new Date(),
-    mode: 'base',
+    mode: 'BASE',
   },
-  state: 'lobby',
+  state: 'LOBBY',
   updateGameState: (state) => set(state),
   updatePlayerPosition: (user, coordinates) => {
     set((state) => {

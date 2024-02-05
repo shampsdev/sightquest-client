@@ -41,7 +41,7 @@ export const LobbyScreen = () => {
   }, [route]);
 
   const swipeButtonHandle = () => {
-    state.updateGameStatus('playing');
+    state.updateGameStatus('PLAYING');
     navigation.navigate('GameScreen');
   };
 

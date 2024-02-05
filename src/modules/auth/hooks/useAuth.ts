@@ -33,7 +33,7 @@ export const useAuth = () => {
     const user_data = (await axios.get(`${API_URL}/api/users/${username}`))
       .data;
 
-    const { token, refresh } = (
+    const { access, refresh } = (
       await axios.post(`${API_URL}/api/token/`, {
         username: username,
         password: 'penis',
@@ -42,11 +42,12 @@ export const useAuth = () => {
 
     const authStore = {
       user: user_data,
-      token,
+      token: access,
       refresh,
     };
 
     localStorage.storeData<IAuthStore>('user', authStore);
+    console.log(authStore);
     updateUser(authStore);
   };
 

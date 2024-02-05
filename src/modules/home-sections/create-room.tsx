@@ -11,13 +11,12 @@ import {
 } from 'react-native';
 import { RootStackParamList } from '../navigation/root-navigator';
 import { CustomText } from '@/components/ui/custom-text';
-import { toast, ToastPosition } from '@backpackapp-io/react-native-toast';
 import { Border } from '@/components/border';
 import PlusIcon from '@/assets/icons/plus.icon';
 import { borderRadius, colors } from '../../constants/colors';
 import { useGame } from '../game/hooks/useGame';
 
-const sizeOfLobbyId = 7;
+const sizeOfLobbyId = 8;
 
 const toastStyle = StyleSheet.create({
   container: {
@@ -66,13 +65,10 @@ export const CreateRoom = () => {
       return;
     }
 
-    if (lobbyId?.length === 8) {
+    if (lobbyId?.length <= 10) {
+      setLobbyId(input);
       console.log(lobbyId);
-      await lobby.joinLobby(lobbyId);
-      navigation.navigate('LobbyScreen');
     }
-
-    setLobbyId(input);
   };
 
   return (
@@ -80,8 +76,9 @@ export const CreateRoom = () => {
       <View className='flex-row justify-center gap-x-1'>
         <TouchableOpacity
           onPress={async () => {
-            // const id = await lobby.createLobby();
-            await lobby.joinLobby('1M5J7EQO');
+            const id = await lobby.createLobby();
+            console.log(id);
+            await lobby.joinLobby(id);
             navigation.navigate('LobbyScreen');
           }}
           style={{
