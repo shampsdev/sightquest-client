@@ -26,30 +26,6 @@ export const CreateRoom = () => {
   const { lobby } = useGame();
   const [lobbyId, setLobbyId] = useState('');
 
-  // const connectToLobby = (variant: 'solo' | 'multi') => {
-  //   const lobbyForConnection = lobbyId.slice(1, lobbyId.length);
-
-  //   if (
-  //     lobbyForConnection.length !== sizeOfLobbyId &&
-  //     lobbyForConnection.length !== 0 &&
-  //     variant === 'multi'
-  //   ) {
-  //     toast('Введите id лобби (например: #PR1VET)', {
-  //       duration: 4000,
-  //       position: ToastPosition.TOP,
-  //       icon: '⚠️',
-  //       styles: {
-  //         view: toastStyle.container,
-  //       },
-  //     });
-
-  //     return;
-  //   }
-
-  //   lobby.joinLobby(lobbyId);
-  //   navigation.navigate('LobbyScreen');
-  // };
-
   const connectToLobby = async () => {
     const id = await lobby.createLobby();
     await lobby.joinLobby(id);
