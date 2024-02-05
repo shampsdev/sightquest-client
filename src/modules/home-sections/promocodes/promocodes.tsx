@@ -1,6 +1,7 @@
 import React from 'react'
 import { FlatList } from 'react-native'
-import { Promocode, PromocodProps } from './components/promocode';
+import { Promocode } from './components/promocode';
+import { IPromocode } from '@/interfaces/IPromocode';
 
 const data: PromocodProps[] = [
   {
@@ -18,7 +19,7 @@ const data: PromocodProps[] = [
   }
 ];
 
-export const Promocodes = () => {
+export const Promocodes = ({ data }: {data: IPromocode[]}) => {
   return (
     <FlatList
       style={{

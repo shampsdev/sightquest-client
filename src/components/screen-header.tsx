@@ -1,14 +1,22 @@
-import { MiniLogoIcon } from '@/assets/icons/mini-logo.icon'
 import SearchIcon from '@/assets/icons/search.icon'
 import React from 'react'
-import { Text, View } from 'react-native'
+import { View, ViewStyle } from 'react-native'
+import { CustomText } from './ui/custom-text';
+import { MiniLogoIcon } from '@/assets/icons/mini-logo.icon';
 
-export const ScreenHeader = () => {
+export const ScreenHeader = ({ styles }: {
+  styles?: ViewStyle;
+}) => {
   return (
-    <View className='flex-row items-center mb-5 justify-between'>
+    <View style={[{
+      flexDirection: 'row',
+      alignItems: 'center',
+      marginBottom: 20,
+      justifyContent: 'space-between'
+    }, styles]}>
       <View className='flex-row items-center'>
         <SearchIcon/>
-        <Text style={{ fontFamily: 'font' }}>Санкт-Петербург</Text>
+        <CustomText>Санкт-Петербург</CustomText>
       </View>
       <MiniLogoIcon/>
     </View>

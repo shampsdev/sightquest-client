@@ -1,17 +1,23 @@
 import { borderRadius } from '@/constants/colors'
 import React from 'react'
-import { ImageBackground, ImageSourcePropType } from 'react-native'
+import { ImageBackground, ImageSourcePropType, StyleProp, ViewStyle } from 'react-native'
 
-export const Card = ({ children, image }: { children: React.ReactNode, image: ImageSourcePropType }) => {
+type CardProps = {
+  children: React.ReactNode;
+  image: ImageSourcePropType;
+  styles?: StyleProp<ViewStyle>;
+}
+
+export const Card = ({ children, image, styles }: CardProps) => {
   return (
-    <ImageBackground 
+    <ImageBackground   
       source={ image }
-      style={{
+      style={[styles ,{
         height: 140,
         width: 200,
         marginRight: 8,
-        position: 'relative'
-      }}
+        position: 'relative',
+      }]}
       borderRadius={borderRadius}
     >
       { children }
