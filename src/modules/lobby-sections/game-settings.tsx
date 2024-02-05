@@ -9,10 +9,16 @@ import React from 'react';
 import { ImageBackground, TouchableOpacity, View } from 'react-native';
 import { RootStackParamList } from '../navigation/root-navigator';
 import useGameSettings from '@/stores/game-settings.store';
+import { ISettings } from '@/interfaces/ISettings';
 
-export const GameSettings = () => {
+interface IGameSettingsProps {
+  settings: ISettings;
+  code: string;
+}
+
+export const GameSettings = ({ code }: IGameSettingsProps) => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
-  const selectedRoute = useGameSettings(state => state.route);
+  const selectedRoute = useGameSettings((state) => state.route);
 
   return (
     <Border
@@ -35,44 +41,60 @@ export const GameSettings = () => {
             position: 'absolute',
             bottom: 8,
             left: 8,
-            color: colors.primary
+            color: colors.primary,
           }}
           size='3xl'
-        >01 :20 :59</CustomText>
+        >
+          01 :20 :59
+        </CustomText>
       </ImageBackground>
-      <View style={{
-        gap: 4,
-      }} className='flex-row justify-center'>
+      <View
+        style={{
+          gap: 4,
+        }}
+        className='flex-row justify-center'
+      >
         <TouchableOpacity
-          onPress={() => { navigation.navigate('RoutesScreen'); }}
-          style={[globalStyles.border, {
-            width: '49%',
-            height: 120,
-            position: 'relative',
-            backgroundColor: colors.secondary,
-          }]}
+          onPress={() => {
+            navigation.navigate('RoutesScreen');
+          }}
+          style={[
+            globalStyles.border,
+            {
+              width: '49%',
+              height: 120,
+              position: 'relative',
+              backgroundColor: colors.secondary,
+            },
+          ]}
         >
           <CustomText
             size='lg'
             styles={{
-              color: colors.primary
+              color: colors.primary,
             }}
-          >Маршрут</CustomText>
+          >
+            Маршрут
+          </CustomText>
 
-          <PlusIcon style={{
-            position: 'absolute',
-            left: 16,
-            bottom: 16
-          }} />
+          <PlusIcon
+            style={{
+              position: 'absolute',
+              left: 16,
+              bottom: 16,
+            }}
+          />
         </TouchableOpacity>
-        <Border styles={{
-          width: '49%',
-          backgroundColor: colors.secondary
-        }}>
+        <Border
+          styles={{
+            width: '49%',
+            backgroundColor: colors.secondary,
+          }}
+        >
           <CustomText
             size='lg'
             styles={{
-              color: colors.primary
+              color: colors.primary,
             }}
           >
             Сложность
@@ -82,16 +104,22 @@ export const GameSettings = () => {
               position: 'absolute',
               left: 16,
               bottom: 16,
-              color: colors.primary
+              color: colors.primary,
             }}
-            size='2xl'>
+            size='2xl'
+          >
             {`${selectedRoute?.complexity ?? 0} / 10`}
           </CustomText>
         </Border>
       </View>
-      <CustomText styles={{
-        marginLeft: 4,
-      }} size='lg'>#defeoi</CustomText>
+      <CustomText
+        styles={{
+          marginLeft: 4,
+        }}
+        size='lg'
+      >
+        {`#${code}`}
+      </CustomText>
     </Border>
   );
 };

@@ -29,6 +29,7 @@ export const useSockets = () => {
   const disconnect = () => {
     if (socket == null) throw Error('No socket connected!');
     socket.close();
+    socket = null;
   };
 
   // Тут это нужно, чтобы привязать функцию к onmessage.

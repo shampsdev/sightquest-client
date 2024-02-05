@@ -8,9 +8,6 @@ import { ProfileScreen } from '@/pages/profile.screen';
 import { HomeScreen } from '@/pages/home.screen';
 import { StoreScreen } from '@/pages/store.screen';
 import { RoutesScreen } from '@/pages/routes.screen';
-// import { RoutesScreen } from '@/pages/routes.screen';
-// import { LoadScreen } from '@/pages/load.screen';
-// import { InfoScreen } from '@/pages/info.screen';
 
 export type BottomTabParamList = {
   HomeTab: undefined;

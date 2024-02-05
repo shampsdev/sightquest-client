@@ -16,7 +16,7 @@ interface IEvent {
     | 'status'
     | 'get_game_state'
     | 'gamestate_update';
-  timestamp: Date;
+  timestamp: string;
 }
 
 export interface ILocationUpdate extends IEvent {

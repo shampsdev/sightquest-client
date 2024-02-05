@@ -14,6 +14,7 @@ import { Toasts } from '@backpackapp-io/react-native-toast';
 import { Promocodes } from '@/modules/home-sections/promocodes/promocodes';
 import { borderRadius, colors } from '@/constants/colors';
 import { promocodes } from './promocodes.screen';
+import { useAuth } from '@/modules/auth/hooks/useAuth';
 
 const data = [
   {
@@ -104,6 +105,8 @@ const data = [
 ];
 
 export const HomeScreen = () => {
+  const { user } = useAuth();
+
   return (
     <ScrollView style={{
       gap: 16,
@@ -155,7 +158,7 @@ export const HomeScreen = () => {
         }}
       >
         <Border>
-          <CustomText size='2xl'>Привет, Виктор!</CustomText>
+          <CustomText size='2xl'>{`Привет, ${user?.username}!`}</CustomText>
           <CustomText size='lg'>Готов играть в догонялки?</CustomText>
         </Border>
 

@@ -1,7 +1,7 @@
 import { Platform } from 'react-native';
 import MapView, { MapType } from 'react-native-maps';
 import { measure } from '../lib/helper-functions';
-import { PlayerMarker } from './PlayerMarker';
+import { PlayerMarker } from './markers/PlayerMarker';
 import { CustomMarker } from './markers/CustomMarker';
 import { useUserInterface } from '../hooks/useUserInterface';
 import { RefObject, useEffect, useState } from 'react';
@@ -11,11 +11,7 @@ import { useGame } from '../hooks/useGame';
 export const Map = ({ mapRef }: { mapRef: RefObject<MapView> }) => {
   const { tracking, setTracking, setQuestPoint } = useUserInterface();
 
-  const { state, player } = useGame({
-    id: 0,
-    username: '',
-    avatar: '',
-  });
+  const { state, player } = useGame();
 
   const [coords, setCoords] = useState<ICoords>({
     latitude: 0,
