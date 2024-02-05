@@ -1,41 +1,55 @@
-import { CustomText } from '@/components/ui/custom-text';
-import { useAuth } from '@/modules/auth/hooks/useAuth';
-import React, { useState } from 'react';
-import { TextInput, View } from 'react-native';
-import { colors } from '@/constants/colors';
-import { RootStackParamList } from '@/modules/navigation/root-navigator';
-import { useNavigation } from '@react-navigation/native';
-import { Border } from '@/components/border';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { useNavigation } from '@react-navigation/native';
-import { AuthStackParamList } from '@/modules/navigation/auth-navigator';
-import { CustomButton } from '@/components/ui/custom-button';
+import { Border } from '@/components/border'
+import { CustomButton } from '@/components/ui/custom-button'
+import { CustomText } from '@/components/ui/custom-text'
+import { colors } from '@/constants/colors'
+import { AuthStackParamList } from '@/modules/navigation/auth-navigator'
+import { useNavigation } from '@react-navigation/native'
+import { StackNavigationProp } from '@react-navigation/stack'
+import React, { useState } from 'react'
+import { StyleSheet, TextInput, View } from 'react-native'
 import CheckBox from 'expo-checkbox'
+import { useAuth } from '@/modules/auth/hooks/useAuth'
+import { useSignUp } from '@/modules/auth/hooks/useSignUp'
+import { ToastPosition, Toasts, toast } from '@backpackapp-io/react-native-toast'
 
-export const AuthScreen = () => {
-  const navigation = useNavigation<StackNavigationProp<AuthStackParamList>>();
-  const { manage } = useAuth();
-    
+export const SignUpScreen = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [isChecked, setChecked] = useState(false);
 
+  const { manage } = useAuth();
+  
+  const navigation = useNavigation<StackNavigationProp<AuthStackParamList>>();
+
   const login = () => {
-    manage.login(username, password);
+    navigation.navigate('AuthScreen');
   }
 
-  const signUp = () => {
-    navigation.navigate('SignUpScreen');
+  const signUp = async () => {
+    const response = await useSignUp(username, password);
+
+    if (response === "successful") {
+      toast(`error ${response}`, {
+        duration: 4000,
+        position: ToastPosition.TOP,
+        icon: '⚠️',
+        styles: {
+          view: styles.toaster,
+        },
+      });
+    }
+    
+    manage.login(username);
   }
 
   return (
     <View
-      style={{ 
+      style={{
         flexGrow: 1,
         backgroundColor: colors.background,
         justifyContent: 'center',
         alignItems: 'center'
-       }}
+      }}
     >
       <Border
         styles={{
@@ -46,13 +60,11 @@ export const AuthScreen = () => {
         }}
       >
         <CustomText size='xl' styles={{ color: colors.primary, textAlign: 'center' }}>
-          Войти
+          Регистрация
         </CustomText>
-
         <CustomText styles={{ color: colors.primary, textAlign: 'center' }}>
           Заполните поля
         </CustomText>
-
         <TextInput
           autoCapitalize='none'
           style={{
@@ -66,6 +78,7 @@ export const AuthScreen = () => {
           }}
           placeholder='nickname..'
         />
+        
         <TextInput
           autoCapitalize='none'
           style={{
@@ -113,8 +126,15 @@ export const AuthScreen = () => {
             Sign up
           </CustomButton>
         </View>
-
       </Border>
+      <Toasts/>
     </View>
-  );
-};
+  )
+}
+
+const styles = StyleSheet.create({
+  toaster: {
+    backgroundColor: colors.secondary,
+    color: colors.primary
+  }
+})

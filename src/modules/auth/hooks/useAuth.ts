@@ -28,7 +28,7 @@ export const useAuth = () => {
     });
   };
 
-  const login = async (username: string) => {
+  const login = async (username: string, password?: string) => {
     // Some code to get the user
     const user_data = (await axios.get(`${API_URL}/api/users/${username}`))
       .data;
@@ -36,7 +36,7 @@ export const useAuth = () => {
     const { access, refresh } = (
       await axios.post(`${API_URL}/api/token/`, {
         username: username,
-        password: 'penis',
+        password: password ?? 'penis',
       })
     ).data;
 

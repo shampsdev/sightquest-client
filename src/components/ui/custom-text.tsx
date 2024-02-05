@@ -7,7 +7,7 @@ type IText = {
   styles?:
     | TextStyle
     | RegisteredStyle<TextStyle>
-    | (TextStyle | RegisteredStyle<TextStyle>)[];
+    | (TextStyle | RegisteredStyle<TextStyle> | undefined)[];
 };
 
 export function CustomText({ children, size, styles }: IText) {
