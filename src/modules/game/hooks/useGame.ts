@@ -42,6 +42,7 @@ export const useGame = () => {
   };
 
   const joinLobby = async (code: string) => {
+    console.log('joining lobby', code);
     await sockets.connect(`${WS_URL}/ws/game/${code}/`, () => {
       sockets.send(
         JSON.stringify({

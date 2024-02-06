@@ -28,7 +28,7 @@ export const CameraModule = () => {
 
   if (!permission.granted) {
     return (
-      <View className='flex justify-center items-center'>
+      <View className='flex justify-center items-center h-full w-full'>
         <Text style={{ textAlign: 'center' }}>
           We need your permission to show the camera
         </Text>
@@ -50,7 +50,7 @@ export const CameraModule = () => {
           }}
           type={CameraType.back}
           autoFocus={true}
-        ></Camera>
+        />
       )}
       <View className='absolute pt-10 h-32 w-full bg-[#EAEAEA] rounded-b-3xl top-0 flex justify-center items-center'>
         <CustomText size='xl'>Сделай фото</CustomText>

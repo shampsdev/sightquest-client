@@ -26,11 +26,16 @@ export const CreateRoom = () => {
   const { lobby } = useGame();
   const [lobbyId, setLobbyId] = useState('');
 
-  const connectToLobby = async () => {
+  const createLobby = async () => {
     const id = await lobby.createLobby();
     await lobby.joinLobby(id);
     navigation.navigate('LobbyScreen');
-  } 
+  };
+
+  const connectToLobby = async (id: string) => {
+    await lobby.joinLobby(id.slice(1));
+    navigation.navigate('LobbyScreen');
+  };
 
   const lobbyIdHandle = async (input: string) => {
     if (lobbyId?.length === 0 && input[0] !== '#') {
@@ -39,12 +44,11 @@ export const CreateRoom = () => {
     }
 
     if (lobbyId?.length === sizeOfLobbyId) {
-      setTimeout(async () => await connectToLobby(), 100)
+      await connectToLobby(input);
     }
 
     if (lobbyId?.length <= 10) {
       setLobbyId(input);
-      console.log(lobbyId);
     }
   };
 
@@ -53,7 +57,7 @@ export const CreateRoom = () => {
       <View className='flex-row justify-center gap-x-1'>
         {/* multiplayer */}
         <TouchableOpacity
-          onPress={async () => await connectToLobby()}
+          onPress={async () => await createLobby()}
           style={{
             width: '49%',
           }}
@@ -94,9 +98,7 @@ export const CreateRoom = () => {
           }}
         >
           {/* solo game */}
-          <TouchableOpacity
-            onPress={async () => await connectToLobby()}
-          >
+          <TouchableOpacity onPress={async () => await createLobby()}>
             <ImageBackground
               source={require('@/assets/border-main-2.jpg')}
               style={{
