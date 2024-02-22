@@ -30,7 +30,7 @@ export const QuestPopup = ({ questPoint }: IPopupProps) => {
           </Text>
           <Image
             className='w-full h-28 rounded-3xl'
-            source={{ uri: questPoint.photo }}
+            source={{ uri: questPoint.image }}
           />
           <View className='flex flex-row justify-around'>
             <TouchableOpacity

@@ -15,6 +15,7 @@ interface IEvent {
     | 'settings_update'
     | 'status'
     | 'get_game_state'
+    | 'error'
     | 'gamestate_update';
   timestamp: string;
 }
@@ -61,5 +62,10 @@ export interface IStatusUpdate extends IEvent {
 
 export interface IGetGameState extends IEvent {
   event: 'get_game_state';
+  message: string;
+}
+
+export interface IErrorEvent extends IEvent {
+  event: 'error';
   message: string;
 }

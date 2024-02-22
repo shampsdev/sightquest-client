@@ -1,9 +1,9 @@
-import { IQuestPoint } from "./IQuestPoint";
+import { IQuestPoint } from './IQuestPoint';
 
 export interface IRoute {
+  id: number;
   title: string;
   complexity: number;
   popularity: number;
-  questPoints: IQuestPoint[];
-  description: string;
+  quest_points: IQuestPoint[];
 }

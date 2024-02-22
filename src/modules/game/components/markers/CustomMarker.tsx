@@ -30,7 +30,7 @@ export const CustomMarker = ({
           style={{
             borderColor: 'white',
           }}
-          source={{ uri: point.photo }}
+          source={{ uri: point.image }}
         />
         {extended && (
           <Animated.View

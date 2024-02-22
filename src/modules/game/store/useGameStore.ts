@@ -14,10 +14,10 @@ interface IGameStateActions {
 export const useGameStore = create<IGameState & IGameStateActions>((set) => ({
   code: '',
   players: [],
-  time_left: new Date(),
+  time_left: '1:00:00',
   settings: {
     quest_points: [],
-    duration: new Date(),
+    duration: '1:00:00',
     mode: 'BASE',
   },
   state: 'LOBBY',

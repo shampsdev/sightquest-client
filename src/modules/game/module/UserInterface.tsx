@@ -64,7 +64,7 @@ export const UserInterface = ({ mapRef }: { mapRef: RefObject<MapView> }) => {
       </View>
       {perkMenu && <PerkMenu />}
       {questPoint && <QuestPopup questPoint={questPoint} />}
-      {updatePopup && <EventPopup questCompleted={updatePopup} />}
+      {updatePopup && <EventPopup taskCompleted={updatePopup} />}
       {rotationPopup && <RotationPopup />}
       {player?.role == 'RUNNER' && (
         <GameBottomDrawer mapRef={mapRef} questPoints={state.markers} />

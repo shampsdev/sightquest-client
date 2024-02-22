@@ -1,13 +1,13 @@
 import { View, TouchableOpacity, Text, Image } from 'react-native';
 import Animated, { ZoomIn } from 'react-native-reanimated';
 import { useMapStore } from '../../store/useMapStore';
-import { IQuestCompleted } from '@/interfaces/IEvent';
+import { ITaskCompleted } from '@/interfaces/IEvent';
 
 interface IPopupProps {
-  questCompleted: IQuestCompleted;
+  taskCompleted: ITaskCompleted;
 }
 
-export const EventPopup = ({ questCompleted }: IPopupProps) => {
+export const EventPopup = ({ taskCompleted }: IPopupProps) => {
   const [setUpdatePopup] = useMapStore((store) => [store.setUpdatePopup]);
 
   return (
@@ -19,12 +19,12 @@ export const EventPopup = ({ questCompleted }: IPopupProps) => {
         <Image
           className='h-full w-full overflow-hidden rounded-lg'
           source={{
-            uri: questCompleted.photo,
+            uri: taskCompleted.photo,
           }}
         />
         <View className='absolute bg-white w-70 -bottom-10 rotate-6 scale-125 p-5 rounded-lg'>
           <Text className='font-bold'>
-            {questCompleted.user.username} выполнил задание!
+            {taskCompleted.user.username} выполнил задание!
           </Text>
           <Text className='text-[10px]'>Собрал все пышки города.</Text>
           <TouchableOpacity

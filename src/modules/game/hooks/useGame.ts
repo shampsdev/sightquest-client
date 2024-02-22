@@ -16,9 +16,11 @@ import { useAuth } from '@/modules/auth/hooks/useAuth';
 import { ISettings } from '@/interfaces/ISettings';
 import { IQuestPoint } from '@/interfaces/IQuestPoint';
 import { CameraCapturedPicture } from 'expo-camera';
+import { useUserInterface } from './useUserInterface';
 
 export const useGame = () => {
   const gameState = useGameStore((store) => store);
+  const userInterface = useUserInterface();
   const sockets = useSockets();
   const location = useLocation();
 
@@ -72,8 +74,9 @@ export const useGame = () => {
     if (message.event != 'location_update') console.log(message);
 
     switch (message.event) {
-      case 'quest_completed':
-        // userInterface.setUpdatePopup(message.event);
+      case 'task_completed':
+        console.log(message);
+        userInterface.setUpdatePopup(message);
         break;
       case 'location_update':
         gameState.updatePlayerPosition(message.user, message.coordinates);
@@ -92,8 +95,11 @@ export const useGame = () => {
         });
         break;
       case 'gamestate_update':
+        console.log(message.state.settings.quest_points);
         gameState.updateGameState(message.state);
         break;
+      case 'error':
+        throw new Error(message.message);
       default:
         sockets.send(
           JSON.stringify({
@@ -181,7 +187,7 @@ export const useGame = () => {
       timestamp: new Date().toISOString(),
       photo: url,
       photo_id: id,
-      task_id: 0,
+      task_id: 1,
     };
 
     console.log(JSON.stringify(updateQuestCompleted));

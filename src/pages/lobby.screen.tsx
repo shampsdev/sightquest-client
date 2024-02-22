@@ -1,8 +1,8 @@
+import SwipeButton from '@/components/ui/swipe-button';
 import React, { useEffect } from 'react';
 import { View } from 'react-native';
 import { Layout } from '@/components/layout';
 import { ScrollView } from 'react-native-gesture-handler';
-import SwipeButton from '@/components/ui/swipe-button';
 import { ScreenHeaderBack } from '@/components/screen-header-back';
 import { colors } from '@/constants/colors';
 import { TeamPicker } from '@/modules/lobby-sections/team-picker';
@@ -37,8 +37,11 @@ export const LobbyScreen = () => {
   }, [navigation, lobby]);
 
   useEffect(() => {
-    settings.updateQuestPoints(route?.questPoints ?? []);
-    if (state.state == 'PLAYING') navigation.navigate('GameScreen');
+    if (state.state == 'PLAYING') {
+      navigation.navigate('GameScreen');
+    } else {
+      settings.updateQuestPoints(route?.quest_points ?? []);
+    }
   }, [route, state.state]);
 
   const swipeButtonHandle = () => {

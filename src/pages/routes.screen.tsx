@@ -14,62 +14,45 @@ import useGameSettings from '@/stores/game-settings.store';
 
 const routes: IRoute[] = [
   {
+    id: 1,
     title: 'Стрелка В.О.',
+    complexity: 5,
     popularity: 152,
-    questPoints: [
+    quest_points: [
       {
+        id: 1,
         title: 'Стрелка В.О.',
         description: 'Раньше этот остров называли Хирвасаатри',
         location: {
           latitude: 59.944049,
           longitude: 30.30645,
         },
-        tasks: [],
-        photo:
-          'https://i6.photo.2gis.com/images/geo/0/30258560058537396_8894_656x340.jpg',
-      },
-      {
-        title: 'Кунсткамера',
-        description: 'Первый публичный музей Европы.',
-        location: {
-          latitude: 59.94134,
-          longitude: 30.302521,
-        },
-        tasks: [],
-        photo:
-          'https://i8.photo.2gis.com/images/branch/0/30258560088639614_d3e4_656x340.jpg',
-      },
-      {
-        title: 'Эрмитаж',
-        description: 'Коллекция составляет более 3 миллионов экспонатов.',
-        location: {
-          latitude: 59.940485,
-          longitude: 30.31408,
-        },
-        tasks: [],
-        photo:
-          'https://i6.photo.2gis.com/images/branch/0/30258560078475071_04cc_656x340.jpg',
+        image:
+          'https://storage.yandexcloud.net/sightquest-data/quest_points/photo_2024-02-18_18.02.45.jpeg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=YCAJEGmEHnIRlYVnZuRT-2HcK%2F20240222%2Fstorage%2Fs3%2Faws4_request&X-Amz-Date=20240222T134204Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=46ef280dcd6427eeb4f2d921f9753872ea7570099c907f978628642f3545a83f',
+        city: 1,
+        tasks: [
+          {
+            id: 1,
+            title: 'Пососи хуйца)',
+            description: 'да',
+          },
+        ],
       },
     ],
-    complexity: 5,
-    description:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla quo nobis repellat ullam cumque temporibus modi commodi soluta, aspernatur amet id consequuntur, tempore dolore, deserunt itaque ipsum assumenda vel consectetur.',
   },
   {
+    id: 2,
     title: 'Петроградский район',
-    popularity: 190,
-    questPoints: [],
     complexity: 3,
-    description:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla quo nobis repellat ullam cumque temporibus modi commodi soluta, aspernatur amet id consequuntur, tempore dolore, deserunt itaque ipsum assumenda vel consectetur.',
+    popularity: 190,
+    quest_points: [],
   },
   {
+    id: 3,
     title: 'Купчино',
-    popularity: 1,
-    questPoints: [],
     complexity: 10,
-    description:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla quo nobis repellat ullam cumque temporibus modi commodi soluta, aspernatur amet id consequuntur, tempore dolore, deserunt itaque ipsum assumenda vel consectetur.',
+    popularity: 1,
+    quest_points: [],
   },
 ];
 
