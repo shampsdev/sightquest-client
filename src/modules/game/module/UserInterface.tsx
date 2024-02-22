@@ -1,4 +1,3 @@
-import { CoinsIcon } from '@/assets/icons/coins.icon';
 import { LocationIcon } from '@/assets/icons/location.icon';
 import VelocityIcon from '@/assets/icons/velocity.icon';
 import { CustomText } from '@/components/ui/custom-text';
@@ -13,6 +12,7 @@ import { useUserInterface } from '../hooks/useUserInterface';
 import { RefObject } from 'react';
 import MapView from 'react-native-maps';
 import { useGame } from '../hooks/useGame';
+import { CoinsIcon } from '@/assets/icons/coins.icon';
 
 export const UserInterface = ({ mapRef }: { mapRef: RefObject<MapView> }) => {
   const {
@@ -33,11 +33,11 @@ export const UserInterface = ({ mapRef }: { mapRef: RefObject<MapView> }) => {
         <View className='h-12 flex-row'>
           <View className='absolute h-12 w-24 bg-[#afafaf] rounded-2xl left-16 flex justify-center items-center flex-row'>
             <CoinsIcon className='mr-2' />
-            <CustomText>0</CustomText>
+            <CustomText>—</CustomText>
           </View>
           <View className='absolute h-12 w-20 bg-[#E5E5E5] rounded-2xl flex justify-center items-center flex-row'>
             <VelocityIcon className='mr-2' />
-            <CustomText>20</CustomText>
+            <CustomText>—</CustomText>
           </View>
         </View>
       </View>

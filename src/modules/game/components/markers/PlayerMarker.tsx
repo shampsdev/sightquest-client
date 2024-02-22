@@ -22,7 +22,7 @@ export const PlayerMarker = ({
           // это плохо, но это тут так как nativewind кидает ошибку если сделать border-white
           style={{ borderColor: 'white' }}
           source={
-            user.avatar != null
+            user.avatar
               ? { uri: user.avatar }
               : require('@/assets/default-avatar.jpg')
           }
@@ -38,7 +38,7 @@ export const PlayerMarker = ({
               <Text className='text-lg text-slate-700'>(2.4 km)</Text>
             </View>
             <Text className='text-lg text-slate-700 pb-5'>
-              {role == 'catcher' ? 'ловец' : 'бегун'}
+              {role == 'CATCHER' ? 'ловец' : 'бегун'}
             </Text>
           </Animated.View>
         )}

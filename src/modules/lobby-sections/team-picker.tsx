@@ -41,9 +41,13 @@ export const TeamPicker = ({ players, code }: ITeamPickerProps) => {
         >
           <PlusIcon fill={colors.secondary} className='m-auto' />
         </TouchableOpacity>
-        {players.map((_, indx) => (
+        {players.map((player, indx) => (
           <Image
-            source={require('@/assets/default-avatar.jpg')}
+            source={
+              player.user.avatar
+                ? { uri: player.user.avatar }
+                : require('@/assets/default-avatar.jpg')
+            }
             key={indx}
             style={{
               position: 'absolute',

@@ -28,7 +28,7 @@ const routes: IRoute[] = [
           longitude: 30.30645,
         },
         image:
-          'https://storage.yandexcloud.net/sightquest-data/quest_points/photo_2024-02-18_18.02.45.jpeg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=YCAJEGmEHnIRlYVnZuRT-2HcK%2F20240222%2Fstorage%2Fs3%2Faws4_request&X-Amz-Date=20240222T134204Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=46ef280dcd6427eeb4f2d921f9753872ea7570099c907f978628642f3545a83f',
+          'https://storage.yandexcloud.net/sightquest-data/quest_points/photo_2024-02-18_18.02.45.jpeg',
         city: 1,
         tasks: [
           {

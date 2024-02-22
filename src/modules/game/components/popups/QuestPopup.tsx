@@ -45,6 +45,7 @@ export const QuestPopup = ({ questPoint }: IPopupProps) => {
               className='p-4 bg-white rounded-full'
               onPress={() => {
                 navigation.navigate('Camera');
+                setQuestPoint(null);
               }}
             >
               <Text className='text-lg text-center'>Погнали!</Text>

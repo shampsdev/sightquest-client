@@ -41,7 +41,10 @@ export const ProfileScreen = () => {
     });
 
     if (!result.canceled) {
+      // Here we need to uplaod the image
+      // result.assets[0]
       // setImage(result.assets[0].uri);
+      manage.setProfilePhoto(result.assets[0]);
     }
   };
 
@@ -77,7 +80,6 @@ export const ProfileScreen = () => {
               <View className='flex-row justify-between items-center'>
                 <View>
                   <CustomText size='2xl'>{user?.username}</CustomText>
-                  {/* <CustomText size='lg'>_victorgezz</CustomText> */}
                 </View>
 
                 <TouchableOpacity
@@ -87,7 +89,9 @@ export const ProfileScreen = () => {
                 >
                   <CircleImage
                     source={
-                      user?.avatar ?? require('@/assets/default-avatar.jpg')
+                      user?.avatar
+                        ? { uri: user.avatar }
+                        : require('@/assets/default-avatar.jpg')
                     }
                   />
                 </TouchableOpacity>

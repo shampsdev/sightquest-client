@@ -190,8 +190,6 @@ export const useGame = () => {
       task_id: 1,
     };
 
-    console.log(JSON.stringify(updateQuestCompleted));
-
     sockets.send(JSON.stringify(updateQuestCompleted));
   };
 

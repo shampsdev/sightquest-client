@@ -3,6 +3,7 @@ import { useAuthStore, IAuthStore } from '../store/useAuthStore';
 import { useLocalStorage } from '@/modules/storage/hooks/useLocalStorage';
 import axios from 'axios';
 import { useEffect } from 'react';
+import { ImagePickerAsset } from 'expo-image-picker';
 
 export const useAuth = () => {
   const localStorage = useLocalStorage();
@@ -50,13 +51,39 @@ export const useAuth = () => {
     updateUser(authStore);
   };
 
-  const setProfilePhoto = (photo: string) => {
+  const setProfilePhoto = async (picture: ImagePickerAsset) => {
     if (user == null) throw Error('Cannot update profile picture of user null');
+
+    const formData = new FormData();
+
+    const uri = picture.uri;
+    const filename = uri.split('/').pop();
+
+    const match = /\.(\w+)$/.exec(filename ?? 'unknown');
+    const type = match ? `image/${match[1]}` : `image`;
+
+    formData.append('username', user.username);
+    formData.append('current_password', user.username);
+
+    formData.append('avatar', {
+      uri,
+      name: filename,
+      type,
+    });
+
+    const res = await axios.put(
+      `${API_URL}/api/users/${user.username}/`,
+      formData,
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
     updateUser({
-      user: {
-        ...user,
-        avatar: photo,
-      },
+      user: res.data,
       token,
       refresh,
     });
