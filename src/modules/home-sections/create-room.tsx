@@ -33,22 +33,16 @@ export const CreateRoom = () => {
   };
 
   const connectToLobby = async (id: string) => {
-    await lobby.joinLobby(id.slice(1));
+    await lobby.joinLobby(id);
     navigation.navigate('LobbyScreen');
   };
 
   const lobbyIdHandle = async (input: string) => {
-    if (lobbyId?.length === 0 && input[0] !== '#') {
-      setLobbyId('#' + input);
-      return;
-    }
+    setLobbyId(input);
 
-    if (lobbyId?.length === sizeOfLobbyId) {
+    if (input.length === sizeOfLobbyId) {
       await connectToLobby(input);
-    }
-
-    if (lobbyId?.length <= 10) {
-      setLobbyId(input);
+      setLobbyId('');
     }
   };
 
@@ -146,7 +140,7 @@ export const CreateRoom = () => {
             }}
           >
             <TextInput
-              maxLength={sizeOfLobbyId + 1}
+              maxLength={sizeOfLobbyId}
               onChangeText={lobbyIdHandle}
               value={lobbyId}
               className='px-2'

@@ -38,11 +38,12 @@ export const LobbyScreen = () => {
 
   useEffect(() => {
     settings.updateQuestPoints(route?.questPoints ?? []);
-  }, [route]);
+    if (state.state == 'PLAYING') navigation.navigate('GameScreen');
+  }, [route, state.state]);
 
   const swipeButtonHandle = () => {
-    state.updateGameStatus('PLAYING');
-    navigation.navigate('GameScreen');
+    state.startGame();
+    // navigation.navigate('GameScreen');
   };
 
   return (
@@ -59,7 +60,7 @@ export const LobbyScreen = () => {
             position: 'relative',
           }}
         >
-          <TeamPicker players={state.players} />
+          <TeamPicker players={state.players} code={lobby.code} />
           <GameSettings settings={state.settings} code={lobby.code} />
           {/* <RouteSettings /> */}
           <QuestsSettings quest_points={state.settings.quest_points} />

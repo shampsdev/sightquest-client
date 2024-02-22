@@ -5,7 +5,6 @@ import { Layout } from '@/components/layout';
 import { CustomText } from '@/components/ui/custom-text';
 import { Border } from '@/components/border';
 import { Section } from '@/components/section';
-import { UserCard } from '@/modules/home-sections/user-card/user-card';
 import { CityCards } from '@/modules/home-sections/city-cards/city-cards';
 import { BestRoutes } from '@/modules/home-sections/best-routes/best-routes';
 import { CreateRoom } from '@/modules/home-sections/create-room';
@@ -130,7 +129,7 @@ export const HomeScreen = () => {
         avatarTextStyle={{
           fontFamily: 'Inter-Black',
           fontSize: 14,
-          alignSelf: 'center'
+          alignSelf: 'center',
         }}
         avatarWrapperStyle={{
           borderRadius: 0,
@@ -149,7 +148,7 @@ export const HomeScreen = () => {
           borderTopRightRadius: borderRadius,
           borderBottomLeftRadius: borderRadius,
         }}
-        duration={5} 
+        duration={5}
       /> */}
 
       <Layout
@@ -211,9 +210,9 @@ export const HomeScreen = () => {
           <Promocodes data={promocodes} />
         </Section> */}
 
-        <Section openAll={true} to='RoutesScreen' text='Лучшие за месяц'>
+        {/* <Section openAll={true} to='RoutesScreen' text='Лучшие за месяц'>
           <UserCard />
-        </Section>
+        </Section> */}
         <View className='h-36' />
       </Layout>
       <Toasts />

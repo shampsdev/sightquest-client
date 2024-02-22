@@ -14,6 +14,7 @@ import { FlashIcon } from '@/assets/icons/flash.icon';
 import { PhotoButtonIcon } from '@/assets/icons/photo-button.icon';
 import { BackArrowIcon } from '@/assets/icons/back-arrow.icon';
 import { TickIcon } from '@/assets/icons/tick.icon';
+import { useGame } from '../game/hooks/useGame';
 
 export const CameraModule = () => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
@@ -21,6 +22,8 @@ export const CameraModule = () => {
   const cameraRef = useRef<Camera>(null);
   const [data, setData] = useState<CameraCapturedPicture>();
   const [flashMode, setFlashMode] = useState<FlashMode>(FlashMode.auto);
+
+  const { game } = useGame();
 
   if (!permission) {
     return <View />;
@@ -57,7 +60,8 @@ export const CameraModule = () => {
       </View>
       {data && (
         <TouchableOpacity
-          onPress={() => {
+          onPress={async () => {
+            await game.completeQuest(data);
             navigation.goBack();
           }}
           className='h-20 w-20 bg-[#EAEAEA] rounded-3xl absolute bottom-32 right-0 z-20 m-5 flex justify-center items-center'

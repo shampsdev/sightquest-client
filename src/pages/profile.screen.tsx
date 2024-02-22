@@ -8,9 +8,9 @@ import { globalStyles } from '@/styles/global.style';
 import { CoinsIcon } from '@/assets/icons/coins.icon';
 import { ScreenHeader } from '@/components/screen-header';
 import PlusIcon from '@/assets/icons/plus.icon';
-import { useNavigation } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { RootStackParamList } from '@/modules/navigation/root-navigator';
+// import { useNavigation } from '@react-navigation/native';
+// import { StackNavigationProp } from '@react-navigation/stack';
+// import { RootStackParamList } from '@/modules/navigation/root-navigator';
 import Edit2Icon from '@/assets/icons/edit2.icon';
 import { borderRadius, colors } from '@/constants/colors';
 import { CharacteristicBar } from '@/components/ui/characteristic-bar';
@@ -19,7 +19,7 @@ import TimeIcon from '@/assets/icons/time.icon';
 import { CircleImage } from '@/components/ui/circle-image';
 import { useAuth } from '@/modules/auth/hooks/useAuth';
 
-const purchases = [4, 6];
+// const purchases = [4, 6];
 const values = [1, 2, 3];
 
 const lastPlayersText = `Последние
@@ -27,7 +27,7 @@ const lastPlayersText = `Последние
 
 export const ProfileScreen = () => {
   // const [image, setImage] = useState<string>();
-  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
+  // const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
 
   const { user, manage } = useAuth();
 
@@ -212,7 +212,7 @@ export const ProfileScreen = () => {
             </View>
           </View>
 
-          <View style={globalStyles.border}>
+          {/* <View style={globalStyles.border}>
             <View className='flex-row items-center justify-between px-4'>
               <CustomText size='lg'>Ваши покупки</CustomText>
               <TouchableOpacity
@@ -266,13 +266,13 @@ export const ProfileScreen = () => {
                 </View>
               ))
             )}
-          </View>
+          </View> */}
 
           <View
             style={[
               globalStyles.border,
               {
-                marginTop: 16,
+                marginTop: 0,
                 gap: 16,
                 paddingHorizontal: 16,
                 backgroundColor: colors.secondary,

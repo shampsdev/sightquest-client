@@ -7,11 +7,12 @@ export const useUserInterface = () => {
     questPoint: mapState.slected_quest_point,
     setQuestPoint: mapState.setSelectedQuestPoint,
     updatePopup: mapState.update_popup,
-    setRotationPopup: mapState.setRotationPopup,
+    setUpdatePopup: mapState.setUpdatePopup,
     rotationPopup: mapState.rotation_popup,
-    setTracking: mapState.setTracking,
+    setRotationPopup: mapState.setRotationPopup,
     tracking: mapState.tracking,
-    setPerkMenu: mapState.setPerkMenu,
+    setTracking: mapState.setTracking,
     perkMenu: mapState.perk_menu,
+    setPerkMenu: mapState.setPerkMenu,
   };
 };
