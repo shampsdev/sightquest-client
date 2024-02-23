@@ -54,6 +54,52 @@ const routes: IRoute[] = [
     popularity: 1,
     quest_points: [],
   },
+  {
+    id: 4,
+    title: 'Apple District',
+    complexity: 10,
+    popularity: 999,
+    quest_points: [
+      {
+        id: 4,
+        title: 'Sam H. Lawson Middle School',
+        description: 'No description',
+        location: {
+          latitude: 37.329804895,
+          longitude: -122.02721165,
+        },
+        image:
+          'https://storage.yandexcloud.net/sightquest-data/quest_points/2019-09-02.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=YCAJEGmEHnIRlYVnZuRT-2HcK%2F20240222%2Fstorage%2Fs3%2Faws4_request&X-Amz-Date=20240222T235550Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=9e82e7e53934c079c65dbed43f554a424b594610f29211a397b9c39b2cb64736',
+        city: 2,
+        tasks: [
+          {
+            id: 2,
+            title: 'Всегда готов',
+            description: 'тебя трахнуть дорогой\r\nxoxo',
+          },
+        ],
+      },
+      {
+        id: 5,
+        title: 'Portal Park',
+        description: 'No description',
+        location: {
+          latitude: 37.326030061,
+          longitude: -122.0204065,
+        },
+        image:
+          'https://storage.yandexcloud.net/sightquest-data/quest_points/IMG_20190716_204453-2.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=YCAJEGmEHnIRlYVnZuRT-2HcK%2F20240222%2Fstorage%2Fs3%2Faws4_request&X-Amz-Date=20240222T235550Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=0e3f87e3c64cc87a620afcec1f350464a1abdf2e23d8a871ffa822f41617e9c0',
+        city: 2,
+        tasks: [
+          {
+            id: 3,
+            title: 'Penis',
+            description: 'long',
+          },
+        ],
+      },
+    ],
+  },
 ];
 
 export function RoutesScreen() {

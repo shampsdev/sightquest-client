@@ -5,6 +5,8 @@ import { IGameState } from '@/interfaces/IGameState';
 import axios, { AxiosResponse } from 'axios';
 import {
   ILocationUpdate,
+  IPlayerCaught,
+  IRequestCatch,
   ISettingsUpdate,
   IStartGame,
   ITaskCompleted,
@@ -17,6 +19,7 @@ import { ISettings } from '@/interfaces/ISettings';
 import { IQuestPoint } from '@/interfaces/IQuestPoint';
 import { CameraCapturedPicture } from 'expo-camera';
 import { useUserInterface } from './useUserInterface';
+import { IUser } from '@/interfaces/IUser';
 
 export const useGame = () => {
   const gameState = useGameStore((store) => store);
@@ -71,11 +74,8 @@ export const useGame = () => {
   const parseIncomingMessage = (event: WebSocketMessageEvent) => {
     const message = JSON.parse(event.data);
 
-    if (message.event != 'location_update') console.log(message);
-
     switch (message.event) {
       case 'task_completed':
-        console.log(message);
         userInterface.setUpdatePopup(message);
         break;
       case 'location_update':
@@ -83,19 +83,31 @@ export const useGame = () => {
         break;
       case 'authorization':
         break;
+      case 'player_caught':
+        userInterface.setCodePopup(false);
+        sockets.send(
+          JSON.stringify({
+            event: 'get_game_state',
+          })
+        );
+        break;
+      case 'request_catch':
+        if (message.to.id == user.id) userInterface.setCodePopup(true);
+        break;
       case 'settings_update':
-        gameState.updateGameState(message);
+        gameState.updateGameSettings(message.settings);
         break;
       case 'status':
         break;
       case 'start_game':
-        gameState.updateGameState({
-          ...gameState,
-          state: 'PLAYING',
-        });
+        gameState.updateGameStatus('PLAYING');
+        sockets.send(
+          JSON.stringify({
+            event: 'get_game_state',
+          })
+        );
         break;
       case 'gamestate_update':
-        console.log(message.state.settings.quest_points);
         gameState.updateGameState(message.state);
         break;
       case 'error':
@@ -106,7 +118,8 @@ export const useGame = () => {
             event: 'get_game_state',
           })
         );
-        throw new Error('Unknown message received.');
+        console.log(message);
+        throw new Error('Unknown message received');
     }
   };
 
@@ -187,20 +200,46 @@ export const useGame = () => {
       timestamp: new Date().toISOString(),
       photo: url,
       photo_id: id,
-      task_id: 1,
+      task_id: 2,
     };
 
     sockets.send(JSON.stringify(updateQuestCompleted));
   };
 
+  const requestCatch = async (user: IUser) => {
+    const playerCaught: IRequestCatch = {
+      event: 'request_catch',
+      user: user,
+      timestamp: new Date().toISOString(),
+      to: user,
+    };
+
+    sockets.send(JSON.stringify(playerCaught));
+  };
+
+  const catchPlayer = async (code: string) => {
+    console.log(code);
+    const playerCaught: IPlayerCaught = {
+      event: 'player_caught',
+      user: user,
+      timestamp: new Date().toISOString(),
+      secret: code,
+    };
+
+    sockets.send(JSON.stringify(playerCaught));
+  };
+
   const getPlayer = () => {
-    return gameState.players.find((x) => x.user.id == user.id);
+    const player = gameState.players.find((x) => {
+      return x.user.id === user.id;
+    });
+    return player;
   };
 
   const inRange = () => {
     const runners = gameState.players.filter((x) => x.role == 'RUNNER');
 
-    return runners.some((x) => {
+    return runners.filter((x) => {
       return (
         measure(
           x.coordinates,
@@ -231,6 +270,8 @@ export const useGame = () => {
     },
     game: {
       completeQuest,
+      catchPlayer,
+      requestCatch,
     },
     player: getPlayer(),
     inRange,

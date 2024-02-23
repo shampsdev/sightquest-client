@@ -1,6 +1,6 @@
 import { ICoords } from '@/interfaces/ICoords';
 import { IGameState } from '@/interfaces/IGameState';
-import { IQuestPoint } from '@/interfaces/IQuestPoint';
+import { ISettings } from '@/interfaces/ISettings';
 import { IUser } from '@/interfaces/IUser';
 import { create } from 'zustand';
 
@@ -8,7 +8,7 @@ interface IGameStateActions {
   updateGameState: (state: IGameState) => void;
   updatePlayerPosition: (id: IUser, coordinates: ICoords) => void;
   updateGameStatus: (status: 'LOBBY' | 'PLAYING' | 'ENDED') => void;
-  updateQuestPoints: (points: IQuestPoint[]) => void;
+  updateGameSettings: (points: ISettings) => void;
 }
 
 export const useGameStore = create<IGameState & IGameStateActions>((set) => ({
@@ -29,22 +29,9 @@ export const useGameStore = create<IGameState & IGameStateActions>((set) => ({
       );
 
       if (playerIndex === -1) {
-        // Player not found, add a new player
-        return {
-          players: [
-            ...state.players,
-            {
-              user: user,
-              coordinates,
-              role: 'RUNNER',
-              completed: [],
-              secret: '',
-            },
-          ],
-        };
+        return state;
       }
 
-      // Player found, update their coordinates
       return {
         players: state.players.map((player, index) => {
           if (index === playerIndex) {
@@ -62,14 +49,11 @@ export const useGameStore = create<IGameState & IGameStateActions>((set) => ({
         state: status,
       };
     }),
-  updateQuestPoints: (points) =>
+  updateGameSettings: (settings) =>
     set((store) => {
       return {
         ...store,
-        settings: {
-          ...store.settings,
-          quest_points: points,
-        },
+        settings: settings,
       };
     }),
 }));

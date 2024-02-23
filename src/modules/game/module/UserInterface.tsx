@@ -13,6 +13,7 @@ import { RefObject } from 'react';
 import MapView from 'react-native-maps';
 import { useGame } from '../hooks/useGame';
 import { CoinsIcon } from '@/assets/icons/coins.icon';
+import { CatchPopup } from '../components/popups/CatchPopup';
 
 export const UserInterface = ({ mapRef }: { mapRef: RefObject<MapView> }) => {
   const {
@@ -22,14 +23,23 @@ export const UserInterface = ({ mapRef }: { mapRef: RefObject<MapView> }) => {
     questPoint,
     updatePopup,
     rotationPopup,
+    catchPopup,
+    codePopup,
+    setCatchPopup,
   } = useUserInterface();
 
-  const { player, state } = useGame();
+  const { state, player, inRange, game } = useGame();
+
+  const [hours, minutes, seconds] = state.settings.duration
+    .split(':')
+    .map((part) => parseInt(part, 10));
+
+  const durationMs = (hours * 3600 + minutes * 60 + seconds) * 1000;
 
   return (
     <>
       <View className='absolute left-4 right-4 top-20 z-20 gap-y-5'>
-        <Timer />
+        <Timer until={new Date(Date.now() + durationMs)} />
         <View className='h-12 flex-row'>
           <View className='absolute h-12 w-24 bg-[#afafaf] rounded-2xl left-16 flex justify-center items-center flex-row'>
             <CoinsIcon className='mr-2' />
@@ -62,23 +72,30 @@ export const UserInterface = ({ mapRef }: { mapRef: RefObject<MapView> }) => {
           <LocationIcon fill={tracking ? 'black' : 'none'} />
         </TouchableOpacity>
       </View>
+      {player?.role == 'RUNNER' && codePopup && (
+        <View className='rounded-3xl absolute z-10 top-60 bg-white left-2 right-2  h-20 flex justify-center items-center'>
+          <CustomText size='xl'>{player.secret}</CustomText>
+        </View>
+      )}
       {perkMenu && <PerkMenu />}
       {questPoint && <QuestPopup questPoint={questPoint} />}
       {updatePopup && <EventPopup taskCompleted={updatePopup} />}
       {rotationPopup && <RotationPopup />}
+      {catchPopup && <CatchPopup />}
       {player?.role == 'RUNNER' && (
         <GameBottomDrawer mapRef={mapRef} questPoints={state.markers} />
       )}
-      {player?.role == 'CATCHER' && (
-        <View className='rounded-3xl absolute z-10 bottom-8 bg-white left-2 right-2  h-20 flex justify-center items-center'>
-          <TouchableOpacity
-            onPress={() => {
-              console.log('yes');
-            }}
-          >
+      {player?.role == 'CATCHER' && inRange() && (
+        <TouchableOpacity
+          onPress={() => {
+            inRange().forEach((x) => game.requestCatch(x.user));
+            setCatchPopup(true);
+          }}
+        >
+          <View className='rounded-3xl absolute z-10 bottom-8 bg-white left-2 right-2  h-20 flex justify-center items-center'>
             <CustomText size='xl'>Поймать</CustomText>
-          </TouchableOpacity>
-        </View>
+          </View>
+        </TouchableOpacity>
       )}
     </>
   );

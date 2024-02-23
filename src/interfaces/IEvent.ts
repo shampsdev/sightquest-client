@@ -4,13 +4,14 @@ import { IGameState } from './IGameState';
 import { ISettings } from './ISettings';
 import { IUser } from './IUser';
 
-interface IEvent {
+export interface IEvent {
   user: IUser;
   event:
     | 'authorization'
     | 'location_update'
     | 'task_completed'
     | 'player_caught'
+    | 'request_catch'
     | 'start_game'
     | 'settings_update'
     | 'status'
@@ -63,6 +64,11 @@ export interface IStatusUpdate extends IEvent {
 export interface IGetGameState extends IEvent {
   event: 'get_game_state';
   message: string;
+}
+
+export interface IRequestCatch extends IEvent {
+  event: 'request_catch';
+  to: IUser;
 }
 
 export interface IErrorEvent extends IEvent {

@@ -14,5 +14,9 @@ export const useUserInterface = () => {
     setTracking: mapState.setTracking,
     perkMenu: mapState.perk_menu,
     setPerkMenu: mapState.setPerkMenu,
+    codePopup: mapState.code_popup,
+    setCodePopup: mapState.setCodePopup,
+    catchPopup: mapState.catch_popup,
+    setCatchPopup: mapState.setCatchPopup,
   };
 };

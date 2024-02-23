@@ -2,11 +2,23 @@ import { useState, useEffect } from 'react';
 import { View } from 'react-native';
 import { CustomText } from '@/components/ui/custom-text';
 
-export const Timer = () => {
+interface ITimerProps {
+  until: Date;
+}
+
+export const Timer = ({ until }: ITimerProps) => {
+  const timeLeftMs = new Date().getMilliseconds() - until.getMilliseconds();
+
+  let leftSeconds = Math.floor(timeLeftMs / 1000);
+  const leftHours = Math.floor(leftSeconds / 3600);
+  leftSeconds -= leftHours * 3600;
+  const leftMinutes = Math.floor(leftSeconds / 60);
+  leftSeconds -= leftMinutes * 60;
+
   const [time, setTime] = useState({
-    hours: 1,
-    minutes: 0,
-    seconds: 10,
+    hours: leftHours,
+    minutes: leftMinutes,
+    seconds: leftSeconds,
   });
 
   useEffect(() => {
