@@ -3,53 +3,71 @@ import { View } from 'react-native';
 import { CustomText } from '@/components/ui/custom-text';
 
 interface ITimerProps {
-  until: Date;
+  until: number;
 }
 
 export const Timer = ({ until }: ITimerProps) => {
-  const timeLeftMs = new Date().getMilliseconds() - until.getMilliseconds();
-
-  let leftSeconds = Math.floor(timeLeftMs / 1000);
-  const leftHours = Math.floor(leftSeconds / 3600);
-  leftSeconds -= leftHours * 3600;
-  const leftMinutes = Math.floor(leftSeconds / 60);
-  leftSeconds -= leftMinutes * 60;
+  // let leftSeconds = Math.floor(timeLeftMs / 1000);
+  // const leftHours = Math.floor(leftSeconds / 3600);
+  // leftSeconds -= leftHours * 3600;
+  // const leftMinutes = Math.floor(leftSeconds / 60);
+  // leftSeconds -= leftMinutes * 60;
 
   const [time, setTime] = useState({
-    hours: leftHours,
-    minutes: leftMinutes,
-    seconds: leftSeconds,
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
   });
 
+  const getTime = (deadline: number) => {
+    const msLeft = deadline - Date.now();
+
+    const hours = Math.floor((msLeft / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((msLeft / 1000 / 60) % 60);
+    const seconds = Math.floor((msLeft / 1000) % 60);
+
+    setTime({
+      hours,
+      minutes,
+      seconds,
+    });
+  };
+
   useEffect(() => {
-    if (time.minutes > 0 || time.seconds > 0 || time.hours > 0) {
-      const interval = setInterval(
-        () => [
-          setTime({
-            hours: time.hours,
-            minutes: time.minutes,
-            seconds: time.seconds - 1,
-          }),
-        ],
-        1000
-      );
-      if (time.seconds == 0 && time.minutes > 0) {
-        setTime({
-          hours: time.hours,
-          minutes: time.minutes - 1,
-          seconds: 59,
-        });
-      }
-      if (time.seconds == 0 && time.minutes == 0 && time.hours > 0) {
-        setTime({
-          hours: time.hours - 1,
-          minutes: 59,
-          seconds: 59,
-        });
-      }
-      return () => clearInterval(interval);
-    }
-  }, [time]);
+    const interval = setInterval(() => getTime(until), 1000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  // useEffect(() => {
+  //   if (time.minutes > 0 || time.seconds > 0 || time.hours > 0) {
+  //     const interval = setInterval(
+  //       () => [
+  //         setTime({
+  //           hours: time.hours,
+  //           minutes: time.minutes,
+  //           seconds: time.seconds - 1,
+  //         }),
+  //       ],
+  //       1000
+  //     );
+  //     if (time.seconds == 0 && time.minutes > 0) {
+  //       setTime({
+  //         hours: time.hours,
+  //         minutes: time.minutes - 1,
+  //         seconds: 59,
+  //       });
+  //     }
+  //     if (time.seconds == 0 && time.minutes == 0 && time.hours > 0) {
+  //       setTime({
+  //         hours: time.hours - 1,
+  //         minutes: 59,
+  //         seconds: 59,
+  //       });
+  //     }
+  //     return () => clearInterval(interval);
+  //   }
+  // }, [time]);
 
   return (
     <View className='h-20 flex-row'>

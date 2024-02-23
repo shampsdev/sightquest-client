@@ -39,7 +39,7 @@ export const UserInterface = ({ mapRef }: { mapRef: RefObject<MapView> }) => {
   return (
     <>
       <View className='absolute left-4 right-4 top-20 z-20 gap-y-5'>
-        <Timer until={new Date(Date.now() + durationMs)} />
+        <Timer until={Date.now() + durationMs} />
         <View className='h-12 flex-row'>
           <View className='absolute h-12 w-24 bg-[#afafaf] rounded-2xl left-16 flex justify-center items-center flex-row'>
             <CoinsIcon className='mr-2' />

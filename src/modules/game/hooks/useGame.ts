@@ -263,6 +263,7 @@ export const useGame = () => {
       lobby: gameState.code,
       settings: gameState.settings,
       state: gameState.state,
+      time_left: gameState.time_left,
     },
     settings: {
       updateQuestPoints,

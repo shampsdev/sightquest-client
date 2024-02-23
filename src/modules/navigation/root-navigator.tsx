@@ -1,5 +1,5 @@
 import React from 'react';
-import { createStackNavigator } from '@react-navigation/stack';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { BottomTabNavigator } from './components/bottom-tab-navigator';
 import { CameraModule } from '@/modules/camera';
 import { GameScreen } from '@/pages/game.screen';
@@ -24,7 +24,7 @@ export type RootStackParamList = {
 };
 
 export const RootNavigator = () => {
-  const Stack = createStackNavigator<RootStackParamList>();
+  const Stack = createNativeStackNavigator<RootStackParamList>();
 
   return (
     <Stack.Navigator

@@ -1,5 +1,5 @@
 import React from 'react';
-import { createStackNavigator } from '@react-navigation/stack';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { AuthScreen } from '@/pages/auth.screen';
 import { SignUpScreen } from '@/pages/sign-up.screen';
 import { LoadScreen } from '@/pages/load.screen';
@@ -10,10 +10,9 @@ export type AuthStackParamList = {
   SignUpScreen: undefined;
 };
 
-const Stack = createStackNavigator<AuthStackParamList>();
+const Stack = createNativeStackNavigator<AuthStackParamList>();
 
 export const AuthNavigator = () => {
-
   return (
     <Stack.Navigator
       screenOptions={{
