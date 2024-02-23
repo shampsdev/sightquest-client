@@ -35,3 +35,6 @@ yarn-error.*
 *.tsbuildinfo
 .env.example
 .env
+
+ios
+android
