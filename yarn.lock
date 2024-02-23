@@ -4285,7 +4285,7 @@ expo-asset@~9.0.2:
     invariant "^2.2.4"
     md5-file "^3.2.3"
 
-expo-camera@~14.0.5:
+expo-camera@14.0.5:
   version "14.0.5"
   resolved "https://registry.yarnpkg.com/expo-camera/-/expo-camera-14.0.5.tgz#b39a873316895e5a7ab86e8131dc9ffe529fc972"
   integrity sha512-rHCOEAjt0NOjYXMyKnrGruOMvPdKbhhJBMtpr8LfJPVprsxZTjFC+flQgX52tZZWxPa1Hn6qpGYUzxZhVakHCg==
@@ -4324,7 +4324,7 @@ expo-file-system@~16.0.6:
   resolved "https://registry.yarnpkg.com/expo-file-system/-/expo-file-system-16.0.6.tgz#07a140a7bcb44b42bd3f0b465e7583cc7f7d7078"
   integrity sha512-ATCHL7nEg2WwKeamW/SDTR9jBEqM5wncFq594ftKS5QFmhKIrX48d9jyPFGnNq+6h8AGPg4QKh2KCA4OY49L4g==
 
-expo-font@~11.10.3:
+expo-font@11.10.3, expo-font@~11.10.3:
   version "11.10.3"
   resolved "https://registry.yarnpkg.com/expo-font/-/expo-font-11.10.3.tgz#a3115ebda8e09bd7cb8052619a4bbe606f0c17f4"
   integrity sha512-q1Td2zUvmLbCA9GV4OG4nLPw5gJuNY1VrPycsnemN1m8XWTzzs8nyECQQqrcBhgulCgcKZZJJ6U0kC2iuSoQHQ==
@@ -4361,7 +4361,7 @@ expo-linking@^6.2.2:
     expo-constants "~15.4.3"
     invariant "^2.2.4"
 
-expo-location@~16.5.3:
+expo-location@16.5.3:
   version "16.5.3"
   resolved "https://registry.yarnpkg.com/expo-location/-/expo-location-16.5.3.tgz#074335b1800ff71afe9e5ffbe8e858f652fceb61"
   integrity sha512-V+84TZIa5MWpIXPvurnlJS9VxuxF1d3ajufUeq2sTgUkI/PP0aLHwyk5wg05C4CwuvwoiaVV80WyEL23j1Mz0w==
@@ -4436,7 +4436,7 @@ expo-updates-interface@~0.15.1:
   resolved "https://registry.yarnpkg.com/expo-updates-interface/-/expo-updates-interface-0.15.3.tgz#cdee536dea0a8692833a4d074005bf9c6bbbdd99"
   integrity sha512-uLvsbaCmUsXgJqeen8rYH/jPr874ZUCXEvWpKHxrCv5/XATPlYEaDuecbNSGQ+cu78i6MdtB4BHOwZmoH2d47A==
 
-expo-updates@~0.24.11:
+expo-updates@0.24.11:
   version "0.24.11"
   resolved "https://registry.yarnpkg.com/expo-updates/-/expo-updates-0.24.11.tgz#605692a246103c29d0ca8a4b1134e8957f35b913"
   integrity sha512-SWpjZj7VGWBZJtbVj0gbGY7uZYrE7b+sRRoj/K1ma2ckHwXtAAB8gYI95Zp0joBdRNAbEtoMHYXP66Nrj5l8Ng==
@@ -4453,7 +4453,7 @@ expo-updates@~0.24.11:
     fbemitter "^3.0.0"
     resolve-from "^5.0.0"
 
-expo@~50.0.7:
+expo@50.0.7:
   version "50.0.7"
   resolved "https://registry.yarnpkg.com/expo/-/expo-50.0.7.tgz#d32e6f05e03e7b97d53571f5b3a453a1c4d72fde"
   integrity sha512-lTqIrKOUTKHLdTuAaJzZihi1v7F8Ix1dOXVWMpToDy9zPC/s+fet0fbyXdFUxYsCUyuEDIB9tvejrTYZk8Hm0Q==
