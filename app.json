@@ -30,9 +30,7 @@
       [
         "expo-font",
         {
-          "fonts": [
-            "./src/assets/fonts/FormaDJRCyrillicText.ttf"
-          ]
+          "fonts": ["./src/assets/fonts/FormaDJRCyrillicText.ttf"]
         }
       ]
     ],
@@ -41,13 +39,11 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": false,
       "bundleIdentifier": "com.shapiniony.sightquest",
-      "buildNumber": "8",
+      "buildNumber": "9",
       "infoPlist": {
         "NSLocationWhenInUseUsageDescription": "This app uses your location to give you hints on navigating the city.",
         "NSLocationAlwaysAndWhenInUseUsageDescription": "This app uses your location to give you hints on navigating the city.",
