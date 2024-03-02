@@ -15,86 +15,63 @@ import useGameSettings from '@/stores/game-settings.store';
 const routes: IRoute[] = [
   {
     id: 1,
-    title: 'Стрелка В.О.',
-    complexity: 5,
-    popularity: 152,
+    title: 'Васильевский остров',
+    complexity: 0,
+    popularity: 0,
     quest_points: [
       {
         id: 1,
-        title: 'Стрелка В.О.',
+        title: 'Стрелка В.О',
         description: 'Раньше этот остров называли Хирвасаатри',
         location: {
           latitude: 59.944049,
           longitude: 30.30645,
         },
         image:
-          'https://storage.yandexcloud.net/sightquest-data/quest_points/photo_2024-02-18_18.02.45.jpeg',
+          'https://storage.yandexcloud.net/sightquest-data/quest_points/UglyPig.png',
         city: 1,
         tasks: [
           {
             id: 1,
-            title: 'Пососи хуйца)',
-            description: 'да',
+            title: 'На высоте',
+            description: 'Заберитесь на колонну и сделайте селфи',
+          },
+          {
+            id: 2,
+            title: 'На дне',
+            description: 'Окунитесь в реку и сделайте селфи',
           },
         ],
       },
     ],
   },
   {
-    id: 2,
-    title: 'Петроградский район',
-    complexity: 3,
-    popularity: 190,
-    quest_points: [],
-  },
-  {
-    id: 3,
-    title: 'Купчино',
-    complexity: 10,
-    popularity: 1,
-    quest_points: [],
-  },
-  {
-    id: 4,
-    title: 'Apple District',
-    complexity: 10,
-    popularity: 999,
+    id: 34,
+    title: 'Не выбирайте этот маршрут',
+    complexity: 0,
+    popularity: 0,
     quest_points: [
       {
-        id: 4,
-        title: 'Sam H. Lawson Middle School',
-        description: 'No description',
+        id: 1,
+        title: 'Стрелка В.О',
+        description: 'Раньше этот остров называли Хирвасаатри',
         location: {
-          latitude: 37.329804895,
-          longitude: -122.02721165,
+          latitude: 59.944049,
+          longitude: 30.30645,
         },
         image:
-          'https://storage.yandexcloud.net/sightquest-data/quest_points/2019-09-02.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=YCAJEGmEHnIRlYVnZuRT-2HcK%2F20240222%2Fstorage%2Fs3%2Faws4_request&X-Amz-Date=20240222T235550Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=9e82e7e53934c079c65dbed43f554a424b594610f29211a397b9c39b2cb64736',
-        city: 2,
+          'https://storage.yandexcloud.net/sightquest-data/quest_points/UglyPig.png',
+        city: 1,
         tasks: [
+          {
+            id: 1,
+            title: 'На высоте',
+            description: 'Заберитесь на колонну и сделайте селфи',
+          },
           {
             id: 2,
-            title: 'Всегда готов',
-            description: 'тебя трахнуть дорогой\r\nxoxo',
-          },
-        ],
-      },
-      {
-        id: 5,
-        title: 'Portal Park',
-        description: 'No description',
-        location: {
-          latitude: 37.326030061,
-          longitude: -122.0204065,
-        },
-        image:
-          'https://storage.yandexcloud.net/sightquest-data/quest_points/IMG_20190716_204453-2.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=YCAJEGmEHnIRlYVnZuRT-2HcK%2F20240222%2Fstorage%2Fs3%2Faws4_request&X-Amz-Date=20240222T235550Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=0e3f87e3c64cc87a620afcec1f350464a1abdf2e23d8a871ffa822f41617e9c0',
-        city: 2,
-        tasks: [
-          {
-            id: 3,
-            title: 'Penis',
-            description: 'long',
+            title: 'На дне',
+            description: 'Окунитесь в реку и сделайте селфи',
           },
         ],
       },

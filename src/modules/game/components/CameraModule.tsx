@@ -6,22 +6,20 @@ import {
   CameraType,
   FlashMode,
 } from 'expo-camera';
-import { useNavigation } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { RootStackParamList } from '../navigation/root-navigator';
 import { CustomText } from '@/components/ui/custom-text';
 import { FlashIcon } from '@/assets/icons/flash.icon';
 import { PhotoButtonIcon } from '@/assets/icons/photo-button.icon';
 import { BackArrowIcon } from '@/assets/icons/back-arrow.icon';
 import { TickIcon } from '@/assets/icons/tick.icon';
-import { useGame } from '../game/hooks/useGame';
+import { useGame } from '../hooks/useGame';
+import { useUserInterface } from '../hooks/useUserInterface';
 
 export const CameraModule = () => {
-  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
   const [permission, requestPermission] = Camera.useCameraPermissions();
   const cameraRef = useRef<Camera>(null);
   const [data, setData] = useState<CameraCapturedPicture>();
   const [flashMode, setFlashMode] = useState<FlashMode>(FlashMode.auto);
+  const { setCameraOpen } = useUserInterface();
 
   const { game } = useGame();
 
@@ -62,7 +60,7 @@ export const CameraModule = () => {
         <TouchableOpacity
           onPress={async () => {
             await game.completeQuest(data);
-            navigation.goBack();
+            setCameraOpen(false);
           }}
           className='h-20 w-20 bg-[#EAEAEA] rounded-3xl absolute bottom-32 right-0 z-20 m-5 flex justify-center items-center'
         >
@@ -73,7 +71,7 @@ export const CameraModule = () => {
         <View className='w-3/4 flex flex-row mx-auto items-center'>
           <TouchableOpacity
             onPress={() => {
-              navigation.goBack();
+              setCameraOpen(false);
             }}
           >
             <BackArrowIcon />
