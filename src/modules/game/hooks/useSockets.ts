@@ -3,7 +3,6 @@ let socket: null | ReconnectingWebSocket = null;
 
 export const useSockets = () => {
   const send = async (data: string) => {
-    console.log(data);
     try {
       getWebSocket().send(data);
     } catch (e) {
