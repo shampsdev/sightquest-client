@@ -63,12 +63,14 @@ export const GameProvider = ({ children }: GameProviderProps) => {
     await sockets.connect(`${WS_URL}/ws/game/${code}/`, () => {
       sockets.send(
         JSON.stringify({
+          user: user,
           event: 'authorization',
-          token: user.id,
+          token: user.id.toString(),
         })
       );
       sockets.send(
         JSON.stringify({
+          user: user,
           event: 'get_game_state',
         })
       );
@@ -96,6 +98,7 @@ export const GameProvider = ({ children }: GameProviderProps) => {
         sockets.send(
           JSON.stringify({
             event: 'get_game_state',
+            user: user,
           })
         );
         break;
@@ -112,6 +115,7 @@ export const GameProvider = ({ children }: GameProviderProps) => {
         sockets.send(
           JSON.stringify({
             event: 'get_game_state',
+            user: user,
           })
         );
         break;
@@ -124,6 +128,7 @@ export const GameProvider = ({ children }: GameProviderProps) => {
         sockets.send(
           JSON.stringify({
             event: 'get_game_state',
+            user: user,
           })
         );
         console.log(message);
