@@ -1,7 +1,6 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { BottomTabNavigator } from './components/bottom-tab-navigator';
-import { CameraModule } from '@/modules/camera';
 import { GameScreen } from '@/pages/game.screen';
 import { LobbyScreen } from '@/pages/lobby.screen';
 import { RoutesScreen } from '@/pages/routes.screen';
@@ -10,6 +9,7 @@ import { StoreScreen } from '@/pages/store.screen';
 import { PromocodesScreen } from '@/pages/promocodes.screen';
 import { PromocodeScreen } from '@/pages/promocode.screen';
 import { IPromocode } from '@/interfaces/IPromocode';
+import { CameraModule } from '@/modules/game/components/CameraModule';
 
 export type RootStackParamList = {
   HomeScreen: undefined;

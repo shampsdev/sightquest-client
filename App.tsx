@@ -11,6 +11,7 @@ import { useCallback } from 'react';
 import axios from 'axios';
 import { useAuth } from '@/modules/auth/hooks/useAuth';
 import { AuthNavigator } from '@/modules/navigation/auth-navigator';
+import { GameProvider } from '@/modules/game/context/GameContext';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -50,14 +51,16 @@ function App() {
   }
 
   return (
-    <SafeAreaProvider onLayout={onLayoutRootView}>
-      <GestureHandlerRootView className='w-full h-full'>
-        <NavigationContainer>
-          {user != null ? <RootNavigator /> : <AuthNavigator />}
-        </NavigationContainer>
-        <StatusBar style='auto' />
-      </GestureHandlerRootView>
-    </SafeAreaProvider>
+    <GameProvider>
+      <SafeAreaProvider onLayout={onLayoutRootView}>
+        <GestureHandlerRootView className='w-full h-full'>
+          <NavigationContainer>
+            {user != null ? <RootNavigator /> : <AuthNavigator />}
+          </NavigationContainer>
+          <StatusBar style='auto' />
+        </GestureHandlerRootView>
+      </SafeAreaProvider>
+    </GameProvider>
   );
 }
 
